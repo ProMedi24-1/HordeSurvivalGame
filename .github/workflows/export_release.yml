@@ -83,6 +83,6 @@ jobs:
         prerelease: ${{ github.event.inputs.prerelease }}
         tag: ${{ github.event.inputs.semver }}
         commit: main
-        artifacts: "*"
+        artifacts: 'build/windows/*,build/linux/*,build/mac/*'
             
           
