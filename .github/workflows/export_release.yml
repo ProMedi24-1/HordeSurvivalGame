@@ -71,13 +71,18 @@ jobs:
           name: ${{ matrix.artifact_name }}-${{ github.event.inputs.semver }}-release
           path: build/${{ matrix.artifact_name }}
 
-      - name: Create Release 
-        uses: ncipollo/release-action@v1
-        with:
-          generateReleaseNotes: true
-          prerelease: ${{ github.event.inputs.prerelease }}
-          tag: ${{ github.event.inputs.semver }}
-          commit: main
-          #artifacts: "build/"
-          
+  release:
+    name: Release
+    runs-on: ubuntu-latest
+    steps:
+    - name: Create Release 
+      uses: ncipollo/release-action@v1
+      with:
+        skipIfReleaseExists: true
+        generateReleaseNotes: true
+        prerelease: ${{ github.event.inputs.prerelease }}
+        tag: ${{ github.event.inputs.semver }}
+        commit: main
+        #artifacts: "build/*.exe,build/*.x86_64,"
+            
           
