@@ -75,6 +75,11 @@ jobs:
     name: Release
     runs-on: ubuntu-latest
     steps:
+    - name: Download Artifacts
+      uses: actions/download-artifact@v4
+      with:
+        path: build/
+        
     - name: Create Release 
       uses: ncipollo/release-action@v1
       with:
@@ -83,6 +88,6 @@ jobs:
         prerelease: ${{ github.event.inputs.prerelease }}
         tag: ${{ github.event.inputs.semver }}
         commit: main
-        artifacts: 'build/windows/*,build/linux/*,build/mac/*'
+        artifacts: 'build/*.zip'
             
           
