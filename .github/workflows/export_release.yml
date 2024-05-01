@@ -87,7 +87,7 @@ jobs:
         ls -la
         zip -r windows-${{ github.event.inputs.semver }}.zip ./windows-${{ github.event.inputs.semver }}-release
         zip -r linux-${{ github.event.inputs.semver }}.zip ./linux-${{ github.event.inputs.semver }}-release
-        zip -r mac-${{ github.event.inputs.semver }}.zip ./mac--${{ github.event.inputs.semver }}-release
+        zip -r mac-${{ github.event.inputs.semver }}.zip ./mac-${{ github.event.inputs.semver }}-release
         ls -la
         cd ..
         
