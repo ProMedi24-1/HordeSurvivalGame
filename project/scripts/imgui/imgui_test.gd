@@ -1,0 +1,16 @@
+extends Node
+
+# Called when the node enters the scene tree for the first time.
+func _ready() -> void:
+    pass # Replace with function body.
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(_delta: float) -> void:
+    ImGui.Begin("Test Window")
+    ImGui.SeparatorText("Hello ImGui")
+    ImGui.Text("This is a Test.")
+    if ImGui.Button("Click me!"):
+        print("Button clicked!")
+    ImGui.End()
+    
+    ImGui.ShowDemoWindow()
