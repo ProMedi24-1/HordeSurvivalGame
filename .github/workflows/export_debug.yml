@@ -61,7 +61,7 @@ jobs:
       - name: Upload Artifact
         uses: actions/upload-artifact@v4
         with:
-          name: ${{ matrix.artifact_name }}-${{ env.DATE }}-debug.zip
+          #name: ${{ matrix.artifact_name }}-${{ env.DATE }}-debug.zip
           path: build/${{ matrix.artifact_name }}/${{ matrix.artifact_name }}-${{ env.DATE }}-debug.zip
 
       # - name: Upload Artifact
