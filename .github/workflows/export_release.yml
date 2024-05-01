@@ -65,11 +65,24 @@ jobs:
           cd $PROJECT_PATH
           godot --headless --verbose --export-release "${{ matrix.platform_name }}" ../build/${{ matrix.artifact_name }}/$EXPORT_NAME${{ matrix.file_extension }}
 
+
+      - name: Zip Artifacts
+        run: |
+          cd build/${{ matrix.artifact_name }}
+          zip -r "${{ matrix.artifact_name }}-${{ github.event.inputs.semver }}-release.zip" .
+          cd ../..
+
       - name: Upload Artifact
         uses: actions/upload-artifact@v4
         with:
-          name: ${{ matrix.artifact_name }}-${{ github.event.inputs.semver }}-release
-          path: build/${{ matrix.artifact_name }}
+          name: ${{ matrix.artifact_name }}-${{ github.event.inputs.semver }}-release.zip
+          path: build/${{ matrix.artifact_name }}/${{ matrix.artifact_name }}-${{ github.event.inputs.semver }}-release.zip
+          
+      # - name: Upload Artifact
+      #   uses: actions/upload-artifact@v4
+      #   with:
+      #     name: ${{ matrix.artifact_name }}-${{ github.event.inputs.semver }}-release
+      #     path: build/${{ matrix.artifact_name }}
 
   release:
     name: Release
@@ -89,6 +102,6 @@ jobs:
         prerelease: ${{ github.event.inputs.prerelease }}
         tag: ${{ github.event.inputs.semver }}
         commit: main
-        artifacts: 'build/*'
+        artifacts: 'build/*.zip'
             
           
