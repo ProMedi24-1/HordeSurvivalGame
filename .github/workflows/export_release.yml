@@ -64,25 +64,12 @@ jobs:
           mkdir -v -p build/${{ matrix.artifact_name }}
           cd $PROJECT_PATH
           godot --headless --verbose --export-release "${{ matrix.platform_name }}" ../build/${{ matrix.artifact_name }}/$EXPORT_NAME${{ matrix.file_extension }}
-
-
-      - name: Zip Artifacts
-        run: |
-          cd build/${{ matrix.artifact_name }}
-          zip -r "${{ matrix.artifact_name }}-${{ github.event.inputs.semver }}-release.zip" .
-          cd ../..
-
+          
       - name: Upload Artifact
         uses: actions/upload-artifact@v4
         with:
-          name: ${{ matrix.artifact_name }}-${{ github.event.inputs.semver }}-release.zip
-          path: build/${{ matrix.artifact_name }}/${{ matrix.artifact_name }}-${{ github.event.inputs.semver }}-release.zip
-          
-      # - name: Upload Artifact
-      #   uses: actions/upload-artifact@v4
-      #   with:
-      #     name: ${{ matrix.artifact_name }}-${{ github.event.inputs.semver }}-release
-      #     path: build/${{ matrix.artifact_name }}
+          name: ${{ matrix.artifact_name }}-${{ github.event.inputs.semver }}-release
+          path: build/${{ matrix.artifact_name }}
 
   release:
     name: Release
@@ -92,7 +79,16 @@ jobs:
     - name: Download Artifacts
       uses: actions/download-artifact@v4
       with:
-        path: build/
+        path: downloads/
+
+    - name: Zip Artifacts
+      run: |
+        mkdir -p release
+        cd downloads
+        zip -r ../release/windows-${{ github.event.inputs.semver }}.zip windows/
+        zip -r ../release/linux-${{ github.event.inputs.semver }}.zip linux/
+        zip -r ../release/mac-${{ github.event.inputs.semver }}.zip mac/
+        cd ..
         
     - name: Create Release 
       uses: ncipollo/release-action@v1
