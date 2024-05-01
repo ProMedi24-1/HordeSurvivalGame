@@ -19,7 +19,7 @@ config/icon="res://assets/icon/icon.svg"
 
 [autoload]
 
-imgui_godot_native="*res://addons/imgui-godot-native/ImGuiGodot.tscn"
+ImGuiRoot="*res://addons/imgui-godot/data/ImGuiRoot.tscn"
 
 [display]
 
@@ -27,7 +27,7 @@ window/stretch/mode="canvas_items"
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/imgui-godot-native/plugin.cfg", "res://addons/imgui-godot/plugin.cfg")
+enabled=PackedStringArray("res://addons/imgui-godot/plugin.cfg")
 
 [filesystem]
 
