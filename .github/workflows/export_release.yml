@@ -7,6 +7,12 @@ on:
         description: "Which version you want to release?"
         required: true
         default: "v0.0.1"
+        
+      prerelease:
+        description: "Is this a pre-release?"
+        required: false
+        default: "false"
+        type: boolean
 
 env:
   GODOT_VERSION: 4.2.2
@@ -64,3 +70,14 @@ jobs:
         with:
           name: ${{ matrix.artifact_name }}-${{ github.event.inputs.semver }}-release
           path: build/${{ matrix.artifact_name }}
+
+      - name: Create Release 
+        uses: ncipollo/release-action@v1
+        with:
+          generateReleaseNotes: true
+          prerelease: ${{ github.event.inputs.prerelease }}
+          tag: ${{ github.event.inputs.semver }}
+          commit: main
+          artifacts: "build/"
+          
+          
