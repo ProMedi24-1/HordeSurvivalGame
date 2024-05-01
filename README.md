@@ -10,7 +10,7 @@ This game is a project developed as part of the academic module **ProMedi24** at
 
 ## Installation 🕹️
 
-Get the latest release from the releases category.
+Get the latest release from the [releases](https://github.com/ProMedi24-1/HordeSurvivalGame/releases) category.
 
 **Supported plattforms:**
 - 🪟 Windows
