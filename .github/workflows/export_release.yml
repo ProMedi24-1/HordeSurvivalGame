@@ -59,11 +59,8 @@ jobs:
           cd $PROJECT_PATH
           godot --headless --verbose --export-release "${{ matrix.platform_name }}" ../build/${{ matrix.artifact_name }}/$EXPORT_NAME${{ matrix.file_extension }}
 
-      - name: Set Date
-        run: echo "DATE=$(date +'%Y%m%d-%H%M')" >> $GITHUB_ENV
-
       - name: Upload Artifact
         uses: actions/upload-artifact@v4
         with:
-          name: ${{ matrix.artifact_name }}-${{ env.DATE }}-${{ github.event.inputs.semver }}-release
+          name: ${{ matrix.artifact_name }}-${{ github.event.inputs.semver }}-release
           path: build/${{ matrix.artifact_name }}
