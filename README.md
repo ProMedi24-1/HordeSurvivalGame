@@ -1,22 +1,27 @@
-# Horde-Survival-Game 
+# Horde-Survival-Game 👾
 
 ![ci workflow](https://github.com/Mori2003/ProMediExample/actions/workflows/export_debug.yml/badge.svg) ![release workflow](https://github.com/Mori2003/ProMediExample/actions/workflows/export_release.yml/badge.svg)
 
 Creation of a Horde-Survival-Game with a static and adaptive Difficulty, made with the [Godot Game Engine](https://godotengine.org/)
 
-This game is a project developed as part of the academic module **ProMedi24** at **TU-Berlin** focused on media creation. It aims to explore different user experiences by implementing two modes of gameplay: one with a constant difficulty level and another dynamic difficulty that adapts based on the player's skills.
+This game is a project developed as part of the academic module **ProMedi24** at **TU-Berlin** focused on media creation. It aims to explore different user experiences by implementing two modes of gameplay: one with a static difficulty level and another dynamic difficulty that adapts based on the player's skills.
 
 **Supervisor:** Phillip Harnisch
 
-## Installation
+## Installation 🕹️
 
 Get the latest release from the releases category
 
-## Contributing
+**Supported plattforms:**
+- 🪟 Windows
+- 🐧 Linux
+- 🍏 MacOS
+
+## Contributing 🏷️
 
 See the wiki for contributing.
 
-## Third-Party Assets Used
+## Third-Party Assets Used 📦
 
 ### Engine Plugins:
 - [ImGui-Godot](https://github.com/pkdawson/imgui-godot) by Patrick Dawson
@@ -26,7 +31,12 @@ See the wiki for contributing.
 
 Both plugins use the **MIT License**.
 
-## Project Members/Roles
+### Game Assets:
+- Various assets made by [KenneyNL](https://kenney.nl/)
+
+Kenney's assets are **CC0** licensed.
+
+## Project Members/Roles 👤
 
 | Name             | Roles |
 | ---------------- | ----- |
