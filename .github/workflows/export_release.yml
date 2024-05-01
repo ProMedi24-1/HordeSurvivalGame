@@ -89,6 +89,6 @@ jobs:
         prerelease: ${{ github.event.inputs.prerelease }}
         tag: ${{ github.event.inputs.semver }}
         commit: main
-        artifacts: 'build/*.zip'
+        artifacts: 'build/*'
             
           
