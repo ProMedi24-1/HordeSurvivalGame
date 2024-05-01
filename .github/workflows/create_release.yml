@@ -1,0 +1,47 @@
+name: "Create Release"
+
+on:
+  workflow_dispatch:
+    inputs:
+      semver:
+        description: "Which version you want to increment? Use MAJOR, MINOR or PATCH"
+        required: true
+        default: "PATCH"
+      label:
+        description: "Add Labels. i.e final, alpha, rc"
+        required: false
+        default: ""
+
+permissions:
+  packages: write
+  contents: write
+
+  pull-requests: read
+  
+jobs:
+  release:
+    name: Release
+    runs-on: "ubuntu-latest"
+
+    steps:
+      # Checkout sources
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      # ...
+      - name: Build
+        run: |
+          echo "BUILD COMPLETE"
+
+      - name: Build Changelog
+        id: github_release
+        uses: mikepenz/release-changelog-builder-action@v4
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - uses: rui-costa/action-automatic-semver-releases@latest
+        with:
+          TOKEN: '${{ secrets.GITHUB_TOKEN }}'
+          SEMVER: '${{ github.event.inputs.semver }}'
+          LABEL: '${{ github.event.inputs.label }}'
+          NOTES: '${{steps.github_release.outputs.changelog}}'
