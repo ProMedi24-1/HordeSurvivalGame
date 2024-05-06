@@ -40,13 +40,20 @@ Kenney's assets are **CC0** licensed.
 
 | Name             | Roles |
 | ---------------- | ----- |
-| Hannes Schmutz   |       |
-| Paul Graml       |       |
-| Emilia Bill      |       |
-| Xenia Damerius   |       |
-| Julia Kaufmann   |       |
-| Neele Ukena      |       |
-| Timon Schnell    |       |
-| Jonas Urban      |       |
-| Valentin Sonntag |       |
-| Moritz Keszler   |       |
+| Julia Kaufmann   | Project-Lead |
+| Moritz Keszler   | Lead-Programmer |
+| Valentin Sonntag | Lead-Artist |
+| Neele Ukena      | Artist/Game-Design |
+| Xenia Damerius   | Artist/Level-Design |
+| Emilia Bill      | Artist/Programmer |
+| Jonas Urban      | Audio/Testing |
+| Hannes Schmutz   | Audio/Programmer |
+| Timon Schnell    | Audio/Programmer |
+| Paul Graml       | TBD |
+
+## Dates and Deadlines 📅
+
+`28.05.2024` Interim-Presentation
+`31.05.2024` Concept-Submission
+`15.07.2024` Ending-Presentation
+`19.07.2024` Turn-in of final product 
