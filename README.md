@@ -53,7 +53,7 @@ Kenney's assets are **CC0** licensed.
 
 ## Dates and Deadlines 📅
 
-`28.05.2024` Interim-Presentation
-`31.05.2024` Concept-Submission
-`15.07.2024` Ending-Presentation
-`19.07.2024` Turn-in of final product 
+- `28.05.2024` Interim-Presentation
+- `31.05.2024` Concept-Submission
+- `15.07.2024` Ending-Presentation
+- `19.07.2024` Turn-in of final product 
