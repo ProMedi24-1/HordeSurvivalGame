@@ -10,9 +10,9 @@ config_version=5
 
 [application]
 
-config/name="ProMediExample"
+config/name="HordeSurvivalGame"
 config/tags=PackedStringArray("promedi24")
-run/main_scene="res://scenes/dev_menus/dev_menus.tscn"
+run/main_scene="res://scenes/game/game_root.tscn"
 config/features=PackedStringArray("4.2", "Forward Plus")
 boot_splash/bg_color=Color(0.109804, 0.105882, 0.105882, 1)
 boot_splash/image="res://assets/splashscreen/splatter.png"
@@ -37,3 +37,7 @@ import/blender/enabled=false
 [physics]
 
 2d/physics_engine="Rapier2D"
+
+[rendering]
+
+textures/canvas_textures/default_texture_filter=0

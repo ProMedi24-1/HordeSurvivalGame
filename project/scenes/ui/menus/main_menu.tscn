@@ -1,0 +1,45 @@
+[gd_scene load_steps=3 format=3 uid="uid://i7l4fdqou46q"]
+
+[ext_resource type="Script" path="res://scripts/ui/menus/main_menu.gd" id="1_srlhu"]
+[ext_resource type="AudioStream" uid="uid://d3tp45b7tsngg" path="res://assets/audio/ui/click_001.ogg" id="2_xmniu"]
+
+[node name="MainMenu" type="Node2D"]
+script = ExtResource("1_srlhu")
+click_sound = ExtResource("2_xmniu")
+
+[node name="MenuLayer" type="CanvasLayer" parent="."]
+
+[node name="MenuRoot" type="Control" parent="MenuLayer"]
+layout_mode = 3
+anchor_left = 0.516
+anchor_top = 0.554
+anchor_right = 0.516
+anchor_bottom = 0.554
+offset_left = -38.432
+offset_top = -54.992
+offset_right = 32.568
+offset_bottom = 49.008
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VFlowContainer" type="VBoxContainer" parent="MenuLayer/MenuRoot"]
+layout_mode = 2
+offset_right = 70.0
+offset_bottom = 101.0
+
+[node name="PlayButton" type="Button" parent="MenuLayer/MenuRoot/VFlowContainer"]
+layout_mode = 2
+text = "Play
+"
+
+[node name="SettingsButton" type="Button" parent="MenuLayer/MenuRoot/VFlowContainer"]
+layout_mode = 2
+text = "Settings"
+
+[node name="QuitButton" type="Button" parent="MenuLayer/MenuRoot/VFlowContainer"]
+layout_mode = 2
+text = "Quit"
+
+[connection signal="focus_entered" from="MenuLayer/MenuRoot/VFlowContainer/PlayButton" to="." method="_on_play_button_focus_entered"]
+[connection signal="pressed" from="MenuLayer/MenuRoot/VFlowContainer/PlayButton" to="." method="_on_play_button_pressed"]
+[connection signal="pressed" from="MenuLayer/MenuRoot/VFlowContainer/QuitButton" to="." method="_on_quit_button_pressed"]
