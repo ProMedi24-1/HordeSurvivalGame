@@ -1,0 +1,50 @@
+[gd_scene load_steps=8 format=3 uid="uid://iot2c7cdeuj2"]
+
+[ext_resource type="Script" path="res://code/Charakter.gd" id="1_s8o58"]
+[ext_resource type="Texture2D" uid="uid://cc0mpgpwremof" path="res://images/icon.svg" id="2_s31gs"]
+[ext_resource type="PackedScene" uid="uid://cxgoncx4fygsp" path="res://scenes/enemy_spawn_logic.tscn" id="3_p18xn"]
+[ext_resource type="Script" path="res://code/WeaponLogic.gd" id="4_cw6g8"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_bobuh"]
+radius = 75.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_o6aw0"]
+radius = 90.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_leq00"]
+radius = 300.0
+
+[node name="Charakter" type="CharacterBody2D"]
+scale = Vector2(0.4, 0.4)
+collision_mask = 61
+script = ExtResource("1_s8o58")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_s31gs")
+
+[node name="CollisionBox" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_bobuh")
+
+[node name="Hurtbox" type="Area2D" parent="."]
+unique_name_in_owner = true
+collision_layer = 0
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]
+shape = SubResource("CircleShape2D_o6aw0")
+debug_color = Color(0.690196, 0.407843, 0.745098, 0.419608)
+
+[node name="AttackRange" type="Area2D" parent="."]
+unique_name_in_owner = true
+collision_layer = 0
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AttackRange"]
+shape = SubResource("CircleShape2D_leq00")
+
+[node name="EnemySpawnLogic" parent="." instance=ExtResource("3_p18xn")]
+
+[node name="WeaponLogic" type="Node2D" parent="."]
+script = ExtResource("4_cw6g8")
