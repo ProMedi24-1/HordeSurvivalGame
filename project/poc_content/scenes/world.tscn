@@ -1,0 +1,59 @@
+[gd_scene load_steps=8 format=3 uid="uid://ptekwpin24y0"]
+
+[ext_resource type="Script" path="res://world.gd" id="1_ogh53"]
+[ext_resource type="Texture2D" uid="uid://dwt6xjysdnudj" path="res://images/csm_duerre-boden-ausgetrocknet-patagonien-argentinien-WW191953-c-michel-gunther-wwf_dc70a6a1c3.jpg" id="2_1x5ee"]
+[ext_resource type="PackedScene" uid="uid://b3v4upjdmm742" path="res://scenes/zombie.tscn" id="3_noehv"]
+[ext_resource type="PackedScene" uid="uid://iot2c7cdeuj2" path="res://scenes/charakter.tscn" id="3_oyrvg"]
+[ext_resource type="PackedScene" uid="uid://dtbobx715w63f" path="res://scenes/ui.tscn" id="4_2xluh"]
+[ext_resource type="PackedScene" uid="uid://cmkvpemvfj0b3" path="res://scenes/tree.tscn" id="5_51gdk"]
+[ext_resource type="PackedScene" uid="uid://c7lpp3k7s8chk" path="res://scenes/weird_crawler.tscn" id="6_c6up2"]
+
+[node name="World" type="Node2D"]
+y_sort_enabled = true
+script = ExtResource("1_ogh53")
+
+[node name="BackgroundImg" type="Sprite2D" parent="."]
+visible = false
+z_index = -10
+texture = ExtResource("2_1x5ee")
+
+[node name="Zombie" parent="." instance=ExtResource("3_noehv")]
+
+[node name="Charakter" parent="." instance=ExtResource("3_oyrvg")]
+
+[node name="UI" parent="." instance=ExtResource("4_2xluh")]
+
+[node name="Tree" parent="." instance=ExtResource("5_51gdk")]
+position = Vector2(-264, -363)
+
+[node name="Tree2" parent="." instance=ExtResource("5_51gdk")]
+position = Vector2(-403, -15)
+
+[node name="Tree3" parent="." instance=ExtResource("5_51gdk")]
+position = Vector2(-304, 285)
+
+[node name="WeirdCrawler" parent="." instance=ExtResource("6_c6up2")]
+
+[node name="Tree4" parent="." instance=ExtResource("5_51gdk")]
+position = Vector2(-383, 589)
+
+[node name="Tree5" parent="." instance=ExtResource("5_51gdk")]
+position = Vector2(-383, -270)
+
+[node name="Tree6" parent="." instance=ExtResource("5_51gdk")]
+position = Vector2(-476, -144)
+
+[node name="Tree7" parent="." instance=ExtResource("5_51gdk")]
+position = Vector2(-512, 92)
+
+[node name="Tree8" parent="." instance=ExtResource("5_51gdk")]
+position = Vector2(-585, 244)
+
+[node name="Tree9" parent="." instance=ExtResource("5_51gdk")]
+position = Vector2(-531, 361)
+
+[node name="Tree10" parent="." instance=ExtResource("5_51gdk")]
+position = Vector2(-440, 460)
+
+[node name="Tree11" parent="." instance=ExtResource("5_51gdk")]
+position = Vector2(-581, 146)
