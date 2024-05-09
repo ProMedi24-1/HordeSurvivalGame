@@ -1,9 +1,10 @@
-extends DevMenuBase
 class_name DevOverview
+extends DevMenuBase
+
 
 var ProfilerMenu := DevProfiler.new()
 var StatisticsMenu := DevStatistics.new()
-var PlayerMenu
+var PlayerMenu := DevPlayer.new()
 var EnemyMenu
 var GameStateMenu
 var SettingsMenu
@@ -61,5 +62,8 @@ func draw_new_windows():
         ProfilerMenu.draw_window()
     if show_statistics[0]:
         StatisticsMenu.draw_window()
-    
+    if show_player_menu[0]:
+        PlayerMenu.draw_window()
+  
+
     pass

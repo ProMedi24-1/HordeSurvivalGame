@@ -4,12 +4,3 @@
 
 [node name="DevMenus" type="Node"]
 script = ExtResource("1_rx5e0")
-
-[node name="RichTextLabel" type="RichTextLabel" parent="."]
-offset_right = 254.0
-offset_bottom = 17.0
-theme_override_font_sizes/normal_font_size = 10
-bbcode_enabled = true
-text = "[color=yellow] Running Debug-Build, press F1 to open Dev-Menus. [/color]"
-fit_content = true
-scroll_active = false
