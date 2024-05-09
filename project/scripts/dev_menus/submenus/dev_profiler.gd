@@ -1,5 +1,5 @@
-extends DevMenuBase
 class_name DevProfiler
+extends DevMenuBase
 
 const B_TO_MB = 1024 * 1024
 const DATA_RATE: int = 10 # data poll per X frames

@@ -1,0 +1,35 @@
+[gd_resource type="TileSet" load_steps=8 format=3 uid="uid://duyuaxbcy8s5h"]
+
+[ext_resource type="Texture2D" uid="uid://da85ahliyr38v" path="res://assets/sprites/level/testlevel_tilemap.png" id="1_y2xeu"]
+[ext_resource type="PackedScene" uid="uid://jasjokckt75g" path="res://scenes/levels/tiles/collision_tile.tscn" id="2_hj5mh"]
+
+[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_pgij5"]
+polygon = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+
+[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_amkmy"]
+polygon = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+
+[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_lvyk0"]
+polygon = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_x5cyf"]
+texture = ExtResource("1_y2xeu")
+0:0/0 = 0
+1:0/0 = 0
+2:0/0 = 0
+3:0/0 = 0
+0:1/0 = 0
+0:1/0/occlusion_layer_0/polygon = SubResource("OccluderPolygon2D_pgij5")
+0:2/0 = 0
+0:2/0/occlusion_layer_0/polygon = SubResource("OccluderPolygon2D_amkmy")
+0:3/0 = 0
+0:3/0/occlusion_layer_0/polygon = SubResource("OccluderPolygon2D_lvyk0")
+
+[sub_resource type="TileSetScenesCollectionSource" id="TileSetScenesCollectionSource_2pko6"]
+resource_name = "Collision"
+scenes/1/scene = ExtResource("2_hj5mh")
+
+[resource]
+occlusion_layer_0/light_mask = 1
+sources/0 = SubResource("TileSetAtlasSource_x5cyf")
+sources/1 = SubResource("TileSetScenesCollectionSource_2pko6")

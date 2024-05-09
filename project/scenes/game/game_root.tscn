@@ -1,10 +1,12 @@
-[gd_scene load_steps=4 format=3 uid="uid://se1718r21ddl"]
+[gd_scene load_steps=3 format=3 uid="uid://7ie3nmke05xc"]
 
-[ext_resource type="Script" path="res://scripts/game/game_root.gd" id="1_o2eey"]
-[ext_resource type="PackedScene" uid="uid://i7l4fdqou46q" path="res://scenes/ui/menus/main_menu/main_menu.tscn" id="2_bcxpx"]
-[ext_resource type="PackedScene" uid="uid://dgy86wm13nkg6" path="res://scenes/dev_menus/dev_menus.tscn" id="2_dfvpl"]
+[ext_resource type="Script" path="res://scripts/game/game_root.gd" id="1_pghf4"]
+[ext_resource type="Script" path="res://scripts/game/game_manager.gd" id="2_8dbwm"]
 
 [node name="GameRoot" type="Node2D"]
-script = ExtResource("1_o2eey")
-main_menu_scene = ExtResource("2_bcxpx")
-dev_menus_scene = ExtResource("2_dfvpl")
+script = ExtResource("1_pghf4")
+
+[node name="GameManager" type="Node2D" parent="."]
+script = ExtResource("2_8dbwm")
+
+[connection signal="game_state_changed" from="." to="." method="_on_game_state_changed"]
