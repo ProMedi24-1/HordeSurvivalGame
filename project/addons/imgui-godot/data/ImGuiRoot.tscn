@@ -3,5 +3,4 @@
 [ext_resource type="Script" path="res://addons/imgui-godot/scripts/ImGuiRoot.gd" id="1_lney5"]
 
 [node name="ImGuiRoot" type="Node"]
-process_mode = 1
 script = ExtResource("1_lney5")
