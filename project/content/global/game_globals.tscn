@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://cwnac05i86sbf"]
+
+[ext_resource type="Script" path="res://content/global/game_globals.gd" id="1_ti4mp"]
+
+[node name="GameGlobals" type="Node"]
+script = ExtResource("1_ti4mp")

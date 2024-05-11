@@ -1,0 +1,36 @@
+[gd_scene load_steps=2 format=3 uid="uid://ngn6h7ns8ids"]
+
+[ext_resource type="Script" path="res://content/ui/title_screen/title_screen.gd" id="1_fa3ha"]
+
+[node name="TitleScreen" type="CanvasLayer"]
+script = ExtResource("1_fa3ha")
+
+[node name="TitleLabel" type="RichTextLabel" parent="."]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -324.0
+offset_top = -100.0
+offset_right = 361.0
+offset_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/normal_font_size = 66
+text = "Horde-Survival-Game"
+
+[node name="PromptLabel" type="RichTextLabel" parent="."]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -94.0
+offset_top = 136.0
+offset_right = 134.0
+offset_bottom = 171.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/normal_font_size = 24
+text = "Press any button..."

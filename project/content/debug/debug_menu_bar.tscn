@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://0ch311dksh6o"]
+
+[ext_resource type="Script" path="res://content/debug/debug_menu_bar.gd" id="1_ywpbl"]
+
+[node name="DebugMenuBar" type="Node"]
+script = ExtResource("1_ywpbl")

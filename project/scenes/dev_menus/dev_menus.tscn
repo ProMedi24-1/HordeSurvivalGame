@@ -1,6 +1,0 @@
-[gd_scene load_steps=2 format=3 uid="uid://dgy86wm13nkg6"]
-
-[ext_resource type="Script" path="res://scripts/dev_menus/dev_ui.gd" id="1_rx5e0"]
-
-[node name="DevMenus" type="Node"]
-script = ExtResource("1_rx5e0")
