@@ -1,0 +1,89 @@
+[gd_scene load_steps=3 format=3 uid="uid://b2whtobxgnksr"]
+
+[ext_resource type="Script" path="res://content/ui/main_menu/main_menu.gd" id="1_utroe"]
+[ext_resource type="PackedScene" uid="uid://1ak1ku3d4xvu" path="res://content/ui/main_menu/menu_button.tscn" id="2_isahh"]
+
+[node name="MainMenu" type="CanvasLayer"]
+script = ExtResource("1_utroe")
+
+[node name="MenuRoot" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MenuRoot"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="LeftSpacing" type="Control" parent="MenuRoot/HBoxContainer"]
+custom_minimum_size = Vector2(25, 0)
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MenuRoot/HBoxContainer"]
+custom_minimum_size = Vector2(250, 0)
+layout_mode = 2
+size_flags_horizontal = 0
+alignment = 2
+
+[node name="PlayButton" parent="MenuRoot/HBoxContainer/VBoxContainer" instance=ExtResource("2_isahh")]
+layout_mode = 2
+text = "Play
+"
+
+[node name="SettingsButton" parent="MenuRoot/HBoxContainer/VBoxContainer" instance=ExtResource("2_isahh")]
+layout_mode = 2
+text = "Settings
+"
+
+[node name="CreditsButton" parent="MenuRoot/HBoxContainer/VBoxContainer" instance=ExtResource("2_isahh")]
+layout_mode = 2
+text = "Credits
+"
+
+[node name="QuitButton" parent="MenuRoot/HBoxContainer/VBoxContainer" instance=ExtResource("2_isahh")]
+layout_mode = 2
+text = "Quit"
+
+[node name="BottomSpacing" type="Control" parent="MenuRoot/HBoxContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 25)
+layout_mode = 2
+
+[node name="Container" type="Control" parent="MenuRoot/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="RichTextLabel" type="RichTextLabel" parent="MenuRoot/HBoxContainer/Container"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -192.0
+offset_top = 50.0
+offset_right = 188.0
+offset_bottom = 110.0
+grow_horizontal = 2
+theme_override_font_sizes/normal_font_size = 36
+bbcode_enabled = true
+text = "Horde-Survival-Game"
+fit_content = true
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="MenuRoot/HBoxContainer"]
+custom_minimum_size = Vector2(250, 0)
+layout_mode = 2
+size_flags_horizontal = 8
+
+[node name="RightSpacing" type="Control" parent="MenuRoot/HBoxContainer"]
+custom_minimum_size = Vector2(25, 0)
+layout_mode = 2
+
+[connection signal="pressed" from="MenuRoot/HBoxContainer/VBoxContainer/PlayButton" to="." method="_on_play_button_pressed"]
+[connection signal="pressed" from="MenuRoot/HBoxContainer/VBoxContainer/SettingsButton" to="." method="_on_settings_button_pressed"]
+[connection signal="pressed" from="MenuRoot/HBoxContainer/VBoxContainer/CreditsButton" to="." method="_on_credits_button_pressed"]
+[connection signal="pressed" from="MenuRoot/HBoxContainer/VBoxContainer/QuitButton" to="." method="_on_quit_button_pressed"]

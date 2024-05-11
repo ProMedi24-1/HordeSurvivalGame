@@ -1,7 +1,7 @@
 [gd_resource type="TileSet" load_steps=8 format=3 uid="uid://duyuaxbcy8s5h"]
 
 [ext_resource type="Texture2D" uid="uid://da85ahliyr38v" path="res://assets/sprites/level/testlevel_tilemap.png" id="1_y2xeu"]
-[ext_resource type="PackedScene" uid="uid://jasjokckt75g" path="res://scenes/levels/tiles/collision_tile.tscn" id="2_hj5mh"]
+[ext_resource type="PackedScene" uid="uid://jasjokckt75g" path="res://content/level/tile/collision_tile.tscn" id="2_hj5mh"]
 
 [sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_pgij5"]
 polygon = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)

@@ -1,0 +1,28 @@
+[gd_scene load_steps=7 format=3 uid="uid://clahmka3cetx2"]
+
+[ext_resource type="PackedScene" uid="uid://nnbnpwag53rm" path="res://content/component/entity/sprite_component.tscn" id="1_xdfbc"]
+[ext_resource type="Texture2D" uid="uid://dmxai186e3kay" path="res://assets/sprites/enemy/goblin.png" id="2_rfg04"]
+[ext_resource type="PackedScene" uid="uid://1bu2lpx38n6t" path="res://content/component/entity/collision_component.tscn" id="3_0d8pm"]
+[ext_resource type="PackedScene" uid="uid://btb2yhp8711qu" path="res://content/component/entity/stats_component.tscn" id="4_2cc4r"]
+[ext_resource type="PackedScene" uid="uid://bc806s2ci8gdn" path="res://content/component/entity/enemy_movement_component.tscn" id="5_2xjpi"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_qnroh"]
+size = Vector2(8, 8)
+
+[node name="GoblinEnemy" type="CharacterBody2D"]
+
+[node name="SpriteComponent" parent="." node_paths=PackedStringArray("movement_component") instance=ExtResource("1_xdfbc")]
+texture = ExtResource("2_rfg04")
+movement_component = NodePath(".")
+
+[node name="CollisionComponent" parent="." instance=ExtResource("3_0d8pm")]
+shape = SubResource("RectangleShape2D_qnroh")
+disabled = true
+
+[node name="StatsComponent" parent="." instance=ExtResource("4_2cc4r")]
+max_movement_speed = 1500
+movement_speed = 1500
+
+[node name="EnemyMovementComponent" parent="." node_paths=PackedStringArray("entity", "stats_component") instance=ExtResource("5_2xjpi")]
+entity = NodePath("..")
+stats_component = NodePath("../StatsComponent")

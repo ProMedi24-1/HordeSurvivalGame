@@ -1,0 +1,45 @@
+[gd_scene load_steps=9 format=3 uid="uid://df5pj557ulxnc"]
+
+[ext_resource type="Texture2D" uid="uid://8i6j830i8sid" path="res://assets/sprites/player/player.png" id="2_il0gl"]
+[ext_resource type="Texture2D" uid="uid://bp2n246cjoqp1" path="res://assets/light/2d_point.webp" id="3_cka37"]
+[ext_resource type="PackedScene" uid="uid://nnbnpwag53rm" path="res://content/component/entity/sprite_component.tscn" id="4_dsd0q"]
+[ext_resource type="PackedScene" uid="uid://1oc1peaw7y6k" path="res://content/component/entity/player_movement_component.tscn" id="4_qqrgs"]
+[ext_resource type="PackedScene" uid="uid://btb2yhp8711qu" path="res://content/component/entity/stats_component.tscn" id="5_fl61c"]
+[ext_resource type="PackedScene" uid="uid://cedxiaaf0vuoi" path="res://content/component/entity/health_component.tscn" id="6_ofrmt"]
+[ext_resource type="PackedScene" uid="uid://1bu2lpx38n6t" path="res://content/component/entity/collision_component.tscn" id="7_tafx1"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_800j4"]
+size = Vector2(16, 16)
+
+[node name="Player" type="CharacterBody2D" groups=["Player"]]
+
+[node name="Camera2D" type="Camera2D" parent="."]
+zoom = Vector2(3, 3)
+drag_horizontal_enabled = true
+drag_vertical_enabled = true
+drag_left_margin = 0.1
+drag_top_margin = 0.1
+drag_right_margin = 0.1
+drag_bottom_margin = 0.1
+
+[node name="PlayerMovementComponent" parent="." node_paths=PackedStringArray("entity", "stats_component") instance=ExtResource("4_qqrgs")]
+entity = NodePath("..")
+stats_component = NodePath("../StatsComponent")
+
+[node name="StatsComponent" parent="." instance=ExtResource("5_fl61c")]
+
+[node name="HealthComponent" parent="." node_paths=PackedStringArray("stats") instance=ExtResource("6_ofrmt")]
+stats = NodePath("../StatsComponent")
+
+[node name="SpriteComponent" parent="." node_paths=PackedStringArray("movement_component") instance=ExtResource("4_dsd0q")]
+texture = ExtResource("2_il0gl")
+movement_component = NodePath("../PlayerMovementComponent")
+
+[node name="PointLight2D" type="PointLight2D" parent="SpriteComponent"]
+scale = Vector2(0.25, 0.25)
+color = Color(0.852992, 0.589639, 0.343518, 1)
+energy = 0.75
+texture = ExtResource("3_cka37")
+
+[node name="CollisionComponent" parent="." instance=ExtResource("7_tafx1")]
+shape = SubResource("RectangleShape2D_800j4")
