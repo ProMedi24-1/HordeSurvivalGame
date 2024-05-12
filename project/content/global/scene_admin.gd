@@ -14,7 +14,7 @@ static var current_scene_resource: PackedScene = null
 static var current_scene_root: Node = null
 
 func _ready() -> void:
-    scene_switched.connect(on_scene_switched)
+    scene_switched.connect(_on_scene_switched)
 
     # Set the scene root reference based on the initial scene
     current_scene_root = get_tree().current_scene
@@ -54,9 +54,9 @@ func update_current_scene() -> void:
     
     scene_switched.emit()
 
-func on_scene_switched() -> void:
+func _on_scene_switched() -> void:
     # Unpause game on scene switch.
-    StateAdmin.game_paused = false
+    #StateAdmin.game_paused = false
 
     GameGlobals.logger.log("SceneAdmin: Switched to scene: " + current_scene_root.name, Color.PINK)
     GameGlobals.logger.log("SceneAdmin: New current scene root: " + str(current_scene_root), Color.PINK)

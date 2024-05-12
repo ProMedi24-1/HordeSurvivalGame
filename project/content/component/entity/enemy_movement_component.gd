@@ -7,7 +7,7 @@ func handle_movement(delta) -> void:
 
     # TODO: Currently handled poorly via group, because im tired... will get fixed soon,
     # should be done with EntityAdmin instead.
-    var direction = entity.global_position.direction_to(get_tree().get_first_node_in_group("Player").global_position)
+    var direction = entity.global_position.direction_to(GameGlobals.entity_admin.player.global_position)
 
     # Here we multiply the speed by delta to make it independent of frame rate.
     entity.velocity = direction.normalized() * stats_component.movement_speed * delta
