@@ -5,6 +5,7 @@ static var debug_overlay
 
 static var debug_logger
 static var debug_profiler
+static var debug_entity_inspector
 
 static var show_imgui_demo := [false]
 
@@ -22,6 +23,10 @@ func _init() -> void:
     debug_profiler = DebugProfiler.new()
     add_child(debug_profiler)
     debug_profiler.name = "DebugProfiler"
+
+    debug_entity_inspector = DebugEntityInspector.new()
+    add_child(debug_entity_inspector)
+    debug_entity_inspector.name = "DebugEntityInspector"
 
 func draw_contents(_p_show: Array = [true]) -> void:
     ImGui.BeginMainMenuBar()
@@ -74,6 +79,10 @@ func draw_tools_menu() -> void:
     if ImGui.MenuItem("Profiler"):
         debug_profiler.show[0] = true
         GameGlobals.logger.log("Show Profiler", Color.DODGER_BLUE)
+
+    if ImGui.MenuItem("Entity Inspector"):
+        debug_entity_inspector.show[0] = true
+        GameGlobals.logger.log("Show Entity Inspector", Color.DODGER_BLUE)
 
     if ImGui.MenuItem("Player Menu"):
 

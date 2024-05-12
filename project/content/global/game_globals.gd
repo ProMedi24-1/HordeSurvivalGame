@@ -3,10 +3,6 @@ extends Node
 
 static var logger: Logger
 
-#@onready var state_admin = $StateAdmin
-#@onready var scene_admin = $SceneAdmin
-#@onready var entity_admin = $EntityAdmin
-
 static var state_admin: StateAdmin
 static var scene_admin: SceneAdmin
 static var entity_admin: EntityAdmin

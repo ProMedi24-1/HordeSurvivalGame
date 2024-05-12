@@ -6,8 +6,6 @@ func _ready() -> void:
     GameGlobals.logger.connect("logged", _on_logged)
 
     GameGlobals.logger.log("Scene ready", Color.GREEN_YELLOW)
-    GameGlobals.logger.log("wtf")
-    GameGlobals.logger.log("wtf")
     pass # Replace with function body.
 
 

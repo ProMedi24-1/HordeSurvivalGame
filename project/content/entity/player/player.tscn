@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://df5pj557ulxnc"]
+[gd_scene load_steps=10 format=3 uid="uid://df5pj557ulxnc"]
 
 [ext_resource type="Texture2D" uid="uid://8i6j830i8sid" path="res://assets/sprites/player/player.png" id="2_il0gl"]
 [ext_resource type="Texture2D" uid="uid://bp2n246cjoqp1" path="res://assets/light/2d_point.webp" id="3_cka37"]
@@ -7,6 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://btb2yhp8711qu" path="res://content/component/entity/stats_component.tscn" id="5_fl61c"]
 [ext_resource type="PackedScene" uid="uid://cedxiaaf0vuoi" path="res://content/component/entity/health_component.tscn" id="6_ofrmt"]
 [ext_resource type="PackedScene" uid="uid://1bu2lpx38n6t" path="res://content/component/entity/collision_component.tscn" id="7_tafx1"]
+[ext_resource type="PackedScene" uid="uid://cks130t1pdf1a" path="res://content/component/entity/entity_base_component.tscn" id="8_xjtxm"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_800j4"]
 size = Vector2(16, 16)
@@ -43,3 +44,5 @@ texture = ExtResource("3_cka37")
 
 [node name="CollisionComponent" parent="." instance=ExtResource("7_tafx1")]
 shape = SubResource("RectangleShape2D_800j4")
+
+[node name="EntityBaseComponent" parent="." instance=ExtResource("8_xjtxm")]
