@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://ykahjqqhbugi"]
+[gd_scene load_steps=13 format=3 uid="uid://ykahjqqhbugi"]
 
 [ext_resource type="TileSet" uid="uid://duyuaxbcy8s5h" path="res://assets/sprites/level/testlevel_set.tres" id="2_io8ii"]
 [ext_resource type="PackedScene" uid="uid://df5pj557ulxnc" path="res://content/entity/player/player.tscn" id="3_7jxqr"]
@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://clahmka3cetx2" path="res://content/entity/enemy/goblin_enemy.tscn" id="4_8eco3"]
 [ext_resource type="Shader" path="res://assets/shaders/testshader.gdshader" id="4_31n66"]
 [ext_resource type="Texture2D" uid="uid://cpw478ulqvegt" path="res://assets/sprites/player/dummy.png" id="5_baxj7"]
+[ext_resource type="Texture2D" uid="uid://cavhiyxgfgpvr" path="res://assets/sprites/level/Tree.png" id="7_2mpaw"]
 
 [sub_resource type="Environment" id="Environment_fmbli"]
 background_mode = 3
@@ -89,3 +90,7 @@ position = Vector2(116, 246)
 
 [node name="GoblinEnemy9" parent="." instance=ExtResource("4_8eco3")]
 position = Vector2(84, 167)
+
+[node name="Tree" type="Sprite2D" parent="."]
+position = Vector2(409, 269)
+texture = ExtResource("7_2mpaw")
