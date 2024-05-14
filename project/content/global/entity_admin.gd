@@ -20,6 +20,8 @@ func deregister_entity(entity: Node) -> void:
 
     GameGlobals.logger.log("Entity: " + entity.name + " deregistered", Color.PINK)
 
+    GameGlobals.logger.log("test", Color.WHITE)
+
     if entity.is_in_group("Player"):
         player = null
 
