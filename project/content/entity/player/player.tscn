@@ -1,9 +1,9 @@
 [gd_scene load_steps=10 format=3 uid="uid://df5pj557ulxnc"]
 
-[ext_resource type="Texture2D" uid="uid://8i6j830i8sid" path="res://assets/sprites/player/player.png" id="2_il0gl"]
 [ext_resource type="Texture2D" uid="uid://bp2n246cjoqp1" path="res://assets/light/2d_point.webp" id="3_cka37"]
 [ext_resource type="PackedScene" uid="uid://nnbnpwag53rm" path="res://content/component/entity/sprite_component.tscn" id="4_dsd0q"]
 [ext_resource type="PackedScene" uid="uid://1oc1peaw7y6k" path="res://content/component/entity/player_movement_component.tscn" id="4_qqrgs"]
+[ext_resource type="Texture2D" uid="uid://dqblseag75l7i" path="res://assets/sprites/player/kitten.png" id="5_2pr5v"]
 [ext_resource type="PackedScene" uid="uid://btb2yhp8711qu" path="res://content/component/entity/stats_component.tscn" id="5_fl61c"]
 [ext_resource type="PackedScene" uid="uid://cedxiaaf0vuoi" path="res://content/component/entity/health_component.tscn" id="6_ofrmt"]
 [ext_resource type="PackedScene" uid="uid://1bu2lpx38n6t" path="res://content/component/entity/collision_component.tscn" id="7_tafx1"]
@@ -33,7 +33,7 @@ stats_component = NodePath("../StatsComponent")
 stats = NodePath("../StatsComponent")
 
 [node name="SpriteComponent" parent="." node_paths=PackedStringArray("movement_component") instance=ExtResource("4_dsd0q")]
-texture = ExtResource("2_il0gl")
+texture = ExtResource("5_2pr5v")
 movement_component = NodePath("../PlayerMovementComponent")
 
 [node name="PointLight2D" type="PointLight2D" parent="SpriteComponent"]
