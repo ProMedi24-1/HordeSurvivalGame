@@ -1,0 +1,24 @@
+[gd_resource type="TileSet" load_steps=6 format=3 uid="uid://cgxbhspmvaf7w"]
+
+[ext_resource type="Texture2D" uid="uid://n4vlxbyere53" path="res://assets/sprites/level/prototype/prototype_atlas.png" id="1_58nu5"]
+[ext_resource type="PackedScene" uid="uid://jasjokckt75g" path="res://content/level/tile/collision_tile.tscn" id="2_5qjw8"]
+[ext_resource type="PackedScene" uid="uid://d0fqcjlchau40" path="res://content/level/tile/occluding_tile.tscn" id="3_0o7un"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_almtw"]
+texture = ExtResource("1_58nu5")
+texture_region_size = Vector2i(32, 32)
+0:0/0 = 0
+1:0/0 = 0
+0:1/0 = 0
+0:2/0 = 0
+0:3/0 = 0
+
+[sub_resource type="TileSetScenesCollectionSource" id="TileSetScenesCollectionSource_610ic"]
+resource_name = "meta"
+scenes/1/scene = ExtResource("2_5qjw8")
+scenes/2/scene = ExtResource("3_0o7un")
+
+[resource]
+tile_size = Vector2i(32, 32)
+sources/0 = SubResource("TileSetAtlasSource_almtw")
+sources/2 = SubResource("TileSetScenesCollectionSource_610ic")

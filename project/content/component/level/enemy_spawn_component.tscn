@@ -1,6 +1,0 @@
-[gd_scene load_steps=2 format=3 uid="uid://bx25ja1bjdsv4"]
-
-[ext_resource type="Script" path="res://content/component/level/enemy_spawn_component.gd" id="1_m3mub"]
-
-[node name="EnemySpawnComponent" type="ReferenceRect"]
-script = ExtResource("1_m3mub")

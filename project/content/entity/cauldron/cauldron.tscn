@@ -1,0 +1,139 @@
+[gd_scene load_steps=15 format=3 uid="uid://dj7rwtce8i837"]
+
+[ext_resource type="Script" path="res://content/entity/cauldron/cauldron.gd" id="1_agqqq"]
+[ext_resource type="Texture2D" uid="uid://cjwm2cm6omefx" path="res://assets/sprites/entity/cauldron/cauldron.png" id="1_yt45y"]
+[ext_resource type="Texture2D" uid="uid://c5r75rfy3st1c" path="res://assets/sprites/effect/shadow/shadow_32.png" id="3_63l7j"]
+[ext_resource type="Texture2D" uid="uid://de1kva575b2mj" path="res://assets/sprites/effect/light/point_light.png" id="3_l78cp"]
+[ext_resource type="Texture2D" uid="uid://bgss6k88g4hpf" path="res://assets/sprites/entity/cauldron/cauldron_liquid_sheet.png" id="3_mnpo8"]
+[ext_resource type="Texture2D" uid="uid://b44anacxavxwi" path="res://assets/sprites/entity/cauldron/cauldron_fire_sheet.png" id="4_5asg4"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_faa5f"]
+size = Vector2(38, 24)
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_uon3l"]
+light_mode = 1
+
+[sub_resource type="Animation" id="Animation_ebavy"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Effects/FireSprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_xfmq4"]
+resource_name = "FireIdle"
+length = 0.7
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Effects/FireSprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = false
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4, 0.6),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 2,
+"values": [0, 1, 2, 3]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_bys8t"]
+_data = {
+"Idle": SubResource("Animation_xfmq4"),
+"RESET": SubResource("Animation_ebavy")
+}
+
+[sub_resource type="Animation" id="Animation_hn6q2"]
+resource_name = "Idle"
+length = 1.1235
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("LiquidSprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4, 0.6, 0.8),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 1,
+"values": [1, 2, 3, 1, 2]
+}
+
+[sub_resource type="Animation" id="Animation_kgk0h"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("LiquidSprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_wpwya"]
+_data = {
+"Idle": SubResource("Animation_hn6q2"),
+"RESET": SubResource("Animation_kgk0h")
+}
+
+[node name="Cauldron" type="Node2D"]
+y_sort_enabled = true
+script = ExtResource("1_agqqq")
+
+[node name="CauldronSprite" type="Sprite2D" parent="."]
+y_sort_enabled = true
+texture = ExtResource("1_yt45y")
+
+[node name="CollisionComponent" type="StaticBody2D" parent="."]
+
+[node name="Shape" type="CollisionShape2D" parent="CollisionComponent"]
+position = Vector2(0, -2)
+shape = SubResource("RectangleShape2D_faa5f")
+
+[node name="Effects" type="Node2D" parent="."]
+
+[node name="Shadow" type="Sprite2D" parent="Effects"]
+z_index = -1
+position = Vector2(0, 17)
+scale = Vector2(1.5, 1.5)
+texture = ExtResource("3_63l7j")
+
+[node name="LiquidSprite" type="Sprite2D" parent="Effects"]
+modulate = Color(0.253043, 0.693347, 0.694514, 1)
+material = SubResource("CanvasItemMaterial_uon3l")
+position = Vector2(0, -11)
+texture = ExtResource("3_mnpo8")
+hframes = 4
+
+[node name="FireSprite" type="Sprite2D" parent="Effects"]
+position = Vector2(0, 14)
+texture = ExtResource("4_5asg4")
+hframes = 4
+
+[node name="FireAnimation" type="AnimationPlayer" parent="Effects"]
+root_node = NodePath("../..")
+libraries = {
+"": SubResource("AnimationLibrary_bys8t")
+}
+
+[node name="LiquidAnimation" type="AnimationPlayer" parent="Effects"]
+libraries = {
+"": SubResource("AnimationLibrary_wpwya")
+}
+
+[node name="Light" type="PointLight2D" parent="Effects"]
+color = Color(0.0659393, 0.631364, 0.734914, 1)
+texture = ExtResource("3_l78cp")

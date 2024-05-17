@@ -7,7 +7,7 @@ signal scene_switched()
 static var scenes: Dictionary = {
     "TitleScreen": Pair.new(StateAdmin.GameState.TITLE_SCREEN, "res://content/ui/title_screen/title_screen.tscn"),
     "MainMenu": Pair.new(StateAdmin.GameState.MAIN_MENU, "res://content/ui/main_menu/main_menu.tscn"),
-    "TestLevel": Pair.new(StateAdmin.GameState.PLAYING, "res://content/level/test_level.tscn"),
+    "PrototypeLevel": Pair.new(StateAdmin.GameState.PLAYING, "res://content/level/prototype_level.tscn"),
 }
 
 static var current_scene_resource: PackedScene = null
