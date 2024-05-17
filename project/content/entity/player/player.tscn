@@ -1,20 +1,21 @@
 [gd_scene load_steps=10 format=3 uid="uid://df5pj557ulxnc"]
 
-[ext_resource type="Texture2D" uid="uid://bp2n246cjoqp1" path="res://assets/light/2d_point.webp" id="3_cka37"]
+[ext_resource type="Texture2D" uid="uid://brmnh6mvi7cce" path="res://assets/sprites/entity/player/kitty.png" id="3_k1bxt"]
 [ext_resource type="PackedScene" uid="uid://nnbnpwag53rm" path="res://content/component/entity/sprite_component.tscn" id="4_dsd0q"]
 [ext_resource type="PackedScene" uid="uid://1oc1peaw7y6k" path="res://content/component/entity/player_movement_component.tscn" id="4_qqrgs"]
-[ext_resource type="Texture2D" uid="uid://dqblseag75l7i" path="res://assets/sprites/player/kitten.png" id="5_2pr5v"]
-[ext_resource type="PackedScene" uid="uid://btb2yhp8711qu" path="res://content/component/entity/stats_component.tscn" id="5_fl61c"]
-[ext_resource type="PackedScene" uid="uid://cedxiaaf0vuoi" path="res://content/component/entity/health_component.tscn" id="6_ofrmt"]
+[ext_resource type="Script" path="res://content/component/effects/entity_effect_component.gd" id="7_0k52u"]
 [ext_resource type="PackedScene" uid="uid://1bu2lpx38n6t" path="res://content/component/entity/collision_component.tscn" id="7_tafx1"]
+[ext_resource type="Texture2D" uid="uid://de1kva575b2mj" path="res://assets/sprites/effect/light/point_light.png" id="8_t8fmx"]
 [ext_resource type="PackedScene" uid="uid://cks130t1pdf1a" path="res://content/component/entity/entity_base_component.tscn" id="8_xjtxm"]
+[ext_resource type="Texture2D" uid="uid://c2v7u78r7q0tj" path="res://assets/sprites/effect/shadow/shadow_16.png" id="9_qmbr0"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_800j4"]
 size = Vector2(16, 16)
 
 [node name="Player" type="CharacterBody2D" groups=["Player"]]
+y_sort_enabled = true
 
-[node name="Camera2D" type="Camera2D" parent="."]
+[node name="Camera" type="Camera2D" parent="."]
 zoom = Vector2(3, 3)
 drag_horizontal_enabled = true
 drag_vertical_enabled = true
@@ -23,26 +24,29 @@ drag_top_margin = 0.1
 drag_right_margin = 0.1
 drag_bottom_margin = 0.1
 
-[node name="PlayerMovementComponent" parent="." node_paths=PackedStringArray("entity", "stats_component") instance=ExtResource("4_qqrgs")]
+[node name="PlayerMovementComponent" parent="." node_paths=PackedStringArray("entity") instance=ExtResource("4_qqrgs")]
 entity = NodePath("..")
-stats_component = NodePath("../StatsComponent")
-
-[node name="StatsComponent" parent="." instance=ExtResource("5_fl61c")]
-
-[node name="HealthComponent" parent="." node_paths=PackedStringArray("stats") instance=ExtResource("6_ofrmt")]
-stats = NodePath("../StatsComponent")
 
 [node name="SpriteComponent" parent="." node_paths=PackedStringArray("movement_component") instance=ExtResource("4_dsd0q")]
-texture = ExtResource("5_2pr5v")
+y_sort_enabled = true
+texture = ExtResource("3_k1bxt")
 movement_component = NodePath("../PlayerMovementComponent")
-
-[node name="PointLight2D" type="PointLight2D" parent="SpriteComponent"]
-scale = Vector2(0.25, 0.25)
-color = Color(0.852992, 0.589639, 0.343518, 1)
-energy = 0.75
-texture = ExtResource("3_cka37")
 
 [node name="CollisionComponent" parent="." instance=ExtResource("7_tafx1")]
 shape = SubResource("RectangleShape2D_800j4")
 
 [node name="EntityBaseComponent" parent="." instance=ExtResource("8_xjtxm")]
+
+[node name="EntityEffectComponent" type="Node2D" parent="."]
+script = ExtResource("7_0k52u")
+
+[node name="Shadow" type="Sprite2D" parent="EntityEffectComponent"]
+z_index = -1
+position = Vector2(0, 10)
+texture = ExtResource("9_qmbr0")
+
+[node name="Light" type="PointLight2D" parent="EntityEffectComponent"]
+color = Color(0.595933, 0.381417, 0.82524, 1)
+energy = 0.5
+shadow_enabled = true
+texture = ExtResource("8_t8fmx")

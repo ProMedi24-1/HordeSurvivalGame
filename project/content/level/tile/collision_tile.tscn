@@ -1,7 +1,7 @@
 [gd_scene load_steps=2 format=3 uid="uid://jasjokckt75g"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_30iwh"]
-size = Vector2(16, 16)
+size = Vector2(32, 32)
 
 [node name="CollisionTile" type="StaticBody2D"]
 

@@ -2,6 +2,8 @@ class_name PlayerMovementComponent
 extends MovementBaseComponent
 ## This class manages the movement of a player node within the game.
 
+var movement_speed = 3000
+
 ## Handles the movement of the player based on user input.
 func handle_movement(delta) -> void:
     ## Updates the player's velocity based on user input and the player's stats.
@@ -21,4 +23,4 @@ func handle_movement(delta) -> void:
             is_moving = false
 
     # Here we multiply the speed by delta to make it independent of frame rate.
-    entity.velocity = direction.normalized() * stats_component.movement_speed * delta
+    entity.velocity = direction.normalized() * movement_speed * delta
