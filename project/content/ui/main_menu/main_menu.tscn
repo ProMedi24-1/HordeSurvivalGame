@@ -1,7 +1,10 @@
-[gd_scene load_steps=3 format=3 uid="uid://b2whtobxgnksr"]
+[gd_scene load_steps=4 format=3 uid="uid://b2whtobxgnksr"]
 
 [ext_resource type="Script" path="res://content/ui/main_menu/main_menu.gd" id="1_utroe"]
 [ext_resource type="PackedScene" uid="uid://1ak1ku3d4xvu" path="res://content/ui/main_menu/menu_button.tscn" id="2_isahh"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_jjy1g"]
+bg_color = Color(0.87242, 0.477801, 0.305762, 1)
 
 [node name="MainMenu" type="CanvasLayer"]
 script = ExtResource("1_utroe")
@@ -34,6 +37,7 @@ alignment = 2
 
 [node name="PlayButton" parent="MenuRoot/HBoxContainer/VBoxContainer" instance=ExtResource("2_isahh")]
 layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxFlat_jjy1g")
 text = "Play
 "
 
