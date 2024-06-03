@@ -1,0 +1,28 @@
+[gd_scene load_steps=2 format=3 uid="uid://b5c701nc20fp7"]
+
+[sub_resource type="GDScript" id="GDScript_1k8r5"]
+script/source = "class_name LevelTimer
+extends Timer
+
+signal time_reached
+
+## Maximum level time in full seconds.
+var level_time_max: int
+## Current elapsed level time in full seconds.
+var level_time_elapsed: int = 0
+
+# Called when the node enters the scene tree for the first time.
+func _ready() -> void:
+    self.connect(\"timeout\", _on_timer_timeout)
+
+    GameGlobals.logger.log(\"LevelTimer ready\", Color.PURPLE)
+
+func _on_timer_timeout() -> void:
+    if level_time_elapsed >= level_time_max:
+        time_reached.emit()
+    else:
+        level_time_elapsed += 1
+"
+
+[node name="LevelTimer" type="Timer"]
+script = SubResource("GDScript_1k8r5")

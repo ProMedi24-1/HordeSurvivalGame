@@ -7,7 +7,7 @@ var auto_scroll := [true]
 var log_buffer: Array = []
 
 func _init() -> void:
-    super("DebugLogger", false)
+    super("Logger", false)
 
 func _ready() -> void:
     GameGlobals.logger.connect("logged", on_logged)

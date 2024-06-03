@@ -4,7 +4,7 @@ extends DebugUiBase
 var window_init: bool = false
 
 func _init() -> void:
-    super("DebugOverlay", true)
+    super("Overlay", true)
 
 func draw_contents(p_show: Array = [true]) -> void:
     draw_admin_contents(p_show)
@@ -27,6 +27,7 @@ func draw_admin_contents(p_show: Array = [true]) -> void:
         if ImGui.TreeNode("Scene Admin"):
             ImGui.Text("Current Scene: " + str(SceneAdmin.current_scene_root.name))
             ImGui.Text("Current Scene Root: " + str(SceneAdmin.current_scene_root))
+            ImGui.Text("Current Level Component: " + str(SceneAdmin.current_level_component))
             ImGui.TreePop()
 
         if ImGui.TreeNode("State Admin"):

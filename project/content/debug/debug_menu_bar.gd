@@ -1,32 +1,28 @@
 class_name DebugMenuBar
 extends DebugUiBase
 
-static var debug_overlay
-
-static var debug_logger
-static var debug_profiler
-static var debug_entity_inspector
+static var debug_overlay := DebugOverlay.new()
+static var debug_tools := [
+    DebugLogger.new(), 
+    DebugProfiler.new(), 
+    DebugEntityInspector.new(),
+    DebugLevelOverview.new(),
+]
 
 static var show_imgui_demo := [false]
 
+func add_to_scene(element) -> void:
+    add_child(element)
+    element.name = element.ui_name
+
 func _init() -> void:
-    super("DebugMenuBar", true)
+    super("MenuBar", true)
 
-    debug_overlay = DebugOverlay.new()
-    add_child(debug_overlay)
-    debug_overlay.name = "DebugOverlay"
+    add_to_scene(debug_overlay)
 
-    debug_logger = DebugLogger.new()
-    add_child(debug_logger)
-    debug_logger.name = "DebugLogger"
+    for tool in debug_tools:
+        add_to_scene(tool)
 
-    debug_profiler = DebugProfiler.new()
-    add_child(debug_profiler)
-    debug_profiler.name = "DebugProfiler"
-
-    debug_entity_inspector = DebugEntityInspector.new()
-    add_child(debug_entity_inspector)
-    debug_entity_inspector.name = "DebugEntityInspector"
 
 func draw_contents(_p_show: Array = [true]) -> void:
     ImGui.BeginMainMenuBar()
@@ -72,30 +68,11 @@ func draw_overlay_menu() -> void:
         GameGlobals.logger.log("Hide Overlay", Color.DODGER_BLUE)
 
 func draw_tools_menu() -> void:
-    if ImGui.MenuItem("Logger"):
-        debug_logger.show[0] = true
-        GameGlobals.logger.log("Show Logger", Color.DODGER_BLUE)
+    for tool in debug_tools:
+        if ImGui.MenuItem(tool.name):
+            tool.show[0] = true
+            GameGlobals.logger.log("Show " + tool.name, Color.DODGER_BLUE)
 
-    if ImGui.MenuItem("Profiler"):
-        debug_profiler.show[0] = true
-        GameGlobals.logger.log("Show Profiler", Color.DODGER_BLUE)
-
-    if ImGui.MenuItem("Entity Inspector"):
-        debug_entity_inspector.show[0] = true
-        GameGlobals.logger.log("Show Entity Inspector", Color.DODGER_BLUE)
-
-    if ImGui.MenuItem("Player Menu"):
-
-        GameGlobals.logger.log("Show Player Menu", Color.DODGER_BLUE)
-
-    if ImGui.MenuItem("Enemy Menu"):
-
-        GameGlobals.logger.log("Show Enemy Menu", Color.DODGER_BLUE)
-
-    if ImGui.MenuItem("Settings Menu"):
-
-        GameGlobals.logger.log("Show Settings Menu", Color.DODGER_BLUE)
-    
 func draw_misc_menu() -> void:
     if ImGui.MenuItem("ImGui Demo"):
         show_imgui_demo[0] = true

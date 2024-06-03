@@ -13,20 +13,32 @@ static var scenes: Dictionary = {
 static var current_scene_resource: PackedScene = null
 static var current_scene_root: Node = null
 
+static var current_level_component: LevelBaseComponent = null
+
 func _ready() -> void:
     scene_switched.connect(_on_scene_switched)
+    update_level_nodes()
 
-    # Set the scene root reference based on the initial scene
+    GameGlobals.logger.log("SceneAdmin ready", Color.GREEN_YELLOW)
+
+func update_level_nodes() -> void:
     current_scene_root = get_tree().current_scene
 
     # Check if the scene is registered in the Scenes Dictionary.
     if not scenes.has(current_scene_root.name):
-        GameGlobals.logger.log("SceneAdmin: WARNING Scene not registered in SceneAdmin-Dictionary: " + current_scene_root.name, Color.RED)
-    
-    GameGlobals.logger.log("SceneAdmin ready", Color.GREEN_YELLOW)
+        GameGlobals.logger.log("SceneAdmin: WARNING Scene not registered in SceneAdmin-Dictionary: "
+                                                                 + current_scene_root.name, Color.RED)
 
-func switch_scene(scene: String) -> void:
-    if scene == current_scene_root.name:
+    # Check if the scene has a LevelBaseComponent.
+    if current_scene_root.has_node("LevelBaseComponent"):
+        current_level_component = current_scene_root.get_node("LevelBaseComponent")
+        GameGlobals.logger.log("SceneAdmin: New current level component: " + str(current_level_component), Color.PINK)
+    else:
+        GameGlobals.logger.log("SceneAdmin: WARNING: No LevelBaseComponent found in scene root: "
+                                                             + current_scene_root.name, Color.YELLOW) 
+
+func switch_scene(scene: String, force: bool = false) -> void:
+    if scene == current_scene_root.name and not force:
         GameGlobals.logger.log("SceneAdmin: Already on scene: " + scene, Color.RED)
         return
 
@@ -48,16 +60,12 @@ func switch_scene(scene: String) -> void:
 func update_current_scene() -> void:
     await get_tree().node_added
 
-    # TODO: Handle Error, when scene root node does not have the correct name.
-    current_scene_root = get_tree().current_scene
+    update_level_nodes()
+
     GameGlobals.state_admin.change_game_state(scenes[current_scene_root.name].get_first())
-    
     scene_switched.emit()
 
 func _on_scene_switched() -> void:
-    # Unpause game on scene switch.
-    #StateAdmin.game_paused = false
-
     GameGlobals.logger.log("SceneAdmin: Switched to scene: " + current_scene_root.name, Color.PINK)
     GameGlobals.logger.log("SceneAdmin: New current scene root: " + str(current_scene_root), Color.PINK)
     
