@@ -1,3 +1,4 @@
+@tool # to play animation in editor
 extends Node2D
 
 @onready var fire_animation = $Effects/FireAnimation
@@ -7,4 +8,3 @@ extends Node2D
 func _ready() -> void:
     fire_animation.play("Idle")
     liquid_animation.play("Idle")
-

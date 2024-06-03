@@ -6,7 +6,7 @@ var window_init: bool = false
 var selected_item := [null]
 
 func _init() -> void:
-    super("DebugEntityInspector", false)
+    super("EntityInspector", false)
 
 func draw_contents(_p_show: Array = [true]) -> void:
     if not window_init:

@@ -8,7 +8,7 @@ var frame_counter: int = DATA_RATE
 var perf_data: Dictionary = {}
 
 func _init() -> void:
-    super("DebugProfiler", false)
+    super("Profiler", false)
 
 func poll_data() -> void:
     frame_counter += 1
