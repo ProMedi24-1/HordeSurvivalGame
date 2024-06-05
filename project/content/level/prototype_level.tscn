@@ -1,9 +1,10 @@
-[gd_scene load_steps=6 format=3 uid="uid://dpbpx2mm2qk0t"]
+[gd_scene load_steps=7 format=3 uid="uid://dpbpx2mm2qk0t"]
 
 [ext_resource type="TileSet" uid="uid://cgxbhspmvaf7w" path="res://content/level/prototype/prototype_tileset.tres" id="1_kp8ry"]
 [ext_resource type="PackedScene" uid="uid://df5pj557ulxnc" path="res://content/entity/player/player.tscn" id="2_gsmxm"]
 [ext_resource type="PackedScene" uid="uid://dj7rwtce8i837" path="res://content/entity/cauldron/cauldron.tscn" id="3_4eyfn"]
 [ext_resource type="PackedScene" uid="uid://oljfuiuvmdtw" path="res://content/component/level/level_base_component.tscn" id="4_udxp8"]
+[ext_resource type="PackedScene" uid="uid://clahmka3cetx2" path="res://content/entity/enemy/goblin_enemy.tscn" id="5_vo241"]
 
 [sub_resource type="Environment" id="Environment_hiftv"]
 background_mode = 3
@@ -26,8 +27,7 @@ position = Vector2(0, -49)
 
 [node name="Cauldron" parent="." instance=ExtResource("3_4eyfn")]
 
-[node name="LevelBaseComponent" parent="." node_paths=PackedStringArray("level_timer", "world_modulate", "world_environment") instance=ExtResource("4_udxp8")]
-level_timer = NodePath("Timer")
+[node name="LevelBaseComponent" parent="." node_paths=PackedStringArray("world_modulate", "world_environment") instance=ExtResource("4_udxp8")]
 world_modulate = NodePath("CanvasModulate")
 world_environment = NodePath("WorldEnvironment")
 
@@ -36,4 +36,8 @@ world_environment = NodePath("WorldEnvironment")
 [node name="WorldEnvironment" type="WorldEnvironment" parent="LevelBaseComponent"]
 environment = SubResource("Environment_hiftv")
 
-[node name="Timer" type="Timer" parent="LevelBaseComponent"]
+[node name="GoblinEnemy" parent="." instance=ExtResource("5_vo241")]
+position = Vector2(54, -69)
+
+[node name="GoblinEnemy2" parent="." instance=ExtResource("5_vo241")]
+position = Vector2(86, -16)

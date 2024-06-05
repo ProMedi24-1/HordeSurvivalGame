@@ -1,19 +1,26 @@
-[gd_scene load_steps=10 format=3 uid="uid://df5pj557ulxnc"]
+[gd_scene load_steps=13 format=3 uid="uid://df5pj557ulxnc"]
 
+[ext_resource type="Script" path="res://content/entity/player/player.gd" id="1_5yjwj"]
+[ext_resource type="PackedScene" uid="uid://1oc1peaw7y6k" path="res://content/component/entity/player/player_movement_component.tscn" id="3_8lasj"]
 [ext_resource type="Texture2D" uid="uid://brmnh6mvi7cce" path="res://assets/sprites/entity/player/kitty.png" id="3_k1bxt"]
-[ext_resource type="PackedScene" uid="uid://nnbnpwag53rm" path="res://content/component/entity/sprite_component.tscn" id="4_dsd0q"]
-[ext_resource type="PackedScene" uid="uid://1oc1peaw7y6k" path="res://content/component/entity/player_movement_component.tscn" id="4_qqrgs"]
+[ext_resource type="PackedScene" uid="uid://nnbnpwag53rm" path="res://content/component/entity/shared/sprite_component.tscn" id="4_2up3e"]
+[ext_resource type="PackedScene" uid="uid://1bu2lpx38n6t" path="res://content/component/entity/shared/collision_component.tscn" id="6_imxsg"]
 [ext_resource type="Script" path="res://content/component/effects/entity_effect_component.gd" id="7_0k52u"]
-[ext_resource type="PackedScene" uid="uid://1bu2lpx38n6t" path="res://content/component/entity/collision_component.tscn" id="7_tafx1"]
+[ext_resource type="PackedScene" uid="uid://cks130t1pdf1a" path="res://content/component/entity/shared/entity_base_component.tscn" id="7_ekd5b"]
 [ext_resource type="Texture2D" uid="uid://de1kva575b2mj" path="res://assets/sprites/effect/light/point_light.png" id="8_t8fmx"]
-[ext_resource type="PackedScene" uid="uid://cks130t1pdf1a" path="res://content/component/entity/entity_base_component.tscn" id="8_xjtxm"]
 [ext_resource type="Texture2D" uid="uid://c2v7u78r7q0tj" path="res://assets/sprites/effect/shadow/shadow_16.png" id="9_qmbr0"]
+[ext_resource type="PackedScene" uid="uid://cedxiaaf0vuoi" path="res://content/component/entity/shared/health_component.tscn" id="11_aiewn"]
+[ext_resource type="PackedScene" uid="uid://b6tkr770l11oe" path="res://content/component/entity/player/player_stats_component.tscn" id="11_ygq0l"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_800j4"]
 size = Vector2(16, 16)
 
 [node name="Player" type="CharacterBody2D" groups=["Player"]]
 y_sort_enabled = true
+collision_layer = 2
+collision_mask = 11
+motion_mode = 1
+script = ExtResource("1_5yjwj")
 
 [node name="Camera" type="Camera2D" parent="."]
 zoom = Vector2(3, 3)
@@ -24,18 +31,18 @@ drag_top_margin = 0.1
 drag_right_margin = 0.1
 drag_bottom_margin = 0.1
 
-[node name="PlayerMovementComponent" parent="." node_paths=PackedStringArray("entity") instance=ExtResource("4_qqrgs")]
-entity = NodePath("..")
+[node name="PlayerMovementComponent" parent="." node_paths=PackedStringArray("body", "stats") instance=ExtResource("3_8lasj")]
+body = NodePath("..")
+stats = NodePath("../PlayerStatsComponent")
 
-[node name="SpriteComponent" parent="." node_paths=PackedStringArray("movement_component") instance=ExtResource("4_dsd0q")]
+[node name="SpriteComponent" parent="." instance=ExtResource("4_2up3e")]
 y_sort_enabled = true
 texture = ExtResource("3_k1bxt")
-movement_component = NodePath("../PlayerMovementComponent")
 
-[node name="CollisionComponent" parent="." instance=ExtResource("7_tafx1")]
+[node name="CollisionComponent" parent="." instance=ExtResource("6_imxsg")]
 shape = SubResource("RectangleShape2D_800j4")
 
-[node name="EntityBaseComponent" parent="." instance=ExtResource("8_xjtxm")]
+[node name="EntityBaseComponent" parent="." instance=ExtResource("7_ekd5b")]
 
 [node name="EntityEffectComponent" type="Node2D" parent="."]
 script = ExtResource("7_0k52u")
@@ -50,3 +57,8 @@ color = Color(0.595933, 0.381417, 0.82524, 1)
 energy = 0.5
 shadow_enabled = true
 texture = ExtResource("8_t8fmx")
+
+[node name="HealthComponent" parent="." node_paths=PackedStringArray("stats") instance=ExtResource("11_aiewn")]
+stats = NodePath("../PlayerStatsComponent")
+
+[node name="PlayerStatsComponent" parent="." instance=ExtResource("11_ygq0l")]

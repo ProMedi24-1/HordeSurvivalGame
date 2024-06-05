@@ -6,5 +6,5 @@ extends Node2D
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-    fire_animation.play("Idle")
-    liquid_animation.play("Idle")
+	fire_animation.play("Idle")
+	liquid_animation.play("Idle")

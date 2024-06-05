@@ -1,0 +1,20 @@
+[gd_scene load_steps=2 format=3 uid="uid://bgrlofgfks2nc"]
+
+[ext_resource type="Script" path="res://content/ui/hud/hud.gd" id="1_b7foc"]
+
+[node name="Hud" type="CanvasLayer"]
+script = ExtResource("1_b7foc")
+
+[node name="TimeLabel" type="Label" parent="."]
+offset_left = 506.0
+offset_top = 10.0
+offset_right = 600.0
+offset_bottom = 60.0
+theme_override_font_sizes/font_size = 36
+text = "00:00"
+
+[node name="HealthBar" type="ProgressBar" parent="."]
+offset_left = 22.0
+offset_top = 603.0
+offset_right = 224.055
+offset_bottom = 630.0
