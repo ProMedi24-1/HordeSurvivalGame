@@ -1,6 +1,0 @@
-[gd_scene load_steps=2 format=3 uid="uid://nnbnpwag53rm"]
-
-[ext_resource type="Script" path="res://content/component/entity/sprite_component.gd" id="1_720k6"]
-
-[node name="SpriteComponent" type="Sprite2D"]
-script = ExtResource("1_720k6")

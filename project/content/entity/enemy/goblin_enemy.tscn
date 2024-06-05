@@ -1,12 +1,12 @@
 [gd_scene load_steps=9 format=3 uid="uid://clahmka3cetx2"]
 
 [ext_resource type="Script" path="res://content/entity/enemy/enemy.gd" id="1_0qijw"]
-[ext_resource type="PackedScene" uid="uid://nnbnpwag53rm" path="res://content/component/entity/sprite_component.tscn" id="1_xdfbc"]
+[ext_resource type="PackedScene" uid="uid://nnbnpwag53rm" path="res://content/component/entity/shared/sprite_component.tscn" id="1_xdfbc"]
 [ext_resource type="Texture2D" uid="uid://dmxai186e3kay" path="res://assets/sprites/entity/enemy/goblin.png" id="2_rfg04"]
-[ext_resource type="PackedScene" uid="uid://1bu2lpx38n6t" path="res://content/component/entity/collision_component.tscn" id="3_0d8pm"]
-[ext_resource type="PackedScene" uid="uid://btb2yhp8711qu" path="res://content/component/entity/stats_component.tscn" id="4_2cc4r"]
-[ext_resource type="PackedScene" uid="uid://bc806s2ci8gdn" path="res://content/component/entity/enemy_movement_component.tscn" id="5_2xjpi"]
-[ext_resource type="PackedScene" uid="uid://cks130t1pdf1a" path="res://content/component/entity/entity_base_component.tscn" id="6_bif4u"]
+[ext_resource type="PackedScene" uid="uid://1bu2lpx38n6t" path="res://content/component/entity/shared/collision_component.tscn" id="3_0d8pm"]
+[ext_resource type="PackedScene" uid="uid://btb2yhp8711qu" path="res://content/component/entity/shared/stats_component.tscn" id="4_2cc4r"]
+[ext_resource type="PackedScene" uid="uid://bc806s2ci8gdn" path="res://content/component/entity/enemy/enemy_movement_component.tscn" id="5_2xjpi"]
+[ext_resource type="PackedScene" uid="uid://cks130t1pdf1a" path="res://content/component/entity/shared/entity_base_component.tscn" id="6_bif4u"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_qnroh"]
 size = Vector2(8, 8)
