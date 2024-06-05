@@ -9,7 +9,7 @@ func _ready() -> void:
 	var health_component = GameGlobals.entity_admin.player.health_component
 	health_component.connect("health_changed", update_health_bar)
 
-	var level_component = GameGlobals.scene_admin.current_level_component
+	var level_component = GameGlobals.scene_admin.level_component
 	level_component.connect("time_changed", update_time_label)
 
 	update_health_bar()
@@ -21,4 +21,4 @@ func update_health_bar() -> void:
 	health_bar.max_value = GameGlobals.entity_admin.player.stats_component.max_health
 
 func update_time_label() -> void:
-	time_label.text = GameGlobals.scene_admin.current_level_component.get_time_string(GameGlobals.scene_admin.current_level_component.time_elapsed)
+	time_label.text = GameGlobals.scene_admin.level_component.get_time_string(GameGlobals.scene_admin.level_component.time_elapsed)
