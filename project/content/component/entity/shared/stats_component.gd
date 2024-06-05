@@ -10,14 +10,12 @@ signal health_changed(new_health: float)
 ## The threshold at which the health is considered low in percent.
 @export_range(0, 100) var low_health_threshold: int = 20
 
-@export var can_overheal: bool = false ## Whether the entity can overheal over the max health.
-
 @export_category("Movement")
 @export var max_movement_speed: int = 6000 ## The maximum movement speed of the entity.
 @export var movement_speed: int = 6000 ## The current movement speed of the entity.
 
 @export var collision_damage: float = 5
 
-func set_health(new_health: float):
-	health=new_health
-	health_changed.emit(health)
+#func set_health(new_health: float):
+	#health=new_health
+	#health_changed.emit(health)

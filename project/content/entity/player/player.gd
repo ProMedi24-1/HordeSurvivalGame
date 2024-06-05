@@ -1,7 +1,7 @@
 class_name Player
 extends Node2D
 
-@onready var stats_component = $StatsComponent
+@onready var stats_component = $PlayerStatsComponent
 @onready var movement_component = $PlayerMovementComponent
 @onready var health_component = $HealthComponent
 @onready var check_damage_timer:Timer = $CheckDamageTimer

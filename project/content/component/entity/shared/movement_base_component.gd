@@ -5,7 +5,7 @@ extends Node2D
 signal movement_started
 signal movement_stopped
 
-@export var entity: Node2D ## The node that this component is attached to, and will be used to move.
+@export var body: Node2D ## The node that this component is attached to, and will be used to move.
 @export var stats_component: StatsComponent ## The node that handles the entity stats.
 
 ## Indicates whether the entity is currently moving.
@@ -20,7 +20,7 @@ func _physics_process(delta: float) -> void:
 	## @param delta: The time elapsed since the last frame.
 	
 	handle_movement(delta)
-	entity.move_and_slide()
+	body.move_and_slide()
 
 # OVERRIDE
 func handle_movement(_delta) -> void:

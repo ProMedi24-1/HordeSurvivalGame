@@ -27,8 +27,6 @@ var hold: bool = false
 @export var world_modulate: CanvasModulate
 @export var world_environment: WorldEnvironment
 
-var kills
-
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	level_timer.wait_time = time_step

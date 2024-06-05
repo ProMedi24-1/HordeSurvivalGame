@@ -13,26 +13,31 @@ func set_health(new_health: int):
 	stats.health = new_health
 	health_changed.emit()
 
+
 func take_damage(amount):
-	stats.set_health(max(stats.health-amount, 0))
+	#stats.health = (max(stats.health - amount, 0))
+
+	set_health(max(stats.health - amount, 0))
+
 	damaged.emit(amount)
 
 	if stats.health <= 0:
 		died.emit()
 	
-	health_changed.emit()
 
 func take_heal(amount):
-	stats.set_health(stats.health+amount)
+	
+	if "can_overheal" in stats:
+		if stats.can_overheal: 
+			set_health(stats.health + amount)
 
-	if not stats.can_overheal:
-		stats.set_health(min(stats.health, stats.max_health))
+	set_health(min(stats.health + amount, stats.max_health))
 	healed.emit(amount)
 
-	health_changed.emit()
 
 func is_full_health() -> bool:
 	return stats.health >= stats.max_health
+
 
 func is_low_health() -> bool:
 	return stats.health <= stats.low_health_threshold

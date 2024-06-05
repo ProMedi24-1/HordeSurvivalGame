@@ -1,7 +1,6 @@
 [gd_scene load_steps=14 format=3 uid="uid://df5pj557ulxnc"]
 
 [ext_resource type="Script" path="res://content/entity/player/player.gd" id="1_5yjwj"]
-[ext_resource type="PackedScene" uid="uid://btb2yhp8711qu" path="res://content/component/entity/shared/stats_component.tscn" id="2_0rkyk"]
 [ext_resource type="PackedScene" uid="uid://1oc1peaw7y6k" path="res://content/component/entity/player/player_movement_component.tscn" id="3_8lasj"]
 [ext_resource type="Texture2D" uid="uid://brmnh6mvi7cce" path="res://assets/sprites/entity/player/kitty.png" id="3_k1bxt"]
 [ext_resource type="PackedScene" uid="uid://nnbnpwag53rm" path="res://content/component/entity/shared/sprite_component.tscn" id="4_2up3e"]
@@ -11,6 +10,7 @@
 [ext_resource type="Texture2D" uid="uid://de1kva575b2mj" path="res://assets/sprites/effect/light/point_light.png" id="8_t8fmx"]
 [ext_resource type="Texture2D" uid="uid://c2v7u78r7q0tj" path="res://assets/sprites/effect/shadow/shadow_16.png" id="9_qmbr0"]
 [ext_resource type="PackedScene" uid="uid://cedxiaaf0vuoi" path="res://content/component/entity/shared/health_component.tscn" id="11_aiewn"]
+[ext_resource type="PackedScene" uid="uid://b6tkr770l11oe" path="res://content/component/entity/player/player_stats_component.tscn" id="11_ygq0l"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_800j4"]
 size = Vector2(16, 16)
@@ -24,8 +24,6 @@ collision_mask = 3
 motion_mode = 1
 script = ExtResource("1_5yjwj")
 
-[node name="StatsComponent" parent="." instance=ExtResource("2_0rkyk")]
-
 [node name="Camera" type="Camera2D" parent="."]
 zoom = Vector2(3, 3)
 drag_horizontal_enabled = true
@@ -35,9 +33,9 @@ drag_top_margin = 0.1
 drag_right_margin = 0.1
 drag_bottom_margin = 0.1
 
-[node name="PlayerMovementComponent" parent="." node_paths=PackedStringArray("entity", "stats_component") instance=ExtResource("3_8lasj")]
-entity = NodePath("..")
-stats_component = NodePath("../StatsComponent")
+[node name="PlayerMovementComponent" parent="." node_paths=PackedStringArray("body", "stats_component") instance=ExtResource("3_8lasj")]
+body = NodePath("..")
+stats_component = NodePath("../PlayerStatsComponent")
 
 [node name="SpriteComponent" parent="." node_paths=PackedStringArray("movement_component") instance=ExtResource("4_2up3e")]
 y_sort_enabled = true
@@ -64,7 +62,7 @@ shadow_enabled = true
 texture = ExtResource("8_t8fmx")
 
 [node name="HealthComponent" parent="." node_paths=PackedStringArray("stats") instance=ExtResource("11_aiewn")]
-stats = NodePath("../StatsComponent")
+stats = NodePath("../PlayerStatsComponent")
 
 [node name="DamageReceiveArea2D" type="Area2D" parent="."]
 collision_layer = 8
@@ -76,6 +74,8 @@ shape = SubResource("RectangleShape2D_yb05d")
 [node name="CheckDamageTimer" type="Timer" parent="."]
 wait_time = 0.5
 autostart = true
+
+[node name="PlayerStatsComponent" parent="." instance=ExtResource("11_ygq0l")]
 
 [connection signal="body_entered" from="DamageReceiveArea2D" to="." method="_on_damage_receive_area_2d_body_entered"]
 [connection signal="timeout" from="CheckDamageTimer" to="." method="_check_colliding_enemies"]
