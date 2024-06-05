@@ -66,7 +66,7 @@ func update_difficulty() -> void:
 		
 
 func update_linear() -> void:
-	
+
 	if decouple_time:
 		difficulty += (100 / max_time)
 		difficulty = min(difficulty, max_difficulty)
@@ -74,6 +74,7 @@ func update_linear() -> void:
 	else:
 		difficulty = ((time_elapsed / max_time) * 100)
 		difficulty = min(difficulty, max_difficulty)
+
 
 # TODO: update the difficulty adaptively via a bumer of factors.
 func update_adaptive() -> void:
