@@ -14,8 +14,3 @@ signal health_changed(new_health: float)
 @export var max_movement_speed: int = 6000 ## The maximum movement speed of the entity.
 @export var movement_speed: int = 6000 ## The current movement speed of the entity.
 
-@export var collision_damage: float = 5
-
-#func set_health(new_health: float):
-	#health=new_health
-	#health_changed.emit(health)
