@@ -5,7 +5,7 @@ signal time_changed()
 
 ## Editor-Tool for adjusting Level Settings.
 #@export var level_settings: LevelSettings
-@export var level_timer: Timer
+var level_timer: Timer = Timer.new()
 ## What is the time step in seconds. DO NOT CHANGE!
 const time_step: float = 1.0
 
@@ -32,6 +32,7 @@ func _ready() -> void:
 	level_timer.wait_time = time_step
 	level_timer.one_shot = false;
 	level_timer.connect("timeout", _on_level_timer_timeout)
+	add_child(level_timer)
 	level_timer.start()
 
 

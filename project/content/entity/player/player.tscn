@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://df5pj557ulxnc"]
+[gd_scene load_steps=13 format=3 uid="uid://df5pj557ulxnc"]
 
 [ext_resource type="Script" path="res://content/entity/player/player.gd" id="1_5yjwj"]
 [ext_resource type="PackedScene" uid="uid://1oc1peaw7y6k" path="res://content/component/entity/player/player_movement_component.tscn" id="3_8lasj"]
@@ -15,12 +15,10 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_800j4"]
 size = Vector2(16, 16)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_yb05d"]
-
 [node name="Player" type="CharacterBody2D" groups=["Player"]]
 y_sort_enabled = true
-collision_layer = 8
-collision_mask = 3
+collision_layer = 2
+collision_mask = 11
 motion_mode = 1
 script = ExtResource("1_5yjwj")
 
@@ -33,14 +31,13 @@ drag_top_margin = 0.1
 drag_right_margin = 0.1
 drag_bottom_margin = 0.1
 
-[node name="PlayerMovementComponent" parent="." node_paths=PackedStringArray("body", "stats_component") instance=ExtResource("3_8lasj")]
+[node name="PlayerMovementComponent" parent="." node_paths=PackedStringArray("body", "stats") instance=ExtResource("3_8lasj")]
 body = NodePath("..")
-stats_component = NodePath("../PlayerStatsComponent")
+stats = NodePath("../PlayerStatsComponent")
 
-[node name="SpriteComponent" parent="." node_paths=PackedStringArray("movement_component") instance=ExtResource("4_2up3e")]
+[node name="SpriteComponent" parent="." instance=ExtResource("4_2up3e")]
 y_sort_enabled = true
 texture = ExtResource("3_k1bxt")
-movement_component = NodePath("../PlayerMovementComponent")
 
 [node name="CollisionComponent" parent="." instance=ExtResource("6_imxsg")]
 shape = SubResource("RectangleShape2D_800j4")
@@ -64,18 +61,4 @@ texture = ExtResource("8_t8fmx")
 [node name="HealthComponent" parent="." node_paths=PackedStringArray("stats") instance=ExtResource("11_aiewn")]
 stats = NodePath("../PlayerStatsComponent")
 
-[node name="DamageReceiveArea2D" type="Area2D" parent="."]
-collision_layer = 8
-collision_mask = 4
-
-[node name="CollisionComponent" parent="DamageReceiveArea2D" instance=ExtResource("6_imxsg")]
-shape = SubResource("RectangleShape2D_yb05d")
-
-[node name="CheckDamageTimer" type="Timer" parent="."]
-wait_time = 0.5
-autostart = true
-
 [node name="PlayerStatsComponent" parent="." instance=ExtResource("11_ygq0l")]
-
-[connection signal="body_entered" from="DamageReceiveArea2D" to="." method="_on_damage_receive_area_2d_body_entered"]
-[connection signal="timeout" from="CheckDamageTimer" to="." method="_check_colliding_enemies"]

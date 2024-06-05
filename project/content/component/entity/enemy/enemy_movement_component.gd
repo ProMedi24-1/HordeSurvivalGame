@@ -10,5 +10,5 @@ func handle_movement(delta) -> void:
 	var direction = body.global_position.direction_to(GameGlobals.entity_admin.player.global_position)
 
 	# Here we multiply the speed by delta to make it independent of frame rate.
-	body.velocity = direction.normalized() * stats_component.movement_speed * delta
+	body.velocity = direction.normalized() * stats.movement_speed * delta
 	

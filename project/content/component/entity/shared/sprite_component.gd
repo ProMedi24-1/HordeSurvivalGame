@@ -1,6 +1,6 @@
 extends Sprite2D
 
-@export var movement_component: Node2D
+@export var movement: Node2D
 
 @export var rotate_sprite: bool = true
 

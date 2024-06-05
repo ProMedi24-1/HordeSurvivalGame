@@ -15,7 +15,9 @@ func set_health(new_health: int):
 
 
 func take_damage(amount):
-	#stats.health = (max(stats.health - amount, 0))
+	if "god_mode" in stats:
+		if stats.god_mode:
+			return
 
 	set_health(max(stats.health - amount, 0))
 
@@ -30,6 +32,8 @@ func take_heal(amount):
 	if "can_overheal" in stats:
 		if stats.can_overheal: 
 			set_health(stats.health + amount)
+			healed.emit(amount)
+			return
 
 	set_health(min(stats.health + amount, stats.max_health))
 	healed.emit(amount)

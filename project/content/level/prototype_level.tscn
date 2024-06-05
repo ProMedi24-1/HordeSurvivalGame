@@ -27,8 +27,7 @@ position = Vector2(0, -49)
 
 [node name="Cauldron" parent="." instance=ExtResource("3_4eyfn")]
 
-[node name="LevelBaseComponent" parent="." node_paths=PackedStringArray("level_timer", "world_modulate", "world_environment") instance=ExtResource("4_udxp8")]
-level_timer = NodePath("Timer")
+[node name="LevelBaseComponent" parent="." node_paths=PackedStringArray("world_modulate", "world_environment") instance=ExtResource("4_udxp8")]
 world_modulate = NodePath("CanvasModulate")
 world_environment = NodePath("WorldEnvironment")
 
@@ -36,8 +35,6 @@ world_environment = NodePath("WorldEnvironment")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="LevelBaseComponent"]
 environment = SubResource("Environment_hiftv")
-
-[node name="Timer" type="Timer" parent="LevelBaseComponent"]
 
 [node name="GoblinEnemy" parent="." instance=ExtResource("5_vo241")]
 position = Vector2(54, -69)

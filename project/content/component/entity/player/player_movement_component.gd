@@ -22,4 +22,4 @@ func handle_movement(delta) -> void:
 			is_moving = false
 
 	# Here we multiply the speed by delta to make it independent of frame rate.
-	body.velocity = direction.normalized() * stats_component.movement_speed * delta
+	body.velocity = direction.normalized() * stats.movement_speed * delta
