@@ -1,10 +1,11 @@
-[gd_scene load_steps=7 format=3 uid="uid://dpbpx2mm2qk0t"]
+[gd_scene load_steps=8 format=3 uid="uid://dpbpx2mm2qk0t"]
 
 [ext_resource type="TileSet" uid="uid://cgxbhspmvaf7w" path="res://content/level/prototype/prototype_tileset.tres" id="1_kp8ry"]
 [ext_resource type="PackedScene" uid="uid://df5pj557ulxnc" path="res://content/entity/player/player.tscn" id="2_gsmxm"]
 [ext_resource type="PackedScene" uid="uid://dj7rwtce8i837" path="res://content/entity/cauldron/cauldron.tscn" id="3_4eyfn"]
 [ext_resource type="PackedScene" uid="uid://oljfuiuvmdtw" path="res://content/component/level/level_base_component.tscn" id="4_udxp8"]
 [ext_resource type="PackedScene" uid="uid://clahmka3cetx2" path="res://content/entity/enemy/goblin_enemy.tscn" id="5_vo241"]
+[ext_resource type="PackedScene" uid="uid://dc0yevfxrc2hw" path="res://content/entity/enemy/bat.tscn" id="6_3bkgw"]
 
 [sub_resource type="Environment" id="Environment_hiftv"]
 background_mode = 3
@@ -41,3 +42,15 @@ position = Vector2(54, -69)
 
 [node name="GoblinEnemy2" parent="." instance=ExtResource("5_vo241")]
 position = Vector2(86, -16)
+
+[node name="Bat" parent="." instance=ExtResource("6_3bkgw")]
+position = Vector2(129, -37)
+
+[node name="Bat2" parent="." instance=ExtResource("6_3bkgw")]
+position = Vector2(135, -100)
+
+[node name="Bat3" parent="." instance=ExtResource("6_3bkgw")]
+position = Vector2(-75, -147)
+
+[node name="Bat4" parent="." instance=ExtResource("6_3bkgw")]
+position = Vector2(-212, -108)
