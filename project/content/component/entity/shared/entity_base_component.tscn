@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://cks130t1pdf1a"]
+
+[ext_resource type="Script" path="res://content/component/entity/shared/entity_base_component.gd" id="1_muspn"]
+
+[node name="EntityBaseComponent" type="Node"]
+script = ExtResource("1_muspn")

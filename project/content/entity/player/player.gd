@@ -6,21 +6,22 @@ extends Node2D
 @onready var health_component = $HealthComponent
 @onready var check_damage_timer:Timer = $CheckDamageTimer
 
+@export var hud_res := preload("res://content/ui/hud/hud.tscn")
+var hud_scene := hud_res.instantiate()
 
-@export var health_bar: ProgressBar # TODO make HealthBar
+
 @onready var damage_receive_area_2d = $DamageReceiveArea2D
 
 
 func _ready():
-	health_bar.max_value = stats_component.max_health
-	health_bar.update(stats_component.health)
+	# Add HUD to player scene via ready(), this way the HUD is not shown in the Level scenes in the editor.
+	add_child(hud_scene)
 
 
-func _unhandled_input(event):
-	if Input.is_action_just_pressed("damage"):
-		health_component.take_damage(10)
-	elif Input.is_action_just_pressed("heal"):
-		health_component.take_heal(10)
+	#health_bar.max_value = stats_component.max_health
+	#health_bar.update(stats_component.health)
+	pass
+
 
 func _check_colliding_enemies():
 	for body in damage_receive_area_2d.get_overlapping_bodies():

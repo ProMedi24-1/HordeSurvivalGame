@@ -1,6 +1,8 @@
 class_name LevelBaseComponent    
 extends Node2D
 
+signal time_changed()
+
 ## Editor-Tool for adjusting Level Settings.
 #@export var level_settings: LevelSettings
 @export var level_timer: Timer
@@ -43,11 +45,14 @@ func _on_level_timer_timeout() -> void:
 	if hold:
 		return
 
+
 	if time_elapsed >= max_time:
 		GameGlobals.logger.log("Max Time reached")
 	else:
 		time_elapsed += 1
 		update_difficulty()
+
+	time_changed.emit()		
 
 ## Updates the Difficulty every second.
 func update_difficulty() -> void:
