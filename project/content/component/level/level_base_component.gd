@@ -44,9 +44,9 @@ func _on_level_timer_timeout() -> void:
 	if hold:
 		return
 
-
 	if time_elapsed >= max_time:
 		GameGlobals.logger.log("Max Time reached")
+		update_difficulty()
 	else:
 		time_elapsed += 1
 		update_difficulty()
@@ -66,9 +66,7 @@ func update_difficulty() -> void:
 		
 
 func update_linear() -> void:
-	if difficulty >= max_difficulty:
-		return
-
+	
 	if decouple_time:
 		difficulty += (100 / max_time)
 		difficulty = min(difficulty, max_difficulty)
