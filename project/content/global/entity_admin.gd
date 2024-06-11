@@ -1,6 +1,15 @@
 class_name EntityAdmin
 extends Node
 
+static var entity_map: Dictionary = {
+	"Player": preload("res://content/entity/player/player.tscn"),
+
+	"SlimeEv1": preload("res://content/entity/enemy/slime/slime_ev1.tscn"),
+	"SlimeEv2": preload("res://content/entity/enemy/slime/slime_ev2.tscn"),
+	"SlimeEv3": preload("res://content/entity/enemy/slime/slime_ev3.tscn"),
+
+}
+
 static var entities: Array = [] 
 static var player: Node
 
@@ -26,4 +35,8 @@ func deregister_entity(entity: Node) -> void:
 func delete_entity(entity: Node) -> void:
 	entity.queue_free()
 
-
+func spawn_entity_at(entity_name: String, position: Vector2) -> void:
+	var entity = entity_map[entity_name].instantiate()
+	entity.global_position = position
+	SceneAdmin.scene_root.add_child(entity)
+	#get_tree().get_root().add_child(entity)

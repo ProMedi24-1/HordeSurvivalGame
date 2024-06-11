@@ -1,0 +1,51 @@
+[gd_scene load_steps=11 format=3 uid="uid://fuig0lsenuhm"]
+
+[ext_resource type="PackedScene" uid="uid://nnbnpwag53rm" path="res://content/component/entity/shared/sprite_component.tscn" id="1_nljkq"]
+[ext_resource type="Texture2D" uid="uid://dbtv8fshw66nv" path="res://assets/sprites/entity/enemy/slime/slime_ev2.png" id="2_f1knw"]
+[ext_resource type="PackedScene" uid="uid://bc806s2ci8gdn" path="res://content/component/entity/enemy/enemy_movement_component.tscn" id="3_pg2gq"]
+[ext_resource type="PackedScene" uid="uid://b0ru2457udg0y" path="res://content/component/entity/enemy/enemy_stats_component.tscn" id="4_n67h3"]
+[ext_resource type="PackedScene" uid="uid://1bu2lpx38n6t" path="res://content/component/entity/shared/collision_component.tscn" id="5_cud1s"]
+[ext_resource type="Texture2D" uid="uid://b5de2fwe7gy8q" path="res://assets/sprites/effect/shadow/shadow_24.png" id="6_3vntd"]
+[ext_resource type="PackedScene" uid="uid://j0jkpmwfaet5" path="res://content/component/entity/enemy/hurt_box_component.tscn" id="7_1vmcy"]
+[ext_resource type="PackedScene" uid="uid://cks130t1pdf1a" path="res://content/component/entity/shared/entity_base_component.tscn" id="8_tpftm"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_gtb32"]
+radius = 5.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_tfwr2"]
+size = Vector2(12, 12)
+
+[node name="SlimeEv2" type="CharacterBody2D"]
+y_sort_enabled = true
+collision_layer = 4
+collision_mask = 5
+motion_mode = 1
+
+[node name="SpriteComponent" parent="." node_paths=PackedStringArray("movement") instance=ExtResource("1_nljkq")]
+texture = ExtResource("2_f1knw")
+movement = NodePath("../EnemyMovementComponent")
+
+[node name="EnemyMovementComponent" parent="." node_paths=PackedStringArray("body", "stats") instance=ExtResource("3_pg2gq")]
+body = NodePath("..")
+stats = NodePath("../EnemyStatsComponent")
+
+[node name="EnemyStatsComponent" parent="." instance=ExtResource("4_n67h3")]
+melee_damage = 10
+max_movement_speed = 1800
+movement_speed = 1800
+
+[node name="CollisionComponent" parent="." instance=ExtResource("5_cud1s")]
+shape = SubResource("CircleShape2D_gtb32")
+
+[node name="Shadow" type="Sprite2D" parent="."]
+z_index = -1
+position = Vector2(0, 6)
+texture = ExtResource("6_3vntd")
+
+[node name="HurtBoxComponent" parent="." node_paths=PackedStringArray("stats") instance=ExtResource("7_1vmcy")]
+stats = NodePath("../EnemyStatsComponent")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HurtBoxComponent"]
+shape = SubResource("RectangleShape2D_tfwr2")
+
+[node name="EntityBaseComponent" parent="." instance=ExtResource("8_tpftm")]

@@ -1,0 +1,8 @@
+[gd_scene load_steps=3 format=3 uid="uid://dhd7qb1hl071x"]
+
+[ext_resource type="Script" path="res://content/entity/weapon/projectile_weapon.gd" id="1_ecgma"]
+[ext_resource type="PackedScene" uid="uid://bplh7u51iu762" path="res://content/entity/weapon/magic_dagger/magic_dagger_proj.tscn" id="2_81f5u"]
+
+[node name="MagicDagger" type="Node2D"]
+script = ExtResource("1_ecgma")
+projectile_scene = ExtResource("2_81f5u")
