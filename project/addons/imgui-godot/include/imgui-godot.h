@@ -19,6 +19,9 @@
 #include <godot_cpp/variant/callable.hpp>
 #include <godot_cpp/variant/typed_array.hpp>
 
+//Fix
+using namespace godot;
+
 using godot::AtlasTexture;
 using godot::Callable;
 using godot::CharString;

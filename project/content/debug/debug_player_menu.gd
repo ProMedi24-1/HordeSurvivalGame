@@ -31,6 +31,11 @@ func draw_contents(_p_show: Array = [true]) -> void:
 	var health = player.stats.health
 	var max_health = player.stats.max_health
 
+	if ImGui.TreeNode("Movement"):
+		ImGui.Text("Global Pos : " + str(GameGlobals.entity_admin.player.global_position))
+
+		ImGui.TreePop()
+
 	if ImGui.TreeNode("Health"):
 		ImGui.TextColored(Color.GREEN,"Health: %d/%d" % [health, max_health])
 

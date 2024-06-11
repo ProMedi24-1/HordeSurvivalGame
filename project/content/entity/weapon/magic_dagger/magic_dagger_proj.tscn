@@ -1,0 +1,14 @@
+[gd_scene load_steps=3 format=3 uid="uid://bplh7u51iu762"]
+
+[ext_resource type="Texture2D" uid="uid://b55w3mcbqd7m3" path="res://assets/sprites/entity/weapon/magic_dagger_proj.png" id="1_uckhg"]
+[ext_resource type="PackedScene" uid="uid://d3xm52an8cmve" path="res://content/component/weapon/projectile_component.tscn" id="2_2i7r4"]
+
+[node name="MagicDaggerProj2" type="Node2D"]
+
+[node name="ProjectileComponent" parent="." node_paths=PackedStringArray("body") instance=ExtResource("2_2i7r4")]
+z_index = 2
+body = NodePath("..")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+rotation = 0.820525
+texture = ExtResource("1_uckhg")
