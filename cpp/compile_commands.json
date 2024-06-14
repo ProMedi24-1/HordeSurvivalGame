@@ -1,0 +1,71 @@
+[
+{
+  "directory": "E:\\ProMedi24\\HordeSurvivalGame\\cpp",
+  "arguments": ["clang.exe", "-c", "-Qunused-arguments", "-m64", "-std=c++23", "-Isrc", "-Ilib", "-I..\\project\\addons\\imgui-godot\\include", "-Ilib\\imgui", "-Ilib\\implot", "-Igodot-cpp\\gdextension", "-Igodot-cpp\\include", "-Igodot-cpp\\gen\\include", "-DIMGUI_USER_CONFIG=\"imconfig-godot.h\"", "-o", "build\\.objs\\gamecore\\windows\\x64\\release\\src\\debug\\DebugMenuBar.cpp.obj", "src\\debug\\DebugMenuBar.cpp"],
+  "file": "src\\debug\\DebugMenuBar.cpp"
+},
+{
+  "directory": "E:\\ProMedi24\\HordeSurvivalGame\\cpp",
+  "arguments": ["clang.exe", "-c", "-Qunused-arguments", "-m64", "-std=c++23", "-Isrc", "-Ilib", "-I..\\project\\addons\\imgui-godot\\include", "-Ilib\\imgui", "-Ilib\\implot", "-Igodot-cpp\\gdextension", "-Igodot-cpp\\include", "-Igodot-cpp\\gen\\include", "-DIMGUI_USER_CONFIG=\"imconfig-godot.h\"", "-o", "build\\.objs\\gamecore\\windows\\x64\\release\\src\\debug\\submenus\\DebugProfilers.cpp.obj", "src\\debug\\submenus\\DebugProfilers.cpp"],
+  "file": "src\\debug\\submenus\\DebugProfilers.cpp"
+},
+{
+  "directory": "E:\\ProMedi24\\HordeSurvivalGame\\cpp",
+  "arguments": ["clang.exe", "-c", "-Qunused-arguments", "-m64", "-std=c++23", "-Isrc", "-Ilib", "-I..\\project\\addons\\imgui-godot\\include", "-Ilib\\imgui", "-Ilib\\implot", "-Igodot-cpp\\gdextension", "-Igodot-cpp\\include", "-Igodot-cpp\\gen\\include", "-DIMGUI_USER_CONFIG=\"imconfig-godot.h\"", "-o", "build\\.objs\\gamecore\\windows\\x64\\release\\src\\global\\GGameGlobals.cpp.obj", "src\\global\\GGameGlobals.cpp"],
+  "file": "src\\global\\GGameGlobals.cpp"
+},
+{
+  "directory": "E:\\ProMedi24\\HordeSurvivalGame\\cpp",
+  "arguments": ["clang.exe", "-c", "-Qunused-arguments", "-m64", "-std=c++23", "-Isrc", "-Ilib", "-I..\\project\\addons\\imgui-godot\\include", "-Ilib\\imgui", "-Ilib\\implot", "-Igodot-cpp\\gdextension", "-Igodot-cpp\\include", "-Igodot-cpp\\gen\\include", "-DIMGUI_USER_CONFIG=\"imconfig-godot.h\"", "-o", "build\\.objs\\gamecore\\windows\\x64\\release\\src\\global\\GLogger.cpp.obj", "src\\global\\GLogger.cpp"],
+  "file": "src\\global\\GLogger.cpp"
+},
+{
+  "directory": "E:\\ProMedi24\\HordeSurvivalGame\\cpp",
+  "arguments": ["clang.exe", "-c", "-Qunused-arguments", "-m64", "-std=c++23", "-Isrc", "-Ilib", "-I..\\project\\addons\\imgui-godot\\include", "-Ilib\\imgui", "-Ilib\\implot", "-Igodot-cpp\\gdextension", "-Igodot-cpp\\include", "-Igodot-cpp\\gen\\include", "-DIMGUI_USER_CONFIG=\"imconfig-godot.h\"", "-o", "build\\.objs\\gamecore\\windows\\x64\\release\\src\\RegisterTypes.cpp.obj", "src\\RegisterTypes.cpp"],
+  "file": "src\\RegisterTypes.cpp"
+},
+{
+  "directory": "E:\\ProMedi24\\HordeSurvivalGame\\cpp",
+  "arguments": ["clang.exe", "-c", "-Qunused-arguments", "-m64", "-std=c++23", "-Isrc", "-Ilib", "-I..\\project\\addons\\imgui-godot\\include", "-Ilib\\imgui", "-Ilib\\implot", "-Igodot-cpp\\gdextension", "-Igodot-cpp\\include", "-Igodot-cpp\\gen\\include", "-DIMGUI_USER_CONFIG=\"imconfig-godot.h\"", "-o", "build\\.objs\\gamecore\\windows\\x64\\release\\src\\template\\GDExample.cpp.obj", "src\\template\\GDExample.cpp"],
+  "file": "src\\template\\GDExample.cpp"
+},
+{
+  "directory": "E:\\ProMedi24\\HordeSurvivalGame\\cpp",
+  "arguments": ["clang.exe", "-c", "-Qunused-arguments", "-m64", "-std=c++23", "-Isrc", "-Ilib", "-I..\\project\\addons\\imgui-godot\\include", "-Ilib\\imgui", "-Ilib\\implot", "-Igodot-cpp\\gdextension", "-Igodot-cpp\\include", "-Igodot-cpp\\gen\\include", "-DIMGUI_USER_CONFIG=\"imconfig-godot.h\"", "-o", "build\\.objs\\gamecore\\windows\\x64\\release\\lib\\imgui\\imgui.cpp.obj", "lib\\imgui\\imgui.cpp"],
+  "file": "lib\\imgui\\imgui.cpp"
+},
+{
+  "directory": "E:\\ProMedi24\\HordeSurvivalGame\\cpp",
+  "arguments": ["clang.exe", "-c", "-Qunused-arguments", "-m64", "-std=c++23", "-Isrc", "-Ilib", "-I..\\project\\addons\\imgui-godot\\include", "-Ilib\\imgui", "-Ilib\\implot", "-Igodot-cpp\\gdextension", "-Igodot-cpp\\include", "-Igodot-cpp\\gen\\include", "-DIMGUI_USER_CONFIG=\"imconfig-godot.h\"", "-o", "build\\.objs\\gamecore\\windows\\x64\\release\\lib\\imgui\\imgui_demo.cpp.obj", "lib\\imgui\\imgui_demo.cpp"],
+  "file": "lib\\imgui\\imgui_demo.cpp"
+},
+{
+  "directory": "E:\\ProMedi24\\HordeSurvivalGame\\cpp",
+  "arguments": ["clang.exe", "-c", "-Qunused-arguments", "-m64", "-std=c++23", "-Isrc", "-Ilib", "-I..\\project\\addons\\imgui-godot\\include", "-Ilib\\imgui", "-Ilib\\implot", "-Igodot-cpp\\gdextension", "-Igodot-cpp\\include", "-Igodot-cpp\\gen\\include", "-DIMGUI_USER_CONFIG=\"imconfig-godot.h\"", "-o", "build\\.objs\\gamecore\\windows\\x64\\release\\lib\\imgui\\imgui_draw.cpp.obj", "lib\\imgui\\imgui_draw.cpp"],
+  "file": "lib\\imgui\\imgui_draw.cpp"
+},
+{
+  "directory": "E:\\ProMedi24\\HordeSurvivalGame\\cpp",
+  "arguments": ["clang.exe", "-c", "-Qunused-arguments", "-m64", "-std=c++23", "-Isrc", "-Ilib", "-I..\\project\\addons\\imgui-godot\\include", "-Ilib\\imgui", "-Ilib\\implot", "-Igodot-cpp\\gdextension", "-Igodot-cpp\\include", "-Igodot-cpp\\gen\\include", "-DIMGUI_USER_CONFIG=\"imconfig-godot.h\"", "-o", "build\\.objs\\gamecore\\windows\\x64\\release\\lib\\imgui\\imgui_tables.cpp.obj", "lib\\imgui\\imgui_tables.cpp"],
+  "file": "lib\\imgui\\imgui_tables.cpp"
+},
+{
+  "directory": "E:\\ProMedi24\\HordeSurvivalGame\\cpp",
+  "arguments": ["clang.exe", "-c", "-Qunused-arguments", "-m64", "-std=c++23", "-Isrc", "-Ilib", "-I..\\project\\addons\\imgui-godot\\include", "-Ilib\\imgui", "-Ilib\\implot", "-Igodot-cpp\\gdextension", "-Igodot-cpp\\include", "-Igodot-cpp\\gen\\include", "-DIMGUI_USER_CONFIG=\"imconfig-godot.h\"", "-o", "build\\.objs\\gamecore\\windows\\x64\\release\\lib\\imgui\\imgui_widgets.cpp.obj", "lib\\imgui\\imgui_widgets.cpp"],
+  "file": "lib\\imgui\\imgui_widgets.cpp"
+},
+{
+  "directory": "E:\\ProMedi24\\HordeSurvivalGame\\cpp",
+  "arguments": ["clang.exe", "-c", "-Qunused-arguments", "-m64", "-std=c++23", "-Isrc", "-Ilib", "-I..\\project\\addons\\imgui-godot\\include", "-Ilib\\imgui", "-Ilib\\implot", "-Igodot-cpp\\gdextension", "-Igodot-cpp\\include", "-Igodot-cpp\\gen\\include", "-DIMGUI_USER_CONFIG=\"imconfig-godot.h\"", "-o", "build\\.objs\\gamecore\\windows\\x64\\release\\lib\\implot\\implot.cpp.obj", "lib\\implot\\implot.cpp"],
+  "file": "lib\\implot\\implot.cpp"
+},
+{
+  "directory": "E:\\ProMedi24\\HordeSurvivalGame\\cpp",
+  "arguments": ["clang.exe", "-c", "-Qunused-arguments", "-m64", "-std=c++23", "-Isrc", "-Ilib", "-I..\\project\\addons\\imgui-godot\\include", "-Ilib\\imgui", "-Ilib\\implot", "-Igodot-cpp\\gdextension", "-Igodot-cpp\\include", "-Igodot-cpp\\gen\\include", "-DIMGUI_USER_CONFIG=\"imconfig-godot.h\"", "-o", "build\\.objs\\gamecore\\windows\\x64\\release\\lib\\implot\\implot_demo.cpp.obj", "lib\\implot\\implot_demo.cpp"],
+  "file": "lib\\implot\\implot_demo.cpp"
+},
+{
+  "directory": "E:\\ProMedi24\\HordeSurvivalGame\\cpp",
+  "arguments": ["clang.exe", "-c", "-Qunused-arguments", "-m64", "-std=c++23", "-Isrc", "-Ilib", "-I..\\project\\addons\\imgui-godot\\include", "-Ilib\\imgui", "-Ilib\\implot", "-Igodot-cpp\\gdextension", "-Igodot-cpp\\include", "-Igodot-cpp\\gen\\include", "-DIMGUI_USER_CONFIG=\"imconfig-godot.h\"", "-o", "build\\.objs\\gamecore\\windows\\x64\\release\\lib\\implot\\implot_items.cpp.obj", "lib\\implot\\implot_items.cpp"],
+  "file": "lib\\implot\\implot_items.cpp"
+}]

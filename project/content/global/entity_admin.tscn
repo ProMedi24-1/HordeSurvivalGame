@@ -1,6 +1,0 @@
-[gd_scene load_steps=2 format=3 uid="uid://fs60xtt5essc"]
-
-[ext_resource type="Script" path="res://content/global/entity_admin.gd" id="1_obmov"]
-
-[node name="EntityAdmin" type="Node"]
-script = ExtResource("1_obmov")

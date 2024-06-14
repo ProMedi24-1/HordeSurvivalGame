@@ -1,0 +1,10 @@
+[configuration]
+
+reloadable = true
+entry_symbol = "gamecore_init"
+compatibility_minimum = "4.2"
+
+
+[libraries]
+windows.debug.x86_64 = "gamecore_windows_release_x64.dll"
+windows.release.x86_64 = "gamecore_windows_release_x64.dll"

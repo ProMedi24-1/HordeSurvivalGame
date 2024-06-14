@@ -21,8 +21,8 @@ config/icon="res://assets/icon/icon.svg"
 
 [autoload]
 
-GameGlobals="*res://content/global/game_globals.tscn"
 ImGuiRoot="*res://addons/imgui-godot/data/ImGuiRoot.tscn"
+GameRoot="*res://content/global/game_root.tscn"
 
 [display]
 

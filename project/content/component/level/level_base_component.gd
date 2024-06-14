@@ -35,9 +35,7 @@ func _ready() -> void:
 	add_child(level_timer)
 	level_timer.start()
 
-
-
-	GameGlobals.logger.log("LevelBaseComponent ready", Color.PURPLE)
+	GLogger.log("LevelBaseComponent ready", Color.PURPLE)
 
 ## Called every second.
 func _on_level_timer_timeout() -> void:
@@ -45,7 +43,7 @@ func _on_level_timer_timeout() -> void:
 		return
 
 	if time_elapsed >= max_time:
-		GameGlobals.logger.log("Max Time reached")
+		GLogger.log("Max Time reached", Color.WHITE)
 		update_difficulty()
 	else:
 		time_elapsed += 1

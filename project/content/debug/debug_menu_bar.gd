@@ -1,4 +1,4 @@
-class_name DebugMenuBar
+class_name DebugMenuBarOld
 extends DebugUiBase
 
 static var debug_overlay := DebugOverlay.new()

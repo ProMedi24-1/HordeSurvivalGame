@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://d3xww1w2e4003"]
+
+[ext_resource type="Script" path="res://content/global/scene_registry.gd" id="1_p35ak"]
+
+[node name="GGameGlobals" type="GGameGlobals"]
+process_mode = 3
+
+[node name="SceneRegistry" type="Node" parent="."]
+script = ExtResource("1_p35ak")

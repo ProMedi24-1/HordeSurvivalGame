@@ -9,8 +9,8 @@ func handle_movement(delta) -> void:
 	# should be done with EntityAdmin instead.
 	var direction = Vector2.ZERO
 	
-	if GameGlobals.entity_admin.player:
-		direction = body.global_position.direction_to(GameGlobals.entity_admin.player.global_position)
+	if GEntityAdmin.getPlayer():
+		direction = body.global_position.direction_to(GEntityAdmin.getPlayer().global_position)
 	
 	#var direction = body.global_position.direction_to(GameGlobals.entity_admin.player.global_position)
 

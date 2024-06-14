@@ -12,3 +12,5 @@ var target = Node2D
 func _physics_process(delta: float) -> void:
 	# Move into a constant direction: 
 	body.position += direction * speed * delta
+	
+	#GLogger.log("msg", Color.RED)

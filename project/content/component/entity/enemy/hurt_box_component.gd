@@ -28,9 +28,9 @@ func _on_body_exited(body: Node2D) -> void:
 		
 
 func damage_player() -> void:
-	var player = GameGlobals.entity_admin.player
+	var player = GEntityAdmin.getPlayer()
 	player.health.take_damage(stats.melee_damage)
 
-	GameGlobals.logger.log("Melee hurt player: " + str(stats.melee_damage) + " damage", Color.RED)
+	GLogger.log("Melee hurt player: " + str(stats.melee_damage) + " damage", Color.RED)
 
 

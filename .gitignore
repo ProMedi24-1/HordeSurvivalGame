@@ -6,7 +6,6 @@ project/.import/
 project/export.cfg
 project/export_presets.cfg
 
-
 # Imported translations (automatically generated from CSV files)
 *.translation
 
@@ -18,6 +17,11 @@ project/mono_crash.*.json
 # Temporary Files
 project/addons/**/bin/~*.dll
 project/**/*.tmp
+
+# CPP Files
+cpp/.cache/
+cpp/.xmake/
+cpp/build/
 
 # Personal Workspace Folders
 .vscode/
