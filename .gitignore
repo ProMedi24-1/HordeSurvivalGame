@@ -16,6 +16,7 @@ project/mono_crash.*.json
 
 # Temporary Files
 project/addons/**/bin/~*.dll
+project/bin/~*.dll
 project/**/*.tmp
 
 # CPP Files
