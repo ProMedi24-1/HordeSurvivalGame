@@ -22,9 +22,8 @@ motion_mode = 1
 [node name="SpriteComponent" parent="." instance=ExtResource("2_3coye")]
 texture = ExtResource("2_rfg04")
 
-[node name="EnemyMovementComponent" parent="." node_paths=PackedStringArray("body", "stats") instance=ExtResource("5_hntl0")]
+[node name="EnemyMovementComponent" parent="." node_paths=PackedStringArray("body") instance=ExtResource("5_hntl0")]
 body = NodePath("..")
-stats = NodePath("../EnemyStatsComponent")
 
 [node name="EntityBaseComponent" parent="." instance=ExtResource("6_620an")]
 
@@ -34,8 +33,7 @@ shape = SubResource("RectangleShape2D_qnroh")
 [node name="EnemyStatsComponent" parent="." instance=ExtResource("7_mxf6x")]
 movement_speed = 3040
 
-[node name="HurtBoxComponent" parent="." node_paths=PackedStringArray("stats") instance=ExtResource("7_2lygt")]
-stats = NodePath("../EnemyStatsComponent")
+[node name="HurtBoxComponent" parent="." instance=ExtResource("7_2lygt")]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HurtBoxComponent"]
 shape = SubResource("RectangleShape2D_rrdql")
