@@ -4,9 +4,7 @@ extends Node
 static var entity_map: Dictionary = {
 	"Player": preload("res://content/entity/player/player.tscn"),
 
-	"SlimeEv1": preload("res://content/entity/enemy/slime/slime_ev1.tscn"),
-	"SlimeEv2": preload("res://content/entity/enemy/slime/slime_ev2.tscn"),
-	"SlimeEv3": preload("res://content/entity/enemy/slime/slime_ev3.tscn"),
+	"Slime": preload("res://content/entity/enemy/slime/slime.tscn"),
 
 }
 

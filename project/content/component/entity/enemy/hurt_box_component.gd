@@ -16,13 +16,13 @@ func _ready() -> void:
 	add_child(cooldown)
 
 
-func _on_body_entered(body: Node2D) -> void:
+func _on_body_entered(body: EntityBaseComponent) -> void:
 	if body is Player:
 		damage_player()
 		cooldown.start()
 
 
-func _on_body_exited(body: Node2D) -> void:
+func _on_body_exited(body: EntityBaseComponent) -> void:
 	if body is Player:
 		cooldown.stop()
 		

@@ -1,12 +1,10 @@
-[gd_scene load_steps=10 format=3 uid="uid://dpbpx2mm2qk0t"]
+[gd_scene load_steps=8 format=3 uid="uid://dpbpx2mm2qk0t"]
 
 [ext_resource type="TileSet" uid="uid://cgxbhspmvaf7w" path="res://content/level/prototype/prototype_tileset.tres" id="1_kp8ry"]
 [ext_resource type="PackedScene" uid="uid://df5pj557ulxnc" path="res://content/entity/player/player.tscn" id="2_gsmxm"]
 [ext_resource type="PackedScene" uid="uid://dj7rwtce8i837" path="res://content/entity/cauldron/cauldron.tscn" id="3_4eyfn"]
 [ext_resource type="PackedScene" uid="uid://oljfuiuvmdtw" path="res://content/component/level/level_base_component.tscn" id="4_udxp8"]
-[ext_resource type="PackedScene" uid="uid://dc3q8pndqjtq2" path="res://content/entity/enemy/slime/slime_ev1.tscn" id="7_086nb"]
-[ext_resource type="PackedScene" uid="uid://desthu6sxn2qk" path="res://content/entity/enemy/slime/slime_ev3.tscn" id="7_msvmv"]
-[ext_resource type="PackedScene" uid="uid://fuig0lsenuhm" path="res://content/entity/enemy/slime/slime_ev2.tscn" id="7_nmeil"]
+[ext_resource type="PackedScene" uid="uid://dc3q8pndqjtq2" path="res://content/entity/enemy/slime/slime.tscn" id="7_msvmv"]
 [ext_resource type="PackedScene" uid="uid://bplh7u51iu762" path="res://content/entity/weapon/magic_dagger/magic_dagger_proj.tscn" id="8_juv42"]
 
 [sub_resource type="Environment" id="Environment_hiftv"]
@@ -39,14 +37,16 @@ world_environment = NodePath("WorldEnvironment")
 [node name="WorldEnvironment" type="WorldEnvironment" parent="LevelBaseComponent"]
 environment = SubResource("Environment_hiftv")
 
-[node name="SlimeEv1" parent="." instance=ExtResource("7_086nb")]
+[node name="SlimeEv1" parent="." instance=ExtResource("7_msvmv")]
 position = Vector2(-137, -66)
+current_evolution = 0
 
-[node name="SlimeEv2" parent="." instance=ExtResource("7_nmeil")]
+[node name="SlimeEv2" parent="." instance=ExtResource("7_msvmv")]
 position = Vector2(-105, -86)
 
 [node name="SlimeEv3" parent="." instance=ExtResource("7_msvmv")]
 position = Vector2(-150, -93)
+current_evolution = 2
 
 [node name="MagicDaggerProj2" parent="." instance=ExtResource("8_juv42")]
 position = Vector2(-43, -51)

@@ -1,9 +1,5 @@
 class_name Player
-extends Node2D
-
-@onready var stats = $PlayerStatsComponent
-@onready var movement = $PlayerMovementComponent
-@onready var health = $HealthComponent
+extends EntityBaseComponent
 
 
 @export var hud_res := preload("res://content/ui/hud/hud.tscn")
