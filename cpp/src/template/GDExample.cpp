@@ -2,11 +2,17 @@
 
 using namespace godot;
 
-void GDExample::_bind_methods() {}
+void GDExample::_bind_methods() {
+    ClassDB::bind_method(D_METHOD("get_amplitude"), &GDExample::get_amplitude);
+}
 
 GDExample::GDExample() { disableEditorProcess(this); }
 
 GDExample::~GDExample() {}
+
+double GDExample::get_amplitude() const {
+	return amplitude;
+}
 
 void GDExample::_ready() {}
 

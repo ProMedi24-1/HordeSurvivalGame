@@ -16,9 +16,15 @@ target(extension_name)
     -- add our source files
     add_files("src/**.cpp")
     add_includedirs("src/")
-    
+
+    -- Fix for method binding
+    add_defines('TYPED_METHOD_BIND')
+
+
     -- add includes for third party libs
     add_includedirs("lib/")
+
+
 
     -- ImGui Godot
     add_includedirs("../project/addons/imgui-godot/include")

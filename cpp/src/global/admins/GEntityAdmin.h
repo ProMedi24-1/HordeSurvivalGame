@@ -6,17 +6,13 @@
 
 #include <vector>
 
-using namespace godot;
+namespace godot {
 
 class GEntityAdmin : public Node {
     GDCLASS(GEntityAdmin, Node)
 
   private:
-
-
-    //godot::Array entities;
     static std::vector<Node *> entities;
-
     static Node *player;
 
   protected:
@@ -24,7 +20,7 @@ class GEntityAdmin : public Node {
 
   public:
     GEntityAdmin();
-    ~GEntityAdmin();
+    ~GEntityAdmin() override;
 
     static void registerEntity(Node *entity);
     static void unregisterEntity(Node *entity);
@@ -32,8 +28,10 @@ class GEntityAdmin : public Node {
     static void registerPlayer(Node *player);
 
     static Node *getPlayer();
-    
+
     void _process(double delta) override;
     void _physics_process(double delta) override;
     void _ready() override;
 };
+
+} // namespace godot

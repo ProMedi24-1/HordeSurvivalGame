@@ -1,8 +1,5 @@
 #include "GEntityAdmin.h"
 
-using namespace godot;
-
-
 std::vector<Node *> GEntityAdmin::entities;
 Node *GEntityAdmin::player;
 
@@ -12,12 +9,12 @@ void GEntityAdmin::_bind_methods() {
     BIND_STATIC_METHOD(GEntityAdmin, unregisterEntity, "entity");
 }
 
-GEntityAdmin::GEntityAdmin() { 
+GEntityAdmin::GEntityAdmin() {
     disableEditorProcess(this);
     set_name("GEntityAdmin");
 }
 
-GEntityAdmin::~GEntityAdmin() {}
+GEntityAdmin::~GEntityAdmin() = default;
 
 void GEntityAdmin::registerEntity(Node *entity) {
     entities.push_back(entity);
@@ -27,20 +24,20 @@ void GEntityAdmin::registerEntity(Node *entity) {
     }
 }
 
-void GEntityAdmin::unregisterEntity(Node *entity) {
-    entities.erase(std::remove(entities.begin(), entities.end(), entity), entities.end());
+void GEntityAdmin::unregisterEntity(Node *entity) { std::erase(entities, entity); }
+
+void GEntityAdmin::registerPlayer(Node *newPlayer) { player = newPlayer; }
+
+Node *GEntityAdmin::getPlayer() { return player; }
+
+void GEntityAdmin::_ready() {
+    GLogger::log("GEntityAdmin ready", getConstColor(ConstColor::GREEN_YELLOW));
 }
 
-void GEntityAdmin::registerPlayer(Node *newPlayer) {
-    player = newPlayer;
+void GEntityAdmin::_process(double delta) {
+    // Intentionally left blank.
 }
 
-Node *GEntityAdmin::getPlayer() {
-    return player;
+void GEntityAdmin::_physics_process(double delta) {
+    // Intentionally left blank.
 }
-
-void GEntityAdmin::_ready() {}
-
-void GEntityAdmin::_process(double delta) {}
-
-void GEntityAdmin::_physics_process(double delta) {}

@@ -8,128 +8,117 @@
 #include <godot_cpp/classes/resource_loader.hpp>
 #include <godot_cpp/classes/scene_tree.hpp>
 
+#include <utility>
 
 #include <global/GGameGlobals.h>
-
-using namespace godot;
 
 std::unordered_map<std::string, std::pair<GStateAdmin::GameState, std::string>>
     GSceneAdmin::sceneMap;
 Node *GSceneAdmin::sceneRoot = nullptr;
-Node *GSceneAdmin::levelComponent = nullptr;
+LevelBase *GSceneAdmin::levelBase = nullptr;
+
+// static const String test;
 
 void GSceneAdmin::_bind_methods() {
-    BIND_STATIC_METHOD(GSceneAdmin, addSceneToMap, "name", "state",
-                       "scenePath");
+    BIND_STATIC_METHOD(GSceneAdmin, addSceneToMap, "name", "state", "scenePath");
     BIND_STATIC_METHOD(GSceneAdmin, reloadScene);
     BIND_STATIC_METHOD(GSceneAdmin, switchScene, "name");
     BIND_STATIC_METHOD(GSceneAdmin, getSceneRoot);
-    BIND_STATIC_METHOD(GSceneAdmin, getLevelComponent);
+    BIND_STATIC_METHOD(GSceneAdmin, getLevelBase);
 }
 
 GSceneAdmin::GSceneAdmin() {
     disableEditorProcess(this);
     set_name("GSceneAdmin");
-
-    //setLevelData();
 }
 
-GSceneAdmin::~GSceneAdmin() {}
+GSceneAdmin::~GSceneAdmin() = default;
 
-void GSceneAdmin::addSceneToMap(const String &name, int state,
-                                const String &scenePath) {
+void GSceneAdmin::addSceneToMap(const String &name, int state, const String &scenePath) {
 
-    const auto &stdName = godotToStdString(name);
-    const auto &stdScenePath = godotToStdString(scenePath);
+    const auto &stdName = convertStr(name);
+    const auto &stdScenePath = convertStr(scenePath);
 
-    const GStateAdmin::GameState enumState =
-        static_cast<GStateAdmin::GameState>(state);
+    auto enumState = static_cast<GStateAdmin::GameState>(state);
 
-    if (sceneMap.find(stdName) != sceneMap.end()) {
-        GLogger::log("GSceneAdmin: Scene already in SceneMap",
-                     getConstColor(ConstColor::RED));
+    if (!sceneMap.try_emplace(stdName, enumState, stdScenePath).second) {
+        GLogger::log("GSceneAdmin: Scene already in SceneMap", getConstColor(ConstColor::RED));
         return;
     }
-    sceneMap.insert({stdName, {enumState, stdScenePath}});
 }
 
-void GSceneAdmin::reloadScene() {
-    switchScene((GGameGlobals::getSceneAdmin()->sceneRoot->get_name()));
-}
+void GSceneAdmin::reloadScene() { switchScene((GSceneAdmin::getSceneRoot()->get_name())); }
 
 void GSceneAdmin::switchScene(const String &name) {
-    const auto &stdName = godotToStdString(name);
+    const auto &stdName = convertStr(name);
 
-    if (sceneMap.find(stdName) == sceneMap.end()) {
-        GLogger::log("GSceneAdmin: Scene not found",
-                     getConstColor(ConstColor::RED));
+    if (!sceneMap.contains(stdName)) {
+        GLogger::log("GSceneAdmin: Scene not found", getConstColor(ConstColor::RED));
         return;
     }
 
-    const String &path = stdStringToGodot(sceneMap[stdName].second);
-    Ref<PackedScene> sceneResource =
-        ResourceLoader::get_singleton()->load(path);
+    const String &path = convertStr(sceneMap[stdName].second);
+    Ref<PackedScene> sceneResource = ResourceLoader::get_singleton()->load(path);
 
-    GGameGlobals::getSceneAdmin()->get_tree()->change_scene_to_packed(
-        sceneResource);
+    GGameGlobals::getInstance()->get_tree()->change_scene_to_packed(sceneResource);
 
     // Only call setLevelData() when the new SceneTree is ready, otherwise it
     // will crash.
-    GGameGlobals::getInstance()->get_tree()->connect(
-        "node_added",
-        callable_mp(GGameGlobals::getSceneAdmin(), &GSceneAdmin::setLevelData),
-        ConnectFlags::CONNECT_ONE_SHOT);
+    GGameGlobals::getInstance()->get_tree()->connect("node_added",
+                                                     callable_mp_static(&GSceneAdmin::setLevelData),
+                                                     ConnectFlags::CONNECT_ONE_SHOT);
 }
 
 void GSceneAdmin::setLevelData() {
-    sceneRoot = GGameGlobals::getSceneAdmin()->get_tree()->get_current_scene();
+    sceneRoot = GGameGlobals::getInstance()->get_tree()->get_current_scene();
+    const auto &rootName = convertStr(sceneRoot->get_name());
 
     GStateAdmin::setGamePaused(false);
 
-    GLogger::log(
-        stdStringToGodot(std::format("GSceneAdmin: SceneRoot: {}",
-                                     godotToStdString(sceneRoot->get_name()))),
-        getConstColor(ConstColor::GREEN));
+    GLogger::log(convertStr(std::format("GSceneAdmin: SceneRoot: {}", rootName)),
+                 getConstColor(ConstColor::GREEN));
 
-    if (sceneMap.find(godotToStdString(sceneRoot->get_name())) ==
-        sceneMap.end()) {
+    if (!sceneMap.contains(rootName)) {
         GLogger::log("GSceneAdmin: WARNING Scene not in SceneMap",
                      getConstColor(ConstColor::YELLOW));
-        // GStateAdmin::setGameState(GStateAdmin::GameState::PLAYING);
+
+        // Add to map so we can reload it later. Default to PLAYING gamestate for playtesting of
+        // levels.
+        addSceneToMap(sceneRoot->get_name(), GStateAdmin::GameState::PLAYING,
+                      sceneRoot->get_scene_file_path());
+    }
+
+    GStateAdmin::setGameState(sceneMap[rootName].first);
+
+    // Rather than checking by name we just take the first Node which is
+    // of type LevelBase.
+    for (u32 i = 0; i < sceneRoot->get_child_count(); ++i) {
+        if (sceneRoot->get_child(i)->is_class("LevelBase")) {
+            levelBase = static_cast<LevelBase *>(sceneRoot->get_child(i));
+            GLogger::log("GSceneAdmin: Found LevelBase", getConstColor(ConstColor::GREEN));
+            break;
+        }
+    }
+
+    if (levelBase == nullptr) {
+        GLogger::log("GSceneAdmin: No LevelBase found", getConstColor(ConstColor::YELLOW));
+    }
+}
+
+void GSceneAdmin::_ready() {
+    if (isEditor()) {
         return;
     }
 
-    if (sceneRoot->has_node("LevelBaseComponent")) {
-        levelComponent = sceneRoot->get_node_internal("LevelBaseComponent");
-        GLogger::log("GSceneAdmin: Found LevelBaseComponent",
-                     getConstColor(ConstColor::GREEN));
-    } else {
-        GLogger::log("GSceneAdmin: No LevelBaseComponent found",
-                     getConstColor(ConstColor::YELLOW));
-    }
-
-    GStateAdmin::setGameState(
-        sceneMap[godotToStdString(sceneRoot->get_name())].first);
-}
-
-Node *GSceneAdmin::getSceneRoot() { return sceneRoot; }
-Node *GSceneAdmin::getLevelComponent() { return levelComponent; }
-
-void GSceneAdmin::_ready() {
-    // if (isEditor()) {
-    //     return;
-    // }
-
     setLevelData();
 
-    GLogger::log("GSceneAdmin: _ready()", getConstColor(ConstColor::GREEN));
-  
-
-    // Add current scene to sceneMap
-    // addSceneToMap(sceneRoot->get_name(), 4,
-    // sceneRoot->get_scene_file_path());
+    GLogger::log("GSceneAdmin ready", getConstColor(ConstColor::GREEN_YELLOW));
 }
 
-void GSceneAdmin::_process(double delta) {}
+void GSceneAdmin::_process(double delta) {
+    // Intentionally left blank.
+}
 
-void GSceneAdmin::_physics_process(double delta) {}
+void GSceneAdmin::_physics_process(double delta) {
+    // Intentionally left blank.
+}

@@ -4,25 +4,33 @@
 #include <imgui-godot.h>
 #include <implot.h>
 
-#include <util/Color.h>
 #include <global/GLogger.h>
-
+#include <util/Color.h>
 
 void showFrameWindow(bool *p_open) {
-    
+    const auto &engine = Engine::get_singleton();
+    const auto &perf = Performance::get_singleton();
+
+    static u32 fpsCurrent;
+    static u32 fpsAverage;
+    static u32 fpsMax;
+    fpsCurrent = static_cast<u32>(engine->get_frames_per_second());
+    fpsMax = Engine::get_singleton()->get_max_fps();
+
+    static f32 frameTime = 0.0f;
+    frameTime = static_cast<f32>(perf->get_monitor(Performance::TIME_PROCESS));
+    frameTime *= 1000;
+
+    static profilerBuffer<f32> fpsBuffer(50);
+    fpsAverage = static_cast<u32>(fpsBuffer.getAverage());
+    fpsBuffer.addData(static_cast<f32>(fpsCurrent));
+    std::vector<float> avgBuffer(fpsBuffer.size, fpsBuffer.getAverage());
+
+    constexpr float ftBudget = 8.0f;
+
     ImGui::SetNextWindowSize(ImVec2(280, 240), ImGuiCond_Once);
     ImGui::SetNextWindowPos(ImVec2(850, 130), ImGuiCond_Once);
-
     ImGui::Begin("Frame", p_open);
-    
-    static u32 fpsCurrent;
-    fpsCurrent = Engine::get_singleton()->get_frames_per_second();
-    static u32 fpsAverage;
-    static u32 fpsMax; 
-    fpsMax = Engine::get_singleton()->get_max_fps();
-    
-    static f32 frameTime = 0.0f;
-    frameTime = Performance::get_singleton()->get_monitor(Performance::TIME_PROCESS) * 1000;
 
     ImGui::Text("FPS:");
     ImGui::SameLine();
@@ -32,20 +40,9 @@ void showFrameWindow(bool *p_open) {
     ImGui::SameLine();
     ImGui::Text("Max: %d", fpsMax);
 
-    static profilerBuffer<float> buf(50);
-    //buf.buffer = {0, 1, 2, 3, 4};
-    buf.addData(fpsCurrent);
-
-    fpsAverage = buf.getAverage();
-    std::vector<float> avg(buf.size, buf.getAverage());
-
-    
-    static const float ftBudget = 8.0f;
-
-    const int ftFlags = ImGuiTableFlags_SizingFixedFit | ImGuiTableFlags_NoHostExtendX;
     if (ImGui::BeginTable("fttable", 2)) {
         ImGui::TableSetupColumn("", ImGuiTableColumnFlags_WidthFixed, 125.0f);
-      
+
         ImGui::TableNextRow();
         ImGui::TableNextColumn();
         ImGui::Text("Frametime: %.2fms", frameTime);
@@ -54,19 +51,20 @@ void showFrameWindow(bool *p_open) {
         ImGui::ProgressBar(frameTime / ftBudget, ImVec2(-1, 15), "/8ms");
         ImGui::EndTable();
     }
-    
+
     ImGui::Separator();
-                
+
     if (ImPlot::BeginPlot("##My Plot", ImVec2(-1, -1), ImPlotFlags_NoFrame)) {
 
-        const int axisFlags = ImPlotAxisFlags_NoLabel | ImPlotAxisFlags_Lock;    
-        ImPlot::SetupAxes(NULL, NULL, axisFlags | ImPlotAxisFlags_NoTickLabels, axisFlags);
+        constexpr int axisFlags = ImPlotAxisFlags_NoLabel | ImPlotAxisFlags_Lock;
+        ImPlot::SetupAxes(nullptr, nullptr, axisFlags | ImPlotAxisFlags_NoTickLabels, axisFlags);
 
-        ImPlot::SetupAxisLimits(ImAxis_X1, 0, buf.size);
+        ImPlot::SetupAxisLimits(ImAxis_X1, 0, fpsBuffer.size);
         ImPlot::SetupAxisLimits(ImAxis_Y1, 0, fpsMax + 10);
 
-        ImPlot::PlotLine("Current", buf.buffer.data(), buf.size, 1, 0, ImPlotLineFlags_NoClip);
-        ImPlot::PlotLine("Average", avg.data(), buf.size, 1, 0, ImPlotLineFlags_NoClip);
+        ImPlot::PlotLine("Current", fpsBuffer.buffer.data(), fpsBuffer.size, 1, 0,
+                         ImPlotLineFlags_NoClip);
+        ImPlot::PlotLine("Average", avgBuffer.data(), fpsBuffer.size, 1, 0, ImPlotLineFlags_NoClip);
 
         ImPlot::EndPlot();
     }
@@ -93,22 +91,24 @@ void showMemoryWindow(bool *p_open) {
         ImGui::TableNextColumn();
         ImGui::Text("");
 
-
-        const int bToMiB = 1024 * 1024;
+        static const int bToMiB = 1024 * 1024;
         if (showStatic) {
             ImGui::TableNextRow();
             ImGui::TableNextColumn();
             ImGui::Text("Memory Static:");
             ImGui::TableNextColumn();
-            ImGui::Text("%.2f MiB", Performance::get_singleton()->get_monitor(Performance::MEMORY_STATIC) / bToMiB);
+            ImGui::Text("%.2f MiB",
+                        Performance::get_singleton()->get_monitor(Performance::MEMORY_STATIC) /
+                            bToMiB);
 
             ImGui::TableNextRow();
             ImGui::TableNextColumn();
             ImGui::Text("Memory Static Max:");
             ImGui::TableNextColumn();
-            ImGui::Text("%.2f MiB", Performance::get_singleton()->get_monitor(Performance::MEMORY_STATIC_MAX) / bToMiB);
+            ImGui::Text("%.2f MiB",
+                        Performance::get_singleton()->get_monitor(Performance::MEMORY_STATIC_MAX) /
+                            bToMiB);
         }
-
 
         ImGui::TableNextRow();
         ImGui::TableNextColumn();
@@ -116,29 +116,34 @@ void showMemoryWindow(bool *p_open) {
         ImGui::TableNextColumn();
         ImGui::Text("");
 
-
         if (showRendering) {
             ImGui::TableNextRow();
             ImGui::TableNextColumn();
             ImGui::Text("Memory Video:");
             ImGui::TableNextColumn();
-            ImGui::Text("%.2f MiB", Performance::get_singleton()->get_monitor(Performance::RENDER_VIDEO_MEM_USED) / bToMiB);
+            ImGui::Text("%.2f MiB", Performance::get_singleton()->get_monitor(
+                                        Performance::RENDER_VIDEO_MEM_USED) /
+                                        bToMiB);
 
             ImGui::TableNextRow();
             ImGui::TableNextColumn();
             ImGui::Text("Memory Texture:");
             ImGui::TableNextColumn();
-            ImGui::Text("%.2f MiB", Performance::get_singleton()->get_monitor(Performance::RENDER_TEXTURE_MEM_USED) / bToMiB);
+            ImGui::Text("%.2f MiB", Performance::get_singleton()->get_monitor(
+                                        Performance::RENDER_TEXTURE_MEM_USED) /
+                                        bToMiB);
 
             ImGui::TableNextRow();
             ImGui::TableNextColumn();
             ImGui::Text("Memory Buffer:");
             ImGui::TableNextColumn();
-            ImGui::Text("%.2f MiB", Performance::get_singleton()->get_monitor(Performance::RENDER_BUFFER_MEM_USED) / bToMiB);
+            ImGui::Text("%.2f MiB", Performance::get_singleton()->get_monitor(
+                                        Performance::RENDER_BUFFER_MEM_USED) /
+                                        bToMiB);
         }
         ImGui::EndTable();
-    }    
-    
+    }
+
     ImGui::End();
 }
 
@@ -147,7 +152,6 @@ void showLoggerWindow(bool *p_open) {
     ImGui::SetNextWindowPos(ImVec2(430, 380), ImGuiCond_Once);
     ImGui::Begin("Logger", p_open);
 
-   
     if (ImGui::Button("Clear Log")) {
         GLogger::clearLogBuffer();
     }

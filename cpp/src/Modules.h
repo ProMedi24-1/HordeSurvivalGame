@@ -7,26 +7,26 @@
 // Include all additional Classes here.
 #include <template/GDExample.h>
 
-#include <global/GLogger.h>
 #include <global/GGameGlobals.h>
+#include <global/GLogger.h>
+#include <global/admins/GEntityAdmin.h>
 #include <global/admins/GSceneAdmin.h>
 #include <global/admins/GStateAdmin.h>
-#include <global/admins/GEntityAdmin.h>
+
+#include <level/LevelBase.h>
 
 #include <debug/DebugMenuBar.h>
+
 //...
 //...
 //...
 
-using namespace godot;
-
-namespace Modules {
+namespace godot {
 
 inline void initModules() {
 
     // Initialize ImGui-Godot.
     ImGui::Godot::SyncImGuiPtrs();
-
     // Initialize ImPlot.
     ImPlot::CreateContext();
 
@@ -40,6 +40,12 @@ inline void initModules() {
     GDREGISTER_CLASS(GStateAdmin)
     GDREGISTER_CLASS(GEntityAdmin)
 
+    // Entities
+
+    // Level specifics
+    GDREGISTER_CLASS(LevelBase)
+
+    // Debug Menus
     GDREGISTER_CLASS(DebugMenuBar)
 
     //...
@@ -47,8 +53,6 @@ inline void initModules() {
     //...
 }
 
-inline void uninitModules() {
-	ImPlot::DestroyContext();
-}
+inline void uninitModules() { ImPlot::DestroyContext(); }
 
-} // namespace Modules
+} // namespace godot

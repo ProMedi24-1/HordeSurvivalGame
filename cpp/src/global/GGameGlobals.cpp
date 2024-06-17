@@ -10,63 +10,58 @@
 
 using namespace godot;
 
-
-
-void GGameGlobals::_bind_methods() {}
+void GGameGlobals::_bind_methods() { BIND_STATIC_METHOD(GGameGlobals, getInstance); }
 
 GGameGlobals *GGameGlobals::instance = nullptr;
 
-GGameGlobals::GGameGlobals() { 
-    disableEditorProcess(this);
-  
-}
-
-GGameGlobals::~GGameGlobals() {}
+GGameGlobals::GGameGlobals() = default;
+GGameGlobals::~GGameGlobals() = default;
 
 void GGameGlobals::_ready() {
     if (isEditor()) {
         return;
     }
 
+    GLogger::log("GGameGlobals ready");
+
     setupImGui();
 
     const auto isDebug = OS::get_singleton()->is_debug_build();
-    const auto platform = OS::get_singleton()->get_name();
+    const auto &platform = OS::get_singleton()->get_name();
 
     if (isDebug) {
         GLogger::log("Running Debug-Build", getConstColor(ConstColor::YELLOW));
         addDebugMenus();
     } else {
-        GLogger::log("Running Release-Build",
-                     getConstColor(ConstColor::YELLOW));
+        GLogger::log("Running Release-Build", getConstColor(ConstColor::YELLOW));
     }
 
-      
-    if (instance == nullptr) {
-        instance = this;
+    instance = this;
 
-        sceneAdmin = memnew(GSceneAdmin);
-        add_child(sceneAdmin);
+    const auto &sceneAdmin = memnew(GSceneAdmin);
+    add_child(sceneAdmin);
 
-        stateAdmin = memnew(GStateAdmin);
-        add_child(stateAdmin);
+    const auto &stateAdmin = memnew(GStateAdmin);
+    add_child(stateAdmin);
 
-        entityAdmin = memnew(GEntityAdmin);
-        add_child(entityAdmin);
-    }
+    const auto &entityAdmin = memnew(GEntityAdmin);
+    add_child(entityAdmin);
 
     GLogger::log("GGameGlobals ready", getConstColor(ConstColor::GREEN_YELLOW));
 }
 
-void GGameGlobals::_process(double delta) {}
+void GGameGlobals::_process(double delta) {
+    // Intentionally left blank.
+}
 
-void GGameGlobals::_physics_process(double delta) {}
+void GGameGlobals::_physics_process(double delta) {
+    // Intentionally left blank.
+}
 
 void GGameGlobals::addDebugMenus() {
     GLogger::log("Adding Debug-Menus", getConstColor(ConstColor::DODGER_BLUE));
-    
-    auto debugMenuBar = memnew(DebugMenuBar());
 
+    const auto &debugMenuBar = memnew(DebugMenuBar());
     add_child(debugMenuBar);
 }
 

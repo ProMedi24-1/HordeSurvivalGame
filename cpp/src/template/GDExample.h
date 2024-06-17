@@ -11,12 +11,16 @@ class GDExample : public Node {
     GDCLASS(GDExample, Node)
 
   private:
+    double amplitude;
+
   protected:
     static void _bind_methods();
 
   public:
     GDExample();
     ~GDExample();
+
+    double get_amplitude() const;
 
     void _process(double delta) override;
     void _physics_process(double delta) override;

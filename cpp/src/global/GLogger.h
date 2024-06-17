@@ -1,11 +1,12 @@
 #pragma once
 
 #include <godot_cpp/classes/node.hpp>
+#include <godot_cpp/classes/object.hpp>
 #include <util/ClassHelper.h>
 #include <util/Common.h>
 #include <vector>
 
-using namespace godot;
+namespace godot {
 
 class GLogger : public Object {
     GDCLASS(GLogger, Object)
@@ -23,11 +24,12 @@ class GLogger : public Object {
 
   public:
     GLogger();
-    ~GLogger();
+    ~GLogger() override;
 
     static void log(const String &msg, const Color &msgColor = Color(1, 1, 1));
 
-    
-    static const std::vector<logMsg>& getLogBuffer();
+    static std::vector<logMsg> const &getLogBuffer();
     static void clearLogBuffer();
 };
+
+} // namespace godot
