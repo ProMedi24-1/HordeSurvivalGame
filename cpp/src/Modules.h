@@ -13,6 +13,9 @@
 #include <global/admins/GSceneAdmin.h>
 #include <global/admins/GStateAdmin.h>
 
+#include <entity/EntityBase.h>
+#include <entity/player/Player.h>
+
 #include <level/LevelBase.h>
 
 #include <debug/DebugMenuBar.h>
@@ -41,6 +44,8 @@ inline void initModules() {
     GDREGISTER_CLASS(GEntityAdmin)
 
     // Entities
+    GDREGISTER_CLASS(EntityBase)
+    GDREGISTER_CLASS(Player)
 
     // Level specifics
     GDREGISTER_CLASS(LevelBase)

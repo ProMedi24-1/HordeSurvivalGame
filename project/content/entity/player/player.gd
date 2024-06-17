@@ -1,4 +1,4 @@
-class_name Player
+class_name PlayerCool
 extends Node2D
 
 @onready var stats = $PlayerStatsComponent

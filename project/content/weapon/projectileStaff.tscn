@@ -1,0 +1,16 @@
+[gd_scene load_steps=3 format=3 uid="uid://d1bqkex4eso7c"]
+
+[ext_resource type="Texture2D" uid="uid://bslipq3oxt3ua" path="res://assets/sprites/entity/weapon/StaffProjectile.png" id="1_axn4a"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_xpbwb"]
+radius = 5.0
+
+[node name="ProjectileStaff" type="Node2D"]
+
+[node name="StaffProjectile" type="Sprite2D" parent="."]
+texture = ExtResource("1_axn4a")
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("CircleShape2D_xpbwb")

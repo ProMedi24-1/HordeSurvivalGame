@@ -1,0 +1,24 @@
+[gd_scene load_steps=3 format=3 uid="uid://c6fjodb3rnfya"]
+
+[ext_resource type="Texture2D" uid="uid://brmnh6mvi7cce" path="res://assets/sprites/entity/player/kitty.png" id="1_m8pvu"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_me3a1"]
+
+[node name="PlayerCharacter" type="CharacterBody2D"]
+
+[node name="Player" type="Player" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_me3a1")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_m8pvu")
+
+[node name="Camera" type="Camera2D" parent="."]
+zoom = Vector2(3, 3)
+drag_horizontal_enabled = true
+drag_vertical_enabled = true
+drag_left_margin = 0.1
+drag_top_margin = 0.1
+drag_right_margin = 0.1
+drag_bottom_margin = 0.1

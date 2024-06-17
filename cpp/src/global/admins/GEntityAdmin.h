@@ -27,6 +27,8 @@ class GEntityAdmin : public Node {
 
     static void registerPlayer(Node *player);
 
+    static auto getTotalEntities() { return entities.size(); }
+
     static Node *getPlayer();
 
     void _process(double delta) override;

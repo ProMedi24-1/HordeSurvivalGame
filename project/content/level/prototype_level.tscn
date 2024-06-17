@@ -1,17 +1,12 @@
-[gd_scene load_steps=10 format=3 uid="uid://dpbpx2mm2qk0t"]
+[gd_scene load_steps=8 format=3 uid="uid://dpbpx2mm2qk0t"]
 
 [ext_resource type="TileSet" uid="uid://cgxbhspmvaf7w" path="res://content/level/prototype/prototype_tileset.tres" id="1_kp8ry"]
-[ext_resource type="PackedScene" uid="uid://df5pj557ulxnc" path="res://content/entity/player/player.tscn" id="2_gsmxm"]
 [ext_resource type="PackedScene" uid="uid://dj7rwtce8i837" path="res://content/entity/cauldron/cauldron.tscn" id="3_4eyfn"]
-[ext_resource type="PackedScene" uid="uid://oljfuiuvmdtw" path="res://content/component/level/level_base_component.tscn" id="4_udxp8"]
+[ext_resource type="PackedScene" uid="uid://c6fjodb3rnfya" path="res://content/entity/player/new_player.tscn" id="7_2rjbb"]
 [ext_resource type="PackedScene" uid="uid://dc3q8pndqjtq2" path="res://content/entity/enemy/slime/slime_ev1.tscn" id="7_086nb"]
 [ext_resource type="PackedScene" uid="uid://desthu6sxn2qk" path="res://content/entity/enemy/slime/slime_ev3.tscn" id="7_msvmv"]
 [ext_resource type="PackedScene" uid="uid://fuig0lsenuhm" path="res://content/entity/enemy/slime/slime_ev2.tscn" id="7_nmeil"]
 [ext_resource type="PackedScene" uid="uid://bplh7u51iu762" path="res://content/entity/weapon/magic_dagger/magic_dagger_proj.tscn" id="8_juv42"]
-
-[sub_resource type="Environment" id="Environment_hiftv"]
-background_mode = 3
-tonemap_mode = 2
 
 [node name="PrototypeLevel" type="Node2D"]
 y_sort_enabled = true
@@ -25,19 +20,7 @@ layer_0/tile_data = PackedInt32Array(0, 65536, 0, 1, 65536, 0, 2, 65536, 0, 6553
 layer_1/name = "collision"
 layer_1/tile_data = PackedInt32Array(-393226, 2, 65536, -393225, 2, 65536, -393224, 2, 65536, -393223, 2, 65536, -393222, 2, 65536, -393221, 2, 65536, -393220, 2, 65536, -393219, 2, 65536, -393218, 2, 65536, -393217, 2, 65536, -458752, 2, 65536, -458751, 2, 65536, -458750, 2, 65536, -458749, 2, 65536, -458748, 2, 65536, -458747, 2, 65536, -458746, 2, 65536, -458745, 2, 65536, -458744, 2, 65536, -458743, 2, 65536, -458742, 2, 65536, -524278, 2, 65536, -524279, 2, 65536, -524280, 2, 65536, -524281, 2, 65536, -524282, 2, 65536, -524283, 2, 65536, -524284, 2, 65536, -524285, 2, 65536, -524286, 2, 65536, -524287, 2, 65536, -524288, 2, 65536, -458753, 2, 65536, -458754, 2, 65536, -458755, 2, 65536, -458756, 2, 65536, -458757, 2, 65536, -458758, 2, 65536, -458759, 2, 65536, -458760, 2, 65536, -458761, 2, 65536, -458762, 2, 65536, -458763, 2, 65536, -393227, 2, 65536, -327691, 2, 65536, -262155, 2, 65536, -196619, 2, 65536, -131083, 2, 65536, -65547, 2, 65536, -11, 2, 65536, 65525, 2, 65536, 131061, 2, 65536, 196597, 2, 65536, 262133, 2, 65536, 327669, 2, 65536, 393205, 2, 65536, 458741, 2, 65536, 524277, 2, 65536, 458742, 2, 65536, 458743, 2, 65536, 458744, 2, 65536, 458745, 2, 65536, 524280, 2, 65536, 524278, 2, 65536, 524279, 2, 65536, 524281, 2, 65536, 524282, 2, 65536, 524283, 2, 65536, 524284, 2, 65536, 524285, 2, 65536, 524286, 2, 65536, 458750, 2, 65536, 458751, 2, 65536, 458749, 2, 65536, 458748, 2, 65536, 458747, 2, 65536, 458746, 2, 65536, 393216, 2, 65536, 393217, 2, 65536, 393218, 2, 65536, 393219, 2, 65536, 393220, 2, 65536, 393221, 2, 65536, 524287, 2, 65536, 458752, 2, 65536, 458753, 2, 65536, 458754, 2, 65536, 458755, 2, 65536, 458756, 2, 65536, 458757, 2, 65536, 458758, 2, 65536, 458759, 2, 65536, 458760, 2, 65536, 458761, 2, 65536, 393224, 2, 65536, 393223, 2, 65536, 393222, 2, 65536, 393225, 2, 65536, 393226, 2, 65536, 458762, 2, 65536, 327690, 2, 65536, 262154, 2, 65536, 196618, 2, 65536, 131082, 2, 65536, 65546, 2, 65536, 10, 2, 65536, -65526, 2, 65536, -131062, 2, 65536, -196598, 2, 65536, -262134, 2, 65536, -327670, 2, 65536, -393206, 2, 65536)
 
-[node name="Player" parent="." instance=ExtResource("2_gsmxm")]
-position = Vector2(0, -49)
-
 [node name="Cauldron" parent="." instance=ExtResource("3_4eyfn")]
-
-[node name="LevelBaseComponent" parent="." node_paths=PackedStringArray("world_modulate", "world_environment") instance=ExtResource("4_udxp8")]
-world_modulate = NodePath("CanvasModulate")
-world_environment = NodePath("WorldEnvironment")
-
-[node name="CanvasModulate" type="CanvasModulate" parent="LevelBaseComponent"]
-
-[node name="WorldEnvironment" type="WorldEnvironment" parent="LevelBaseComponent"]
-environment = SubResource("Environment_hiftv")
 
 [node name="SlimeEv1" parent="." instance=ExtResource("7_086nb")]
 position = Vector2(-137, -66)
@@ -50,3 +33,8 @@ position = Vector2(-150, -93)
 
 [node name="MagicDaggerProj2" parent="." instance=ExtResource("8_juv42")]
 position = Vector2(-43, -51)
+
+[node name="LevelBase" type="LevelBase" parent="."]
+
+[node name="PlayerCharacter" parent="." instance=ExtResource("7_2rjbb")]
+position = Vector2(55, -71)

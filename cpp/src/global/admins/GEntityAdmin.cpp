@@ -21,6 +21,9 @@ void GEntityAdmin::registerEntity(Node *entity) {
 
     if (entity->is_in_group("Player")) {
         player = entity;
+        GLogger::log("Registered player: " + entity->get_name(), getConstColor(ConstColor::PURPLE));
+    } else {
+        GLogger::log("Registered entity: " + entity->get_name(), getConstColor(ConstColor::PURPLE));
     }
 }
 

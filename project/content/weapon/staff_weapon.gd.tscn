@@ -1,0 +1,18 @@
+[gd_scene load_steps=4 format=3 uid="uid://cwddtud3m41ke"]
+
+[ext_resource type="Script" path="res://content/weapon/ranged_weapon.gd" id="1_pquyx"]
+[ext_resource type="Texture2D" uid="uid://b4u2wsynhmoy4" path="res://assets/sprites/entity/weapon/StaffSpriteLevel1.png" id="2_t2gv2"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_22n2s"]
+radius = 227.379
+
+[node name="StaffWeapon_gd" type="Node2D"]
+script = ExtResource("1_pquyx")
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("CircleShape2D_22n2s")
+
+[node name="StaffSpriteLevel1" type="Sprite2D" parent="."]
+texture = ExtResource("2_t2gv2")

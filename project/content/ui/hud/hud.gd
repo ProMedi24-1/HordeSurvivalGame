@@ -10,8 +10,8 @@ func _ready() -> void:
 	var health_component = GEntityAdmin.getPlayer().health
 	health_component.connect("health_changed", update_health_bar)
 
-	var level_component = GSceneAdmin.getLevelComponent()
-	level_component.connect("time_changed", update_time_label)
+	var level_component = GSceneAdmin.getLevelBase()
+	level_component.connect("timeChanged", update_time_label)
 
 	update_health_bar()
 	update_time_label()
@@ -21,5 +21,6 @@ func update_health_bar() -> void:
 	health_bar.value = GEntityAdmin.getPlayer().stats.health
 	health_bar.max_value = GEntityAdmin.getPlayer().stats.max_health
 
+
 func update_time_label() -> void:
-	time_label.text = GSceneAdmin.getLevelComponent().get_time_string(GSceneAdmin.getLevelComponent().time_elapsed)
+	time_label.text = GSceneAdmin.getLevelBase().getTimeString(GSceneAdmin.getLevelBase().getTimeElapsed())

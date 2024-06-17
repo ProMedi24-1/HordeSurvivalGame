@@ -2,7 +2,9 @@
 
 #include <imgui-godot.h>
 
+#include <global/admins/GEntityAdmin.h>
 #include <global/admins/GSceneAdmin.h>
+#include <global/admins/GStateAdmin.h>
 #include <util/Conversion.h>
 
 void showOverlayWindow(bool *p_open) {
@@ -36,14 +38,13 @@ void showOverlayWindow(bool *p_open) {
 
     if (ImGui::TreeNode("State Admin")) {
         ImGui::Text("Current State: %d", GStateAdmin::getGameState());
-        ImGui::Text("Game Paused: %s",
-                    GStateAdmin::getGamePaused() ? "true" : "false");
+        ImGui::Text("Game Paused: %s", GStateAdmin::getGamePaused() ? "true" : "false");
 
         ImGui::TreePop();
     }
 
     if (ImGui::TreeNode("Entity Admin")) {
-
+        ImGui::Text("Total Entities: %zu", GEntityAdmin::getTotalEntities());
         ImGui::TreePop();
     }
 
