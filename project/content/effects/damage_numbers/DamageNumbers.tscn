@@ -1,0 +1,13 @@
+[gd_scene load_steps=2 format=3 uid="uid://x7sxkisediqi"]
+
+[ext_resource type="FontFile" uid="uid://b088tkcm5vjak" path="res://assets/fonts/CozetteVector.ttf" id="1_uo2hb"]
+
+[node name="Label" type="Label"]
+z_index = 2
+offset_right = 40.0
+offset_bottom = 23.0
+scale = Vector2(0.5, 0.5)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("1_uo2hb")
+theme_override_font_sizes/font_size = 26
+text = "10"

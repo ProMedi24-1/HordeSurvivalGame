@@ -1,6 +1,0 @@
-[gd_scene load_steps=2 format=3 uid="uid://b6tkr770l11oe"]
-
-[ext_resource type="Script" path="res://content/component/entity/player/player_stats_component.gd" id="1_opypg"]
-
-[node name="PlayerStatsComponent" type="Node2D"]
-script = ExtResource("1_opypg")

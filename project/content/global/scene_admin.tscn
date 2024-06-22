@@ -1,6 +1,0 @@
-[gd_scene load_steps=2 format=3 uid="uid://ck865s6ml3000"]
-
-[ext_resource type="Script" path="res://content/global/scene_admin.gd" id="1_s1e4j"]
-
-[node name="SceneAdmin" type="Node"]
-script = ExtResource("1_s1e4j")

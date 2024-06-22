@@ -1,7 +1,0 @@
-[gd_scene load_steps=2 format=3 uid="uid://j0jkpmwfaet5"]
-
-[ext_resource type="Script" path="res://content/component/entity/enemy/hurt_box_component.gd" id="1_55mv3"]
-
-[node name="HurtBoxComponent" type="Area2D"]
-monitorable = false
-script = ExtResource("1_55mv3")
