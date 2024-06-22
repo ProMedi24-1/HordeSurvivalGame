@@ -21,7 +21,7 @@ config/icon="res://assets/icon/icon.svg"
 
 [autoload]
 
-GameGlobals="*res://content/global/game_globals.tscn"
+GGameRoot="*res://content/global/GGameRoot.tscn"
 ImGuiRoot="*res://addons/imgui-godot/data/ImGuiRoot.tscn"
 
 [display]
@@ -75,7 +75,7 @@ PauseMenu={
 2d_physics/layer_2="Player"
 2d_physics/layer_3="Enemy"
 2d_physics/layer_4="Pickup"
-2d_physics/layer_5="PlayerWeapon"
+2d_physics/layer_5="Weapon"
 
 [physics]
 

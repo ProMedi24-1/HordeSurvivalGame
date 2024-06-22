@@ -1,0 +1,20 @@
+[gd_scene load_steps=4 format=3 uid="uid://4f6pnavaktbo"]
+
+[ext_resource type="Script" path="res://content/weapon/Staff/StaffProj.gd" id="1_itaul"]
+[ext_resource type="Texture2D" uid="uid://dgb8c6uhvycpl" path="res://assets/weapons/StaffProjectile.png" id="1_w3dru"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_p4mu5"]
+size = Vector2(10, 10)
+
+[node name="StaffProj" type="Node2D"]
+script = ExtResource("1_itaul")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_w3dru")
+
+[node name="HitBox" type="Area2D" parent="."]
+collision_layer = 16
+collision_mask = 5
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitBox"]
+shape = SubResource("RectangleShape2D_p4mu5")

@@ -1,24 +1,56 @@
 extends CanvasLayer
 
-@onready var health_bar := $HealthBar
-@onready var time_label := $TimeLabel
+@export
+var healthBar: ProgressBar
+@export
+var healthLabel: Label
 
-# Called when the node enters the scene tree for the first time.
-func _ready() -> void:
-	# Connect to health_changed signal so we update our bar evertime the player's health changes.
-	var health_component = GameGlobals.entity_admin.player.health
-	health_component.connect("health_changed", update_health_bar)
+@export
+var timeLabel: Label
+@export
+var killLabel: Label
 
-	var level_component = GameGlobals.scene_admin.level_component
-	level_component.connect("time_changed", update_time_label)
+@export
+var crystalLabel: Label
 
-	update_health_bar()
-	update_time_label()
+@export
+var levelBar: ProgressBar
+@export
+var levelLabel: Label
 
+# We just update the HUD every frame, as it's not that heavy.
+# Removes the need to use signals.
+func _process(_delta: float) -> void:
+	if GEntityAdmin.player:
+		updateHealthBar()
+		updateHealthLabel()
+		updateCrystalLabel()
+		updateLevelBar()
+		updateLevelLabel()
+		updateKillLabel()
 
-func update_health_bar() -> void:
-	health_bar.value = GameGlobals.entity_admin.player.stats.health
-	health_bar.max_value = GameGlobals.entity_admin.player.stats.max_health
+	if GSceneAdmin.levelBase:
+		updateTimeLabel()
 
-func update_time_label() -> void:
-	time_label.text = GameGlobals.scene_admin.level_component.get_time_string(GameGlobals.scene_admin.level_component.time_elapsed)
+func updateHealthBar() -> void:
+	healthBar.value = GEntityAdmin.player.health
+	healthBar.max_value = GEntityAdmin.player.maxHealth
+
+func updateKillLabel() -> void:
+	killLabel.text = str(GEntityAdmin.player.kills)
+
+func updateHealthLabel() -> void:
+	healthLabel.text = "%d/%d" % [GEntityAdmin.player.health, GEntityAdmin.player.maxHealth]
+
+func updateTimeLabel() -> void:
+	timeLabel.text = GSceneAdmin.levelBase.getTimeString()
+
+func updateCrystalLabel() -> void:
+	crystalLabel.text = str(GEntityAdmin.player.crystals)
+
+func updateLevelBar() -> void:
+	levelBar.value = GEntityAdmin.player.levelProgress
+	levelBar.max_value = GEntityAdmin.player.levelRequired
+
+func updateLevelLabel() -> void:
+	levelLabel.text = "[LVL] %d" % GEntityAdmin.player.level
