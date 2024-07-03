@@ -1,5 +1,4 @@
-class_name Staff
-extends WeaponBase
+class_name Staff extends WeaponBase
 
 @export var projScene: PackedScene
 @export var weaponRange: Area2D
@@ -20,7 +19,9 @@ func attack() -> void:
 
 	var projectile := projScene.instantiate()
 	GSceneAdmin.sceneRoot.add_child(projectile)
+	projectile.damage = 5
 	projectile.global_position = self.global_position
+
 
 	#if target:
 	projectile.direction = global_position.direction_to(target.global_position)

@@ -1,14 +1,14 @@
 [gd_scene load_steps=4 format=3 uid="uid://bbe4tunhu58e4"]
 
-[ext_resource type="Script" path="res://content/weapon/Staff/Staff.gd" id="1_0kja2"]
-[ext_resource type="PackedScene" uid="uid://4f6pnavaktbo" path="res://content/weapon/Staff/StaffProj.tscn" id="2_yx7me"]
+[ext_resource type="Script" path="res://content/weapon/staff/staff.gd" id="1_0enx0"]
+[ext_resource type="PackedScene" uid="uid://g5fmdnjarkct" path="res://content/weapon/staff/staffproj.tscn" id="2_u28pp"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_rxbr0"]
 radius = 134.06
 
 [node name="Staff" type="Node2D" node_paths=PackedStringArray("weaponRange")]
-script = ExtResource("1_0kja2")
-projScene = ExtResource("2_yx7me")
+script = ExtResource("1_0enx0")
+projScene = ExtResource("2_u28pp")
 weaponRange = NodePath("Area2D")
 
 [node name="Area2D" type="Area2D" parent="."]

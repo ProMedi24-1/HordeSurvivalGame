@@ -1,71 +1,144 @@
 class_name Effects
-extends Object
+## Helper class for common effects such as tween animations, sounds, etc.
 
-# This class gives helper functions to easily
-# play animations and sound effects.
 
-static func playSound(sound: AudioStream, randPitch: bool=false, randRange: Vector2=Vector2(0.9, 1.1)) -> void:
-	var audioPlayer := AudioStreamPlayer.new()
-	GGameGlobals.instance.add_child(audioPlayer)
-	audioPlayer.stream = sound
+class Sound:
+	## Plays a random sound from a sound bundle. The AudioPlayer deletes itself once finished.
+	## Also can take in a modifier function to e.g. change pitch, volume...
+	static func play(soundBundle: Array, pitch: float = 1.0, modifier: Callable = Callable()) -> void:
+		var audioPlayer := AudioStreamPlayer.new()
+		GSceneAdmin.sceneRoot.add_child(audioPlayer)
 
-	if randPitch:
-		audioPlayer.pitch_scale = randf_range(randRange.x, randRange.y)
+		audioPlayer.bus = "SFX"
+		audioPlayer.stream = soundBundle[randi_range(0, soundBundle.size() - 1)]
+		audioPlayer.pitch_scale = pitch
 
-	audioPlayer.play()
+		if not modifier.is_null():
+			modifier.call(audioPlayer)
 
-	await audioPlayer.finished
-	audioPlayer.queue_free()
+		audioPlayer.play()
+		await audioPlayer.finished
+		audioPlayer.queue_free()
+		
+	# Preset sound modifiers.
+	## Modifies the pitch of the sound in a given range.
+	static func modRandPitch(audioPlayer: AudioStreamPlayer, rangePitch: Vector2=Vector2(0.9, 1.1)) -> void:
+		audioPlayer.pitch_scale = randf_range(rangePitch.x, rangePitch.y)
 
-static func playStdAnim(node: Object, sprite: Sprite2D, frameCount: int, speed: float, loop: bool) -> void:
-	var tween = node.create_tween()
+	## Modifies the volume of the sound in a given range.
+	static func modRandVolume(audioPlayer: AudioStreamPlayer, rangeVol: Vector2=Vector2(0.7, 1.0)) -> void:
+		audioPlayer.volume_db = linear_to_db(randf_range(rangeVol.x, rangeVol.y))
+	
 
-	if loop:
-		tween.set_loops()
+class Anim:
+	## Plays a standard animation on a Sprite2D.
+	class SpriteAnim:
+		var sprite: Sprite2D
+		var frame: int = 0
+		var frameCount: int = 0
+		var speedScale: float = 0.0
+		var paused: bool = false
+		var looped: bool = false
 
-	var advanceFrame = func() -> void:
-		sprite.frame += 1
+		func _init(_sprite: Sprite2D, _frameCount: int, _speedScale: float = 1.0) -> void:
+			self.sprite = _sprite
+			self.frameCount = _frameCount
+			self.speedScale = _speedScale
 
-		if sprite.frame >= frameCount:
-			sprite.frame = 0
+		func play() -> void:
+			var tween := sprite.create_tween()
 
-	tween.tween_callback(advanceFrame).set_delay(speed)
+			tween.set_loops()
 
-static func customTweenProperty(node: Object, target: Node, property: String, value: Variant, duration: float, reset: bool) -> void:
-	var tween = node.create_tween()
-	var orgVal = target.get(property)
+			if not paused:
+				tween.tween_callback(advanceFrame).set_delay(speedScale)
 
-	tween.tween_property(target, property, value, duration).set_trans(Tween.TRANS_LINEAR).from_current()
+		func advanceFrame() -> void:
+			sprite.frame += 1
 
-	var resetFunc = func() -> void:
-		target.set(property, orgVal)
+			if sprite.frame >= frameCount and looped:
+				sprite.frame = 0
 
-	if reset:
-		tween.tween_callback(resetFunc)
+		func toFrame(_frame: int) -> void:
+			sprite.frame = frame
 
-static func addDamageNumbers(node, amount: int, crit: bool=false) -> void:
-	var dmgNum := preload ("res://content/effects/damage_numbers/DamageNumbers.tscn").instantiate()
-	dmgNum.text = str(amount)
+	class TweenProperty:
+		var tween: Tween
+		var node: Node
+		var property: String
+		var targetValue: Variant
+		var speedScale: float
 
-	GSceneAdmin.sceneRoot.add_child(dmgNum)
-	dmgNum.global_position = node.global_position + randf_range( - 20, 20) * Vector2(1, 1)
+		var orgValue: Variant
+		var onFinish: Callable
 
-	if crit:
-		dmgNum.modulate = Color.RED
+		func _init(_node: Node, _property: String, _targetValue: Variant, _speedScale: float) -> void:
+			self.node = _node
+			self.tween = _node.create_tween()
+			self.property = _property
+			self.targetValue = _targetValue
+			self.speedScale = _speedScale
+			self.orgValue = node.get(property)
 
-	var tween := dmgNum.create_tween()
-	tween.tween_property(dmgNum, "modulate:a", 0.0, 0.5)
-	tween.tween_callback(dmgNum.queue_free)
+		func play() -> void:
+			tween.tween_property(node, property, targetValue, speedScale)
 
-static func playHitAnim(sprite, defColor, hitColor) -> void:
-	var tween = sprite.create_tween()
-	#tween.tween_property(sprite, "modulate", defColor, 0.1)
-	tween.tween_property(sprite, "modulate", hitColor, 0.2)
+			if onFinish.is_valid():
+				tween.tween_callback(onFinish)
 
-	var resetFunc = func() -> void:
-		sprite.modulate = defColor
+		func reset() -> void:
+			node.set(property, orgValue)
 
-	tween.tween_callback(resetFunc)
+		func destroy() -> void:
+			reset()
+			tween.kill()
 
-static func playCameraShake(strength: float) -> void:
-	pass
+		
+
+
+class Camera:
+	## Plays a little camera shake, usually on enemy hit.
+	static func playCameraShake() -> void:
+		var camera = GSceneAdmin.sceneRoot.get_viewport().get_camera_2d()
+
+		if camera and LocalSettings.cameraShake:
+			var tween = camera.create_tween()
+			var tween2 = camera.create_tween()
+
+			tween.tween_property(camera, "rotation", randf_range(-0.01, 0.01), 0.05)
+			tween2.tween_property(camera, "offset", 
+				Vector2(randf_range(-0.01, 0.01), 
+						randf_range(-0.01, 0.01)), 
+						0.05)
+
+			tween.tween_property(camera, "rotation", 0, 0.05)
+			tween2.tween_property(camera, "offset", Vector2.ZERO, 0.05)
+			
+
+class Entity:
+	## Plays a hit animation (glowing red) on a Node2D.
+	static func playHitAnim(node: Node2D, hitColor: Color) -> void:
+
+		var dmgFx := preload ("res://content/effects/damage/damage_fx.tscn").instantiate()
+		GSceneAdmin.sceneRoot.add_child(dmgFx)
+		dmgFx.global_position = node.global_position
+
+		var tween = Anim.TweenProperty.new(node, "modulate", hitColor, 0.2)
+		tween.onFinish = tween.reset
+		tween.play()
+	
+
+	static func addDamageNumbers(node, amount: int, crit: bool=false) -> void:
+		
+		var dmgNum := preload ("res://content/effects/damage/damage_numbers.tscn").instantiate()
+		dmgNum.text = str(amount)
+
+		GSceneAdmin.sceneRoot.add_child(dmgNum)
+		dmgNum.global_position = node.global_position + randf_range(-20, 20) * Vector2(1, 1)
+
+		if crit:
+			dmgNum.modulate = Color.RED
+
+		var tween := dmgNum.create_tween()
+		tween.tween_property(dmgNum, "modulate:a", 0.0, 0.5)
+		tween.tween_callback(dmgNum.queue_free)

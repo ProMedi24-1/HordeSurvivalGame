@@ -1,6 +1,0 @@
-[gd_scene load_steps=2 format=3 uid="uid://ombjnu2lvwki"]
-
-[ext_resource type="Script" path="res://content/global/GGameGlobals.gd" id="1_aoymi"]
-
-[node name="GGameRoot" type="Node"]
-script = ExtResource("1_aoymi")

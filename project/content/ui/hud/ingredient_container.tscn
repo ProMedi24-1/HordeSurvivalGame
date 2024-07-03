@@ -1,0 +1,24 @@
+[gd_scene load_steps=4 format=3 uid="uid://eouvthg2pe16"]
+
+[ext_resource type="Texture2D" uid="uid://dhky5hmib8ube" path="res://assets/pickup/ingredient/bat_wing.png" id="1_wx165"]
+[ext_resource type="Script" path="res://content/ui/hud/ingredient_container.gd" id="1_yreyb"]
+[ext_resource type="FontFile" uid="uid://xtswn0x4352w" path="res://assets/fonts/WhitePeaberry.fnt" id="2_j1h8e"]
+
+[node name="IngredientContainer" type="HBoxContainer" node_paths=PackedStringArray("iconTex", "label")]
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("1_yreyb")
+iconTex = NodePath("Icon")
+label = NodePath("Label")
+
+[node name="Icon" type="TextureRect" parent="."]
+layout_mode = 2
+texture = ExtResource("1_wx165")
+expand_mode = 3
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 2
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("2_j1h8e")
+theme_override_font_sizes/font_size = 26
+text = "10"

@@ -1,0 +1,27 @@
+[gd_scene load_steps=3 format=3 uid="uid://chkjmsf0ncuwo"]
+
+[ext_resource type="Script" path="res://content/effects/damage/damage_fx.gd" id="1_1jxag"]
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_l8aec"]
+particle_flag_disable_z = true
+emission_shape = 1
+emission_sphere_radius = 5.0
+angle_max = 106.0
+spread = 110.67
+gravity = Vector3(0, 98, 0)
+radial_accel_max = 83.43
+scale_min = 1.5
+scale_max = 1.5
+color = Color(0.410333, 0, 0, 1)
+
+[node name="DamageFx_tscn" type="Node2D"]
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="."]
+z_index = 2
+scale = Vector2(2, 2)
+emitting = false
+process_material = SubResource("ParticleProcessMaterial_l8aec")
+lifetime = 0.3
+one_shot = true
+explosiveness = 1.0
+script = ExtResource("1_1jxag")
