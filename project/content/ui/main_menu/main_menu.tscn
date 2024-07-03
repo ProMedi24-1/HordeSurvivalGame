@@ -1,93 +1,95 @@
-[gd_scene load_steps=4 format=3 uid="uid://b2whtobxgnksr"]
+[gd_scene load_steps=18 format=3 uid="uid://b2whtobxgnksr"]
 
 [ext_resource type="Script" path="res://content/ui/main_menu/main_menu.gd" id="1_utroe"]
-[ext_resource type="PackedScene" uid="uid://1ak1ku3d4xvu" path="res://content/ui/main_menu/menu_button.tscn" id="2_isahh"]
+[ext_resource type="Texture2D" uid="uid://viqak1qe887q" path="res://assets/ui/main_menu/PlayDefault.png" id="3_i4r2v"]
+[ext_resource type="Texture2D" uid="uid://dfxqrx3hlf1b6" path="res://assets/ui/main_menu/PlayHoveredFocused.png" id="4_84sdt"]
+[ext_resource type="Texture2D" uid="uid://dqw1umsyo88ed" path="res://assets/ui/main_menu/PlayPressed.png" id="4_o4mne"]
+[ext_resource type="Texture2D" uid="uid://dx026pnrvm83v" path="res://assets/ui/main_menu/SettingsDefault.png" id="6_i0occ"]
+[ext_resource type="Texture2D" uid="uid://baap84xxjt7ym" path="res://assets/ui/main_menu/SettingsPressed.png" id="7_u620t"]
+[ext_resource type="Texture2D" uid="uid://cu58m4jb5nlwt" path="res://assets/ui/main_menu/SettingsHoveredFocused.png" id="8_25glw"]
+[ext_resource type="Texture2D" uid="uid://btxr6p1npbh68" path="res://assets/ui/main_menu/CreditsDefault.png" id="9_6hce1"]
+[ext_resource type="Texture2D" uid="uid://c1kwxsnhtyw4y" path="res://assets/ui/main_menu/CreditsPressed.png" id="10_7ur7c"]
+[ext_resource type="Texture2D" uid="uid://c02arxubei4d4" path="res://assets/ui/main_menu/CreditsHoveredFocused.png" id="11_bpqm0"]
+[ext_resource type="Texture2D" uid="uid://cqdg0hpv55m7g" path="res://assets/ui/main_menu/QuitDefault.png" id="12_6ckq2"]
+[ext_resource type="FontFile" uid="uid://xtswn0x4352w" path="res://assets/fonts/WhitePeaberry.fnt" id="12_7hsl8"]
+[ext_resource type="Texture2D" uid="uid://cf4i6hkhs8xd1" path="res://assets/ui/main_menu/QuitPressed3.png" id="13_vqafc"]
+[ext_resource type="Texture2D" uid="uid://02xmesbm71se" path="res://assets/ui/main_menu/QuitHoveredFocused.png" id="14_f40sk"]
+[ext_resource type="Script" path="res://content/effects/music_player.gd" id="15_qi7p1"]
+[ext_resource type="AudioStream" uid="uid://c86vrxrw7h46e" path="res://assets/music/main_menu/main_menu.mp3" id="16_tkjpd"]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_jjy1g"]
-bg_color = Color(0.87242, 0.477801, 0.305762, 1)
+[sub_resource type="Environment" id="Environment_mu3nm"]
+background_mode = 3
+tonemap_mode = 2
 
 [node name="MainMenu" type="CanvasLayer"]
 script = ExtResource("1_utroe")
 
-[node name="MenuRoot" type="Control" parent="."]
-layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="HBoxContainer" type="HBoxContainer" parent="MenuRoot"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="LeftSpacing" type="Control" parent="MenuRoot/HBoxContainer"]
-custom_minimum_size = Vector2(25, 0)
-layout_mode = 2
-
-[node name="VBoxContainer" type="VBoxContainer" parent="MenuRoot/HBoxContainer"]
-custom_minimum_size = Vector2(250, 0)
-layout_mode = 2
-size_flags_horizontal = 0
-alignment = 2
-
-[node name="PlayButton" parent="MenuRoot/HBoxContainer/VBoxContainer" instance=ExtResource("2_isahh")]
-layout_mode = 2
-theme_override_styles/normal = SubResource("StyleBoxFlat_jjy1g")
-text = "Play
-"
-
-[node name="SettingsButton" parent="MenuRoot/HBoxContainer/VBoxContainer" instance=ExtResource("2_isahh")]
-layout_mode = 2
-text = "Settings
-"
-
-[node name="CreditsButton" parent="MenuRoot/HBoxContainer/VBoxContainer" instance=ExtResource("2_isahh")]
-layout_mode = 2
-text = "Credits
-"
-
-[node name="QuitButton" parent="MenuRoot/HBoxContainer/VBoxContainer" instance=ExtResource("2_isahh")]
-layout_mode = 2
-text = "Quit"
-
-[node name="BottomSpacing" type="Control" parent="MenuRoot/HBoxContainer/VBoxContainer"]
-custom_minimum_size = Vector2(0, 25)
-layout_mode = 2
-
-[node name="Container" type="Control" parent="MenuRoot/HBoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 3
-
-[node name="RichTextLabel" type="RichTextLabel" parent="MenuRoot/HBoxContainer/Container"]
-layout_mode = 1
+[node name="Label" type="Label" parent="."]
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
-offset_left = -192.0
-offset_top = 50.0
-offset_right = 188.0
-offset_bottom = 110.0
+offset_left = -462.44
+offset_top = 66.79
+offset_right = -277.44
+offset_bottom = 91.79
 grow_horizontal = 2
-theme_override_font_sizes/normal_font_size = 36
-bbcode_enabled = true
+scale = Vector2(5, 5)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("12_7hsl8")
 text = "Horde-Survival-Game"
-fit_content = true
 
-[node name="VBoxContainer2" type="VBoxContainer" parent="MenuRoot/HBoxContainer"]
-custom_minimum_size = Vector2(250, 0)
+[node name="ButtonsBox" type="VBoxContainer" parent="."]
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -391.12
+offset_top = -310.85
+offset_right = -185.119
+offset_bottom = -110.849
+grow_horizontal = 2
+grow_vertical = 0
+scale = Vector2(1.545, 1.545)
+theme_override_constants/separation = -10
+
+[node name="PlayButton" type="TextureButton" parent="ButtonsBox"]
 layout_mode = 2
-size_flags_horizontal = 8
+mouse_default_cursor_shape = 2
+texture_normal = ExtResource("3_i4r2v")
+texture_pressed = ExtResource("4_o4mne")
+texture_hover = ExtResource("4_84sdt")
+stretch_mode = 0
 
-[node name="RightSpacing" type="Control" parent="MenuRoot/HBoxContainer"]
-custom_minimum_size = Vector2(25, 0)
+[node name="SettingsButton" type="TextureButton" parent="ButtonsBox"]
 layout_mode = 2
+mouse_default_cursor_shape = 2
+texture_normal = ExtResource("6_i0occ")
+texture_pressed = ExtResource("7_u620t")
+texture_hover = ExtResource("8_25glw")
+stretch_mode = 0
 
-[connection signal="pressed" from="MenuRoot/HBoxContainer/VBoxContainer/PlayButton" to="." method="_on_play_button_pressed"]
-[connection signal="pressed" from="MenuRoot/HBoxContainer/VBoxContainer/SettingsButton" to="." method="_on_settings_button_pressed"]
-[connection signal="pressed" from="MenuRoot/HBoxContainer/VBoxContainer/CreditsButton" to="." method="_on_credits_button_pressed"]
-[connection signal="pressed" from="MenuRoot/HBoxContainer/VBoxContainer/QuitButton" to="." method="_on_quit_button_pressed"]
+[node name="CreditsButton" type="TextureButton" parent="ButtonsBox"]
+layout_mode = 2
+mouse_default_cursor_shape = 2
+texture_normal = ExtResource("9_6hce1")
+texture_pressed = ExtResource("10_7ur7c")
+texture_hover = ExtResource("11_bpqm0")
+stretch_mode = 0
+
+[node name="QuitButton" type="TextureButton" parent="ButtonsBox"]
+layout_mode = 2
+mouse_default_cursor_shape = 2
+texture_normal = ExtResource("12_6ckq2")
+texture_pressed = ExtResource("13_vqafc")
+texture_hover = ExtResource("14_f40sk")
+stretch_mode = 0
+
+[node name="MusicPlayer" type="AudioStreamPlayer" parent="."]
+script = ExtResource("15_qi7p1")
+track = ExtResource("16_tkjpd")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_mu3nm")
+
+[node name="CanvasModulate" type="CanvasModulate" parent="."]

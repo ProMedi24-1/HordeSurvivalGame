@@ -1,44 +1,38 @@
-[gd_scene load_steps=11 format=3 uid="uid://bgrlofgfks2nc"]
+[gd_scene load_steps=10 format=3 uid="uid://bgrlofgfks2nc"]
 
-[ext_resource type="Script" path="res://content/ui/hud/Hud.gd" id="1_kfcjf"]
-[ext_resource type="FontFile" uid="uid://65r1yifc5rjr" path="res://assets/fonts/manaspc.ttf" id="2_i52fs"]
-[ext_resource type="FontFile" uid="uid://b088tkcm5vjak" path="res://assets/fonts/CozetteVector.ttf" id="2_sxo1t"]
-[ext_resource type="Texture2D" uid="uid://dgvsiog47xo10" path="res://assets/ui/Skull_outline.png" id="3_wxxt6"]
-[ext_resource type="Texture2D" uid="uid://cwykp8gv77n3g" path="res://assets/ui/hud_heart.png" id="4_561p3"]
+[ext_resource type="Script" path="res://content/ui/hud/hud.gd" id="1_kfcjf"]
+[ext_resource type="Texture2D" uid="uid://dgvsiog47xo10" path="res://assets/ui/hud/Skull_outline.png" id="3_wxxt6"]
 [ext_resource type="Texture2D" uid="uid://bjdrmihw05mlq" path="res://assets/pickup/crystal/crystal_med.png" id="4_ti6po"]
+[ext_resource type="FontFile" uid="uid://xtswn0x4352w" path="res://assets/fonts/WhitePeaberry.fnt" id="5_ngsn1"]
+[ext_resource type="Texture2D" uid="uid://ch58g4tloskb4" path="res://assets/ui/hud/heart.png" id="5_xvgox"]
 [ext_resource type="Texture2D" uid="uid://eqa4cso068x2" path="res://assets/weapons/StaffSpriteLevel1.png" id="6_yrstg"]
+[ext_resource type="Texture2D" uid="uid://buervdi3oiq4t" path="res://assets/ui/hud/mana_base.png" id="8_28lhr"]
+[ext_resource type="Texture2D" uid="uid://b22bqxhc3ko3h" path="res://assets/ui/hud/mana_full.png" id="9_huqni"]
+[ext_resource type="PackedScene" uid="uid://eouvthg2pe16" path="res://content/ui/hud/ingredient_container.tscn" id="9_nuu2i"]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vy47a"]
-bg_color = Color(0.226707, 0.226708, 0.226707, 1)
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_rqrs1"]
-bg_color = Color(0.920246, 0, 0.358015, 1)
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_rqn7b"]
-bg_color = Color(0, 0.519772, 0.850414, 1)
-
-[node name="Hud" type="CanvasLayer" node_paths=PackedStringArray("healthBar", "healthLabel", "timeLabel", "killLabel", "crystalLabel", "levelBar", "levelLabel")]
+[node name="Hud" type="CanvasLayer" node_paths=PackedStringArray("healthLabel", "heartBox", "timeLabel", "killLabel", "crystalLabel", "levelBar", "levelLabel", "ingredientsBox")]
 script = ExtResource("1_kfcjf")
-healthBar = NodePath("Health/HealthBar")
 healthLabel = NodePath("Health/HealthLabel")
+heartBox = NodePath("Health/HeartBox")
 timeLabel = NodePath("TimeLabel")
 killLabel = NodePath("Kills/KillsLabel")
-crystalLabel = NodePath("Control/CrystalLabel")
-levelBar = NodePath("Control/LevelBar")
-levelLabel = NodePath("Control/LevelLabel")
+crystalLabel = NodePath("Level/CrystalLabel")
+levelBar = NodePath("Level/LevelBar")
+levelLabel = NodePath("Level/LevelLabel")
+ingredientsBox = NodePath("Ingredients")
 
 [node name="TimeLabel" type="Label" parent="."]
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
-offset_left = -61.0
-offset_top = 10.0
-offset_right = 4.0
-offset_bottom = 36.0
+offset_left = -76.0
+offset_top = -13.0
+offset_right = -1.0
+offset_bottom = 28.0
 grow_horizontal = 2
 scale = Vector2(2, 2)
 theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
-theme_override_fonts/font = ExtResource("2_sxo1t")
+theme_override_fonts/font = ExtResource("5_ngsn1")
 theme_override_font_sizes/font_size = 26
 text = "00:00"
 
@@ -63,15 +57,16 @@ texture = ExtResource("3_wxxt6")
 
 [node name="KillsLabel" type="Label" parent="Kills"]
 layout_mode = 0
-offset_left = 34.795
-offset_top = 11.615
-offset_right = 127.795
-offset_bottom = 47.615
-scale = Vector2(0.61, 0.61)
-theme_override_fonts/font = ExtResource("2_i52fs")
-theme_override_font_sizes/font_size = 36
+offset_left = 38.795
+offset_top = 5.615
+offset_right = 120.795
+offset_bottom = 54.615
+scale = Vector2(0.75, 0.75)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("5_ngsn1")
+theme_override_font_sizes/font_size = 26
 text = "1340"
-horizontal_alignment = 2
+horizontal_alignment = 1
 
 [node name="Waves" type="Control" parent="."]
 layout_mode = 3
@@ -87,11 +82,12 @@ scale = Vector2(0.575, 0.575)
 
 [node name="WaveLabel" type="Label" parent="Waves"]
 layout_mode = 0
-offset_left = -78.2609
-offset_top = 3.47826
-offset_right = 89.7391
-offset_bottom = 39.4783
-theme_override_fonts/font = ExtResource("2_i52fs")
+offset_left = -66.0869
+offset_top = -6.95652
+offset_right = 101.913
+offset_bottom = 50.0435
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("5_ngsn1")
 theme_override_font_sizes/font_size = 36
 text = "Wave 13"
 
@@ -108,24 +104,6 @@ offset_right = 20.0
 grow_horizontal = 2
 grow_vertical = 0
 
-[node name="HealthBar" type="ProgressBar" parent="Health"]
-layout_mode = 1
-anchors_preset = 7
-anchor_left = 0.5
-anchor_top = 1.0
-anchor_right = 0.5
-anchor_bottom = 1.0
-offset_left = -125.0
-offset_top = -40.0
-offset_right = 125.0
-offset_bottom = -13.0
-grow_horizontal = 2
-grow_vertical = 0
-theme_override_styles/background = SubResource("StyleBoxFlat_vy47a")
-theme_override_styles/fill = SubResource("StyleBoxFlat_rqrs1")
-value = 29.37
-show_percentage = false
-
 [node name="HealthLabel" type="Label" parent="Health"]
 layout_mode = 1
 anchors_preset = 7
@@ -133,33 +111,80 @@ anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
-offset_left = -42.0
-offset_top = -39.0
-offset_right = 46.0
-offset_bottom = -13.0
+offset_left = -24.0
+offset_top = -84.0
+offset_right = 28.0
+offset_bottom = -43.0
 grow_horizontal = 2
 grow_vertical = 0
 theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
-theme_override_fonts/font = ExtResource("2_sxo1t")
+theme_override_fonts/font = ExtResource("5_ngsn1")
 theme_override_font_sizes/font_size = 26
-text = "100/100"
+text = "9/9
+"
 
-[node name="TextureRect" type="TextureRect" parent="Health"]
+[node name="HeartBox" type="HBoxContainer" parent="Health"]
 layout_mode = 1
 anchors_preset = 7
 anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
-offset_left = 124.0
-offset_top = -52.0
-offset_right = 173.0
-offset_bottom = -3.0
+offset_left = -196.0
+offset_top = -49.0
+offset_right = 196.0
+offset_bottom = -9.0
 grow_horizontal = 2
 grow_vertical = 0
-texture = ExtResource("4_561p3")
+alignment = 1
 
-[node name="Control" type="Control" parent="."]
+[node name="TextureRect" type="TextureRect" parent="Health/HeartBox"]
+layout_mode = 2
+texture = ExtResource("5_xvgox")
+expand_mode = 2
+
+[node name="TextureRect3" type="TextureRect" parent="Health/HeartBox"]
+layout_mode = 2
+texture = ExtResource("5_xvgox")
+expand_mode = 2
+
+[node name="TextureRect4" type="TextureRect" parent="Health/HeartBox"]
+layout_mode = 2
+texture = ExtResource("5_xvgox")
+expand_mode = 2
+
+[node name="TextureRect5" type="TextureRect" parent="Health/HeartBox"]
+layout_mode = 2
+texture = ExtResource("5_xvgox")
+expand_mode = 2
+
+[node name="TextureRect6" type="TextureRect" parent="Health/HeartBox"]
+layout_mode = 2
+texture = ExtResource("5_xvgox")
+expand_mode = 2
+
+[node name="TextureRect7" type="TextureRect" parent="Health/HeartBox"]
+layout_mode = 2
+texture = ExtResource("5_xvgox")
+expand_mode = 2
+
+[node name="TextureRect8" type="TextureRect" parent="Health/HeartBox"]
+layout_mode = 2
+texture = ExtResource("5_xvgox")
+expand_mode = 2
+
+[node name="TextureRect9" type="TextureRect" parent="Health/HeartBox"]
+layout_mode = 2
+texture = ExtResource("5_xvgox")
+expand_mode = 2
+
+[node name="TextureRect2" type="TextureRect" parent="Health/HeartBox"]
+modulate = Color(0.0430392, 0.0430392, 0.0430392, 1)
+layout_mode = 2
+texture = ExtResource("5_xvgox")
+expand_mode = 2
+
+[node name="Level" type="Control" parent="."]
 layout_mode = 3
 anchors_preset = 2
 anchor_top = 1.0
@@ -168,66 +193,63 @@ offset_top = -40.0
 offset_right = 40.0
 grow_vertical = 0
 
-[node name="LevelBar" type="ProgressBar" parent="Control"]
+[node name="TextureRect" type="TextureRect" parent="Level"]
+layout_mode = 0
+offset_left = 60.0
+offset_top = -14.0
+offset_right = 92.0
+offset_bottom = 18.0
+scale = Vector2(1.5, 1.5)
+texture = ExtResource("4_ti6po")
+
+[node name="LevelLabel" type="Label" parent="Level"]
 layout_mode = 1
 anchors_preset = 7
 anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
-offset_top = -40.0
-offset_right = 250.501
+offset_left = -6.0
+offset_top = -236.0
+offset_right = 78.0
+offset_bottom = -210.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("5_ngsn1")
+theme_override_font_sizes/font_size = 26
+text = "LV 1"
+
+[node name="CrystalLabel" type="Label" parent="Level"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = 80.0
+offset_top = -54.0
+offset_right = 129.0
 offset_bottom = -13.0
 grow_horizontal = 2
 grow_vertical = 0
-theme_override_styles/background = SubResource("StyleBoxFlat_vy47a")
-theme_override_styles/fill = SubResource("StyleBoxFlat_rqn7b")
-value = 29.37
-show_percentage = false
-
-[node name="TextureRect" type="TextureRect" parent="Control"]
-layout_mode = 0
-offset_left = 264.0
-offset_top = -11.0
-offset_right = 313.0
-offset_bottom = 38.0
-texture = ExtResource("4_ti6po")
-
-[node name="LevelLabel" type="Label" parent="Control"]
-layout_mode = 1
-anchors_preset = 7
-anchor_left = 0.5
-anchor_top = 1.0
-anchor_right = 0.5
-anchor_bottom = 1.0
-offset_left = 3.0
-offset_top = -40.0
-offset_right = 87.0
-offset_bottom = -14.0
-grow_horizontal = 2
-grow_vertical = 0
 theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
-theme_override_fonts/font = ExtResource("2_sxo1t")
-theme_override_font_sizes/font_size = 26
-text = "[LVL] 1"
-
-[node name="CrystalLabel" type="Label" parent="Control"]
-layout_mode = 1
-anchors_preset = 7
-anchor_left = 0.5
-anchor_top = 1.0
-anchor_right = 0.5
-anchor_bottom = 1.0
-offset_left = 287.0
-offset_top = -38.0
-offset_right = 329.0
-offset_bottom = -12.0
-grow_horizontal = 2
-grow_vertical = 0
-theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
-theme_override_fonts/font = ExtResource("2_sxo1t")
+theme_override_fonts/font = ExtResource("5_ngsn1")
 theme_override_font_sizes/font_size = 26
 text = "256"
+
+[node name="LevelBar" type="TextureProgressBar" parent="Level"]
+layout_mode = 0
+offset_left = 23.0
+offset_top = -169.0
+offset_right = 49.0
+offset_bottom = -30.0
+scale = Vector2(1.425, 1.425)
+max_value = 82.205
+value = 49.0
+fill_mode = 3
+texture_under = ExtResource("8_28lhr")
+texture_progress = ExtResource("9_huqni")
 
 [node name="Weapons" type="Control" parent="."]
 layout_mode = 3
@@ -243,8 +265,50 @@ offset_bottom = -9.47998
 grow_horizontal = 0
 grow_vertical = 0
 
+[node name="HealthLabel2" type="Label" parent="Weapons"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -222.645
+offset_top = -74.52
+offset_right = -163.645
+offset_bottom = -33.52
+grow_horizontal = 2
+grow_vertical = 0
+scale = Vector2(0.75, 0.75)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("5_ngsn1")
+theme_override_font_sizes/font_size = 26
+text = "LV 1
+"
+
 [node name="TextureRect" type="TextureRect" parent="Weapons"]
 layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
+offset_left = -209.645
+offset_top = -4.52002
+offset_right = -177.645
+offset_bottom = 27.48
+scale = Vector2(1.5, 1.5)
 texture = ExtResource("6_yrstg")
+
+[node name="Ingredients" type="VBoxContainer" parent="."]
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = 9.0
+offset_top = -187.0
+offset_right = 151.0
+offset_bottom = 61.0
+grow_vertical = 2
+
+[node name="IngredientContainer" parent="Ingredients" instance=ExtResource("9_nuu2i")]
+layout_mode = 2
+
+[node name="IngredientContainer2" parent="Ingredients" instance=ExtResource("9_nuu2i")]
+layout_mode = 2
+
+[node name="IngredientContainer3" parent="Ingredients" instance=ExtResource("9_nuu2i")]
+layout_mode = 2

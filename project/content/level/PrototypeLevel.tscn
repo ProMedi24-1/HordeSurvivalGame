@@ -1,10 +1,13 @@
-[gd_scene load_steps=6 format=3 uid="uid://dpbpx2mm2qk0t"]
+[gd_scene load_steps=9 format=3 uid="uid://dpbpx2mm2qk0t"]
 
 [ext_resource type="TileSet" uid="uid://cgxbhspmvaf7w" path="res://content/level/prototype/prototype_tileset.tres" id="1_dr5yd"]
-[ext_resource type="PackedScene" uid="uid://c3xi6gmcnve3f" path="res://content/entity/player/Player.tscn" id="2_rg2dq"]
+[ext_resource type="PackedScene" uid="uid://c3xi6gmcnve3f" path="res://content/entity/player/player.tscn" id="2_rg2dq"]
 [ext_resource type="Script" path="res://content/level/base/LevelBase.gd" id="3_s810j"]
 [ext_resource type="PackedScene" uid="uid://by73e3un3ogs1" path="res://content/pickup/crystal/crystal_small.tscn" id="4_kmhjx"]
-[ext_resource type="PackedScene" uid="uid://b18p0tkdnbik" path="res://content/entity/enemy/bat/BatEv1.tscn" id="5_fcebl"]
+[ext_resource type="PackedScene" uid="uid://co0vy1vwuochf" path="res://content/pickup/fungus/fungus.tscn" id="7_bwfrl"]
+[ext_resource type="PackedScene" uid="uid://4aus4qli5b42" path="res://content/entity/enemy/fungus/fungus_ev1.tscn" id="8_qp3a4"]
+[ext_resource type="PackedScene" uid="uid://b18p0tkdnbik" path="res://content/entity/enemy/bat/bat_ev1.tscn" id="8_r2i8b"]
+[ext_resource type="FontFile" uid="uid://xtswn0x4352w" path="res://assets/fonts/WhitePeaberry.fnt" id="8_y7iup"]
 
 [node name="PrototypeLevel" type="Node2D"]
 y_sort_enabled = true
@@ -24,31 +27,24 @@ layer_1/tile_data = PackedInt32Array(-393226, 2, 65536, -393225, 2, 65536, -3932
 script = ExtResource("3_s810j")
 
 [node name="CrystalSmall" parent="." instance=ExtResource("4_kmhjx")]
-position = Vector2(-160, 0)
+position = Vector2(-257, 69)
 
-[node name="BatEv1" parent="." instance=ExtResource("5_fcebl")]
-position = Vector2(-68, -62)
+[node name="CanvasModulate" type="CanvasModulate" parent="."]
 
-[node name="CrystalSmall2" parent="." instance=ExtResource("4_kmhjx")]
-position = Vector2(-144, 1)
+[node name="FungusEv1" parent="." instance=ExtResource("8_qp3a4")]
+position = Vector2(-174, -116)
 
-[node name="CrystalSmall3" parent="." instance=ExtResource("4_kmhjx")]
-position = Vector2(-128, 2)
+[node name="BatEv1" parent="." instance=ExtResource("8_r2i8b")]
+position = Vector2(28, -105)
 
-[node name="CrystalSmall4" parent="." instance=ExtResource("4_kmhjx")]
-position = Vector2(-115, 3)
+[node name="Fungus" parent="." instance=ExtResource("7_bwfrl")]
+position = Vector2(-257, 99)
 
-[node name="CrystalSmall5" parent="." instance=ExtResource("4_kmhjx")]
-position = Vector2(-102, 3)
-
-[node name="CrystalSmall6" parent="." instance=ExtResource("4_kmhjx")]
-position = Vector2(-88, 4)
-
-[node name="BatEv2" parent="." instance=ExtResource("5_fcebl")]
-position = Vector2(182, -43)
-
-[node name="BatEv3" parent="." instance=ExtResource("5_fcebl")]
-position = Vector2(160, -104)
-
-[node name="BatEv4" parent="." instance=ExtResource("5_fcebl")]
-position = Vector2(114, -139)
+[node name="PickUps" type="Label" parent="."]
+offset_left = -256.0
+offset_top = 32.0
+offset_right = -190.0
+offset_bottom = 57.0
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("8_y7iup")
+text = "Pickups"

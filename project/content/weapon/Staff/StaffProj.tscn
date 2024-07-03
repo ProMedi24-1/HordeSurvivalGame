@@ -1,16 +1,29 @@
-[gd_scene load_steps=4 format=3 uid="uid://4f6pnavaktbo"]
+[gd_scene load_steps=7 format=3 uid="uid://g5fmdnjarkct"]
 
-[ext_resource type="Script" path="res://content/weapon/Staff/StaffProj.gd" id="1_itaul"]
-[ext_resource type="Texture2D" uid="uid://dgb8c6uhvycpl" path="res://assets/weapons/StaffProjectile.png" id="1_w3dru"]
+[ext_resource type="Script" path="res://content/weapon/staff/staffproj.gd" id="1_lryuk"]
+[ext_resource type="Texture2D" uid="uid://dur7jjw1fpbi0" path="res://assets/weapons/StaffProj.png" id="2_h86lq"]
+[ext_resource type="Texture2D" uid="uid://de1kva575b2mj" path="res://assets/sprites/effect/light/point_light.png" id="3_p8b2n"]
+[ext_resource type="Texture2D" uid="uid://bo5vn24k8niwc" path="res://assets/weapons/StaffProjParticle.png" id="4_2l4u1"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_p4mu5"]
 size = Vector2(10, 10)
 
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_wqpch"]
+particle_flag_disable_z = true
+emission_shape_offset = Vector3(0.08, 0.35, 0.515)
+emission_shape = 1
+emission_sphere_radius = 7.0
+angle_max = 106.0
+gravity = Vector3(0, 9.8, 0)
+scale_max = 1.5
+color = Color(0.864675, 0.864675, 0.864675, 1)
+hue_variation_max = 0.02
+
 [node name="StaffProj" type="Node2D"]
-script = ExtResource("1_itaul")
+script = ExtResource("1_lryuk")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-texture = ExtResource("1_w3dru")
+texture = ExtResource("2_h86lq")
 
 [node name="HitBox" type="Area2D" parent="."]
 collision_layer = 16
@@ -18,3 +31,14 @@ collision_mask = 5
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HitBox"]
 shape = SubResource("RectangleShape2D_p4mu5")
+
+[node name="PointLight2D" type="PointLight2D" parent="."]
+scale = Vector2(0.4, 0.4)
+color = Color(0.719847, 0.322598, 1, 1)
+energy = 0.5
+texture = ExtResource("3_p8b2n")
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="."]
+process_material = SubResource("ParticleProcessMaterial_wqpch")
+texture = ExtResource("4_2l4u1")
+speed_scale = 3.0

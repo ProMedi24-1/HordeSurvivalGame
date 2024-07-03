@@ -18,6 +18,7 @@ project/mono_crash.*.json
 # Temporary Files
 project/addons/**/bin/~*.dll
 project/**/*.tmp
+project/tmp/
 
 # Personal Workspace Folders
 .vscode/

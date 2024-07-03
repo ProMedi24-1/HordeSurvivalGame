@@ -1,7 +1,6 @@
-[gd_scene load_steps=6 format=3 uid="uid://by73e3un3ogs1"]
+[gd_scene load_steps=5 format=3 uid="uid://by73e3un3ogs1"]
 
-[ext_resource type="Script" path="res://content/pickup/crystal/CrystalSmall.gd" id="1_ki7xn"]
-[ext_resource type="AudioStream" uid="uid://17jkqqul640h" path="res://assets/audio/effects/pickupCrystal.wav" id="2_iomft"]
+[ext_resource type="Script" path="res://content/pickup/crystal/crystal_small.gd" id="1_vitjm"]
 [ext_resource type="Texture2D" uid="uid://cmocihcw0bc7k" path="res://assets/pickup/crystal/crystal_small.png" id="2_pkhpx"]
 [ext_resource type="Texture2D" uid="uid://c2v7u78r7q0tj" path="res://assets/sprites/effect/shadow/shadow_16.png" id="3_8hqii"]
 
@@ -10,8 +9,7 @@ size = Vector2(10, 10)
 
 [node name="CrystalSmall" type="Node2D" node_paths=PackedStringArray("hitbox")]
 y_sort_enabled = true
-script = ExtResource("1_ki7xn")
-pickupSound = ExtResource("2_iomft")
+script = ExtResource("1_vitjm")
 hitbox = NodePath("Area2D")
 
 [node name="CrystalMed" type="Sprite2D" parent="."]

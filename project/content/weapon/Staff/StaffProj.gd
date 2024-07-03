@@ -1,16 +1,19 @@
-class_name StaffProj
-extends Node2D
+class_name StaffProj extends Node2D
 
 var speed: float = 200.0
 var direction: Vector2 = Vector2.RIGHT
+var damage: int = 5
+
 @onready var hitbox = $HitBox
 
 func _ready() -> void:
 	hitbox.connect("body_entered", onHit)
 
 func onHit(body) -> void:
-	if body is EnemyBase:
-		body.takeDamage(10)
+
+	var enemy = WeaponUtils.getEnemyNode(body)
+	if enemy is EnemyBase and enemy != null:
+		enemy.takeDamage(damage)
 
 	queue_free()
 
