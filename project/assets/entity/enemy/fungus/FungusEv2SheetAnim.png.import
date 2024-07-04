@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dgb8c6uhvycpl"
-path="res://.godot/imported/StaffProjectile.png-9615390396733a9d210bf63ebc6865b0.ctex"
+uid="uid://c8ixpxggh6jbj"
+path="res://.godot/imported/FungusEv2SheetAnim.png-b70e9c07a29cfe835f8f5a21b8953d34.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/weapons/StaffProjectile.png"
-dest_files=["res://.godot/imported/StaffProjectile.png-9615390396733a9d210bf63ebc6865b0.ctex"]
+source_file="res://assets/entity/enemy/fungus/FungusEv2SheetAnim.png"
+dest_files=["res://.godot/imported/FungusEv2SheetAnim.png-b70e9c07a29cfe835f8f5a21b8953d34.ctex"]
 
 [params]
 

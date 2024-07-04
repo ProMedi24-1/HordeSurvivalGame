@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://eqa4cso068x2"
-path="res://.godot/imported/StaffSpriteLevel1.png-2272e3151f43911b4a45b8da6f883951.ctex"
+uid="uid://b475t32u0i4b7"
+path="res://.godot/imported/FungusEv3SheetAnim.png-f06875cac535221d1bb1b4bad01a4c65.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/weapons/StaffSpriteLevel1.png"
-dest_files=["res://.godot/imported/StaffSpriteLevel1.png-2272e3151f43911b4a45b8da6f883951.ctex"]
+source_file="res://assets/entity/enemy/fungus/FungusEv3SheetAnim.png"
+dest_files=["res://.godot/imported/FungusEv3SheetAnim.png-f06875cac535221d1bb1b4bad01a4c65.ctex"]
 
 [params]
 

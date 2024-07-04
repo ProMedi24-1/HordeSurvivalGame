@@ -11,7 +11,7 @@ func _ready() -> void:
 	
 	#Effects.Anim.playStdAnim(sprite, 4, 0.15, true)
 	
-	var defAnim = Effects.Anim.SpriteAnim.new(sprite, 4, 0.15)
+	var defAnim = Effects.Anim.SpriteAnim.new(sprite, 5, 0.15)
 	defAnim.looped = true
 	defAnim.play()
 

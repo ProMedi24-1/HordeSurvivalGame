@@ -1,13 +1,14 @@
-[gd_scene load_steps=9 format=3 uid="uid://dpbpx2mm2qk0t"]
+[gd_scene load_steps=10 format=3 uid="uid://dpbpx2mm2qk0t"]
 
 [ext_resource type="TileSet" uid="uid://cgxbhspmvaf7w" path="res://content/level/prototype/prototype_tileset.tres" id="1_dr5yd"]
 [ext_resource type="PackedScene" uid="uid://c3xi6gmcnve3f" path="res://content/entity/player/player.tscn" id="2_rg2dq"]
-[ext_resource type="Script" path="res://content/level/base/LevelBase.gd" id="3_s810j"]
+[ext_resource type="Script" path="res://content/level/level_base.gd" id="3_s810j"]
 [ext_resource type="PackedScene" uid="uid://by73e3un3ogs1" path="res://content/pickup/crystal/crystal_small.tscn" id="4_kmhjx"]
 [ext_resource type="PackedScene" uid="uid://co0vy1vwuochf" path="res://content/pickup/fungus/fungus.tscn" id="7_bwfrl"]
+[ext_resource type="PackedScene" uid="uid://e03g24u6bfse" path="res://content/entity/enemy/fungus/fungus_ev2.tscn" id="8_iwkqn"]
 [ext_resource type="PackedScene" uid="uid://4aus4qli5b42" path="res://content/entity/enemy/fungus/fungus_ev1.tscn" id="8_qp3a4"]
-[ext_resource type="PackedScene" uid="uid://b18p0tkdnbik" path="res://content/entity/enemy/bat/bat_ev1.tscn" id="8_r2i8b"]
 [ext_resource type="FontFile" uid="uid://xtswn0x4352w" path="res://assets/fonts/WhitePeaberry.fnt" id="8_y7iup"]
+[ext_resource type="PackedScene" uid="uid://b1ae8qhdfb5xm" path="res://content/entity/enemy/fungus/fungus_ev3.tscn" id="9_k58v4"]
 
 [node name="PrototypeLevel" type="Node2D"]
 y_sort_enabled = true
@@ -34,9 +35,6 @@ position = Vector2(-257, 69)
 [node name="FungusEv1" parent="." instance=ExtResource("8_qp3a4")]
 position = Vector2(-174, -116)
 
-[node name="BatEv1" parent="." instance=ExtResource("8_r2i8b")]
-position = Vector2(28, -105)
-
 [node name="Fungus" parent="." instance=ExtResource("7_bwfrl")]
 position = Vector2(-257, 99)
 
@@ -48,3 +46,9 @@ offset_bottom = 57.0
 theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
 theme_override_fonts/font = ExtResource("8_y7iup")
 text = "Pickups"
+
+[node name="FungusEv2" parent="." instance=ExtResource("8_iwkqn")]
+position = Vector2(-87, -115)
+
+[node name="FungusEv3" parent="." instance=ExtResource("9_k58v4")]
+position = Vector2(6, -111)

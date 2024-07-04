@@ -34,11 +34,15 @@ class Anim:
 	## Plays a standard animation on a Sprite2D.
 	class SpriteAnim:
 		var sprite: Sprite2D
-		var frame: int = 0
+		#var frame: int = 0
 		var frameCount: int = 0
 		var speedScale: float = 0.0
 		var paused: bool = false
 		var looped: bool = false
+		var tween: Tween
+		var callbacker : CallbackTweener
+
+		signal finished
 
 		func _init(_sprite: Sprite2D, _frameCount: int, _speedScale: float = 1.0) -> void:
 			self.sprite = _sprite
@@ -46,21 +50,35 @@ class Anim:
 			self.speedScale = _speedScale
 
 		func play() -> void:
-			var tween := sprite.create_tween()
-
+			tween = sprite.create_tween()
+			
+			
 			tween.set_loops()
 
 			if not paused:
-				tween.tween_callback(advanceFrame).set_delay(speedScale)
+				callbacker = tween.tween_callback(advanceFrame).set_delay(speedScale)
 
 		func advanceFrame() -> void:
-			sprite.frame += 1
-
-			if sprite.frame >= frameCount and looped:
-				sprite.frame = 0
-
+			if sprite.frame >= (frameCount - 1):
+				if looped:
+					sprite.frame = 0
+					finished.emit()
+				else:
+					finished.emit()
+					return
+			else: 
+				sprite.frame += 1
+		
 		func toFrame(_frame: int) -> void:
-			sprite.frame = frame
+			sprite.frame = _frame
+			
+		func setSpeed(_speedScale: float) -> void:
+			#tween.kill()
+			#tween = sprite.create_tween()
+			#tween.set_loops()
+			callbacker.set_delay(_speedScale)
+			#if not paused:
+				#tween.tween_callback(advanceFrame).set_delay(_speedScale)
 
 	class TweenProperty:
 		var tween: Tween

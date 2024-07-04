@@ -14,10 +14,17 @@ var org_movSpeed: float
 var chargeTimer: Timer
 var cooldownTimer: Timer
 
+#var defAnim 
+#func _process(delta: float) -> void:
+	#super()
+	#print(sprite.frame)
 
 # Godot virtual functions
 func _ready() -> void:
 	super()
+
+	
+	
 
 	org_movSpeed = movSpeed
 
@@ -58,11 +65,14 @@ func chargeToPlayer(delta) -> void:
 		if not isCharging:
 			movDir = global_position.direction_to(player.global_position)
 			movSpeed = org_movSpeed
+			#defAnim.setSpeed(0.15)
+			#defAnim.play()
 	else:
 		if not isCharging:
 			isCharging = true
 			movDir = global_position.direction_to(player.global_position)
 			movSpeed = chargeSpeed
+			#defAnim.setSpeed(0.05)
 			chargeTimer.start()
 			
 # Overriden functions

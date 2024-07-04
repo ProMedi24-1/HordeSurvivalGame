@@ -34,8 +34,5 @@ debug_color = Color(0.948125, 0.109551, 0.502569, 0.42)
 position = Vector2(0, 11)
 texture = ExtResource("2_8g4o2")
 
-[node name="Node2D" type="Node2D" parent="." node_paths=PackedStringArray("movBody", "sprite", "hitBox")]
+[node name="Node2D" type="Node2D" parent="."]
 script = ExtResource("3_ee4ja")
-movBody = NodePath("..")
-sprite = NodePath("../Sprite2D")
-hitBox = NodePath("../HitBox")

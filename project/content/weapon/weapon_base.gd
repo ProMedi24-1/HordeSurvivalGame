@@ -1,6 +1,9 @@
 class_name WeaponBase
 extends Node2D
 
+var level: int = 0
+
+
 var damage: int = 10
 var projectiles: int = 1
 var attackSpeed: float = 1.0

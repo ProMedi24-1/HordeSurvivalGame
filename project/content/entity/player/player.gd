@@ -51,7 +51,7 @@ func _ready() -> void:
 	ingredientInventory.resize(Ingredient.IngredientType.keys().size())
 
 	# Add Staff weapon
-	var staff = preload("res://content/weapon/staff/staff.tscn").instantiate()
+	var staff = preload("res://content/weapon/sword/sword.tscn").instantiate()
 	add_child(staff)
 
 
@@ -87,12 +87,18 @@ func setMaxHealth(value: int) -> void:
 	updateHealthStatus()
 
 
-func takeDamage(damage: int) -> void:
+func takeDamage(_damage: int) -> void:
 	if godMode:
 		return
 
-	setHealth(max(health - damage, 0))
-	damageTaken += damage
+	
+	#setHealth(max(health - damage, 0))
+	#damageTaken += damage
+
+	# new Health system just takes 1 heart of damage.
+	setHealth(max(health - 1, 0))
+	damageTaken += 1
+
 
 	Effects.Sound.play(SoundBundles.hitEntity)
 	Effects.Entity.playHitAnim(playerSprite, Color.RED)

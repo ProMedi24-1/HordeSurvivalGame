@@ -1,11 +1,12 @@
-[gd_scene load_steps=10 format=3 uid="uid://bgrlofgfks2nc"]
+[gd_scene load_steps=11 format=3 uid="uid://bgrlofgfks2nc"]
 
 [ext_resource type="Script" path="res://content/ui/hud/hud.gd" id="1_kfcjf"]
 [ext_resource type="Texture2D" uid="uid://dgvsiog47xo10" path="res://assets/ui/hud/Skull_outline.png" id="3_wxxt6"]
 [ext_resource type="Texture2D" uid="uid://bjdrmihw05mlq" path="res://assets/pickup/crystal/crystal_med.png" id="4_ti6po"]
+[ext_resource type="Texture2D" uid="uid://t1xmck3kp0p5" path="res://assets/ui/hud/heart_empty.png" id="5_ik7qk"]
 [ext_resource type="FontFile" uid="uid://xtswn0x4352w" path="res://assets/fonts/WhitePeaberry.fnt" id="5_ngsn1"]
 [ext_resource type="Texture2D" uid="uid://ch58g4tloskb4" path="res://assets/ui/hud/heart.png" id="5_xvgox"]
-[ext_resource type="Texture2D" uid="uid://eqa4cso068x2" path="res://assets/weapons/StaffSpriteLevel1.png" id="6_yrstg"]
+[ext_resource type="Texture2D" uid="uid://eqa4cso068x2" path="res://assets/weapons/staff/StaffSpriteLevel1.png" id="6_yrstg"]
 [ext_resource type="Texture2D" uid="uid://buervdi3oiq4t" path="res://assets/ui/hud/mana_base.png" id="8_28lhr"]
 [ext_resource type="Texture2D" uid="uid://b22bqxhc3ko3h" path="res://assets/ui/hud/mana_full.png" id="9_huqni"]
 [ext_resource type="PackedScene" uid="uid://eouvthg2pe16" path="res://content/ui/hud/ingredient_container.tscn" id="9_nuu2i"]
@@ -179,9 +180,8 @@ texture = ExtResource("5_xvgox")
 expand_mode = 2
 
 [node name="TextureRect2" type="TextureRect" parent="Health/HeartBox"]
-modulate = Color(0.0430392, 0.0430392, 0.0430392, 1)
 layout_mode = 2
-texture = ExtResource("5_xvgox")
+texture = ExtResource("5_ik7qk")
 expand_mode = 2
 
 [node name="Level" type="Control" parent="."]
