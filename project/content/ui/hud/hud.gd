@@ -64,9 +64,10 @@ func updateHeartBox() -> void:
 
 		for i in range(0, GEntityAdmin.player.maxHealth):
 			if i < GEntityAdmin.player.health:
-				children[i].modulate = Color(1.0, 1.0, 1.0, 1.0)
+				children[i].texture = preload("res://assets/ui/hud/heart.png")
 			else: 
-				children[i].modulate = Color(0.0, 0.0, 0.0, 1.0)
+				#children[i].modulate = Color(0.0, 0.0, 0.0, 1.0)
+				children[i].texture = preload("res://assets/ui/hud/heart_empty.png")
 
 	if children.size() != GEntityAdmin.player.maxHealth:
 		changeHeartCount.call()

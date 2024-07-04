@@ -1,0 +1,24 @@
+[gd_scene load_steps=4 format=3 uid="uid://5ydfbmjka264"]
+
+[ext_resource type="Script" path="res://content/weapon/sword/sword_proj.gd" id="1_0fiha"]
+[ext_resource type="Texture2D" uid="uid://chmc6442sjuni" path="res://assets/weapons/sword/SlashAnimation.png" id="2_5a1lg"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_p4mu5"]
+size = Vector2(22, 23)
+
+[node name="SwordProj" type="Node2D"]
+script = ExtResource("1_0fiha")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(2, 0)
+texture = ExtResource("2_5a1lg")
+hframes = 9
+frame = 3
+
+[node name="HitBox" type="Area2D" parent="."]
+collision_layer = 16
+collision_mask = 5
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitBox"]
+position = Vector2(2, 0)
+shape = SubResource("RectangleShape2D_p4mu5")

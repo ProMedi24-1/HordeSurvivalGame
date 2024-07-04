@@ -1,16 +1,16 @@
-[gd_scene load_steps=6 format=3 uid="uid://4aus4qli5b42"]
+[gd_scene load_steps=6 format=3 uid="uid://b1ae8qhdfb5xm"]
 
-[ext_resource type="Texture2D" uid="uid://cwtpwtecotsi" path="res://assets/entity/enemy/fungus/FungusEv1SheetAnim.png" id="1_bhjbx"]
-[ext_resource type="Texture2D" uid="uid://c2v7u78r7q0tj" path="res://assets/sprites/effect/shadow/shadow_16.png" id="2_mmcvv"]
-[ext_resource type="Script" path="res://content/entity/enemy/fungus/fungus_ev1.gd" id="3_4v0jr"]
+[ext_resource type="Texture2D" uid="uid://b475t32u0i4b7" path="res://assets/entity/enemy/fungus/FungusEv3SheetAnim.png" id="1_0ok6g"]
+[ext_resource type="Texture2D" uid="uid://b5de2fwe7gy8q" path="res://assets/sprites/effect/shadow/shadow_24.png" id="2_x1m7r"]
+[ext_resource type="Script" path="res://content/entity/enemy/fungus/fungus_ev3.gd" id="3_7y28m"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_why8i"]
 radius = 6.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_2ryt4"]
-radius = 8.0
+radius = 11.0
 
-[node name="FungusEv1" type="CharacterBody2D"]
+[node name="FungusEv3" type="CharacterBody2D"]
 collision_layer = 4
 motion_mode = 1
 
@@ -20,8 +20,8 @@ shape = SubResource("CircleShape2D_why8i")
 [node name="Sprite2D" type="Sprite2D" parent="."]
 z_index = 1
 position = Vector2(0, -6)
-texture = ExtResource("1_bhjbx")
-vframes = 4
+texture = ExtResource("1_0ok6g")
+vframes = 16
 
 [node name="HitBox" type="Area2D" parent="."]
 collision_layer = 4
@@ -33,10 +33,10 @@ debug_color = Color(0.948125, 0.109551, 0.502569, 0.42)
 
 [node name="Shadow" type="Sprite2D" parent="."]
 position = Vector2(0, 8)
-texture = ExtResource("2_mmcvv")
+texture = ExtResource("2_x1m7r")
 
 [node name="Enemy" type="Node2D" parent="." node_paths=PackedStringArray("movBody", "sprite", "hitBox")]
-script = ExtResource("3_4v0jr")
+script = ExtResource("3_7y28m")
 movBody = NodePath("..")
 sprite = NodePath("../Sprite2D")
 hitBox = NodePath("../HitBox")
