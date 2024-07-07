@@ -43,6 +43,7 @@ var cameraZoomOffset: float = 0.0
 @export var hudRes: PackedScene = preload ("res://content/ui/hud/hud.tscn")
 @export var camera: Camera2D
 
+@onready var animated_player: AnimatedSprite2D = $AnimatedSprite2D
 
 # Godot virtual functions
 func _ready() -> void:
@@ -72,6 +73,18 @@ func handlePlayerMovement(delta: float) -> void:
 
 	direction = Input.get_vector("MoveLeft", "MoveRight", "MoveUp", "MoveDown")
 	movBody.velocity = direction.normalized() * movSpeed * delta
+	
+	if direction.x > 0:
+		animated_player.play("walk_right")
+	elif direction.x < 0:
+		animated_player.play("walk_left")
+	elif direction.y > 0:
+		animated_player.play("walk_up")
+	elif direction.y <= 0:
+		animated_player.play("walk_down")
+	else:
+		#TODO stehen bleiben
+		pass
 
 
 func setHealth(value: int) -> void:
