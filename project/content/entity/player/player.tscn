@@ -19,7 +19,10 @@
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_7mm4r"]
 animations = [{
-"frames": [],
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_yg1qc")
+}],
 "loop": true,
 "name": &"default",
 "speed": 5.0
@@ -118,4 +121,3 @@ drag_bottom_margin = 0.05
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_7mm4r")
-animation = &"walk_right"

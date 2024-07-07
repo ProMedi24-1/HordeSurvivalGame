@@ -83,8 +83,7 @@ func handlePlayerMovement(delta: float) -> void:
 	elif direction.y <= 0:
 		animated_player.play("walk_down")
 	else:
-		#TODO stehen bleiben
-		pass
+		animated_player.play("default")
 
 
 func setHealth(value: int) -> void:
