@@ -1,59 +1,54 @@
 # Horde-Survival-Game 👾
 
-![checks workflow](https://github.com/ProMedi24-1/HordeSurvivalGame/actions/workflows/static_checks.yml/badge.svg) ![ci workflow](https://github.com/ProMedi24-1/HordeSurvivalGame/actions/workflows/export_debug.yml/badge.svg) ![release workflow](https://github.com/ProMedi24-1/HordeSurvivalGame/actions/workflows/export_release.yml/badge.svg)
+![](https://github.com/ProMedi24-1/HordeSurvivalGame/actions/workflows/static_checks.yml/badge.svg) 
+![](https://github.com/ProMedi24-1/HordeSurvivalGame/actions/workflows/export_debug.yml/badge.svg) 
+![](https://github.com/ProMedi24-1/HordeSurvivalGame/actions/workflows/export_release.yml/badge.svg)
+![](https://img.shields.io/static/v1?label=Godot&message=4.3&color=blue&logo=godotengine)
 
-Creation of a Horde-Survival-Game with a static and adaptive Difficulty, made with the [Godot Game Engine.](https://godotengine.org/)
+A Survivors/Brotato-like game with a static and adaptive Difficulty, made with the [Godot Game Engine.](https://godotengine.org/) (Godot-4.3-beta2)
 
-This game is a project developed as part of the academic module **ProMedi24** at **TU-Berlin** focused on media creation. It aims to explore different user experiences by implementing two modes of gameplay: one with a static difficulty level and another dynamic difficulty that adapts based on the player's skills.
+This  project is developed as part of the academic module **Project Media Creation (2024)** at **TU-Berlin**. It aims to explore different user experiences by implementing
+two difficulty modes in the gameplay: one with a static difficulty and another dynamic difficulty that adapts based on the player's skills.
 
 **Supervisor:** Phillip Harnisch
 
-## Installation 🕹️
 
-Get the latest release from the [releases](https://github.com/ProMedi24-1/HordeSurvivalGame/releases) category.
+## How to Play? 🕹️
+
+Download the latest release from the [Releases](https://github.com/ProMedi24-1/HordeSurvivalGame/releases) page.
+
+[![download](https://img.shields.io/static/v1?label=Release&message=latest&color=blue&logo=github)](https://github.com/ProMedi24-1/HorderSurvivalGame/releases/latest)
+
 
 **Supported plattforms:**
 - 🪟 Windows
 - 🐧 Linux
 - 🍏 MacOS
 
-## Contributing 🏷️
-
-See the [wiki](https://github.com/ProMedi24-1/HordeSurvivalGame/wiki) for contributing.
-
 ## Third-Party Assets Used 📦
 
 ### Engine Plugins:
-- [ImGui-Godot](https://github.com/pkdawson/imgui-godot) by Patrick Dawson
-- [Godot-Rapier2D](https://github.com/appsinacup/godot-rapier-2d) by Apps in a Cup 
-
-**ImGui** gives us the ability to create fast development user interfaces for monitoring and testing purposes. **Rapier2D** provides a more stable and performant physics and collision solution for the engine. The addons are already included in the repository.
-
-Both plugins use the **MIT License**.
+- [ImGui-Godot](https://github.com/pkdawson/imgui-godot) by Patrick Dawson **MIT**
+- [Godot-Rapier2D](https://github.com/appsinacup/godot-rapier-2d) by Apps in a Cup **MIT**
 
 ### Game Assets:
-- Various assets made by [KenneyNL](https://kenney.nl/)
+- Various assets made by [KenneyNL](https://kenney.nl/) **CC0**
+- PeaBerry Font by [emhou](https://emhuo.itch.io/peaberry-pixel-font) **OFL**
+- Audio made by [Ovani Sound](https://ovanisound.com/) **[TOS](https://ovanisound.com/policies/terms-of-service)**
 
-Kenney's assets are **CC0** licensed.
+All other assets are made by us, feel free to use and modify them!
 
 ## Project Members/Roles 👤
 
 | Name             | Roles |
 | ---------------- | ----- |
-| Julia Kaufmann   | Project-Lead |
-| Moritz Keszler   | Lead-Programmer |
-| Valentin Sonntag | Lead-Artist |
-| Neele Ukena      | Artist/Game-Design |
-| Xenia Damerius   | Artist/Level-Design |
-| Emilia Bill      | Artist/Programmer |
-| Jonas Urban      | Audio/Testing |
-| Hannes Schmutz   | Audio/Programmer |
-| Timon Schnell    | Audio/Programmer |
-| Paul Graml       | TBD |
-
-## Dates and Deadlines 📅
-
-- `28.05.2024` Interim-Presentation
-- `31.05.2024` Concept-Submission
-- `15.07.2024` Ending-Presentation
-- `19.07.2024` Turn-in of final product 
+| Julia Kaufmann   | **Project-Lead** |
+| Moritz Keszler   | **Lead-Programmer** |
+| Emilia Bill      | Programmer |
+| Valentin Sonntag | **Lead-Artist** |
+| Neele Ukena      | Artist |
+| Xenia Damerius   | Artist |
+| Timon Schnell    | **Lead-Audio** |
+| Jonas Urban      | Audio |
+| Hannes Schmutz   | Audio |
+| Paul Graml       | QA/Testing |
