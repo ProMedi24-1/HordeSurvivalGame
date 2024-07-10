@@ -10,6 +10,22 @@ jobs:
     name: 'Static checks'
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v4
-    - uses: Scony/godot-gdscript-toolkit@multiline-lambdas
-    - run: gdlint project/content
+    - id: install-python
+      uses: actions/setup-python@v5
+      with:
+        python-version: "3.x"
+        cache: "pip"
+    
+    - id: upgrade-setuptools
+      run: pip install --upgrade setuptools
+      shell: bash
+
+    - id: install-gdtoolkit
+      run: pip install git+https://github.com/Scony/godot-gdscript-toolkit.git@multiline-lambdas
+      shell: bash
+
+    - id: checkout
+      uses: actions/checkout@v4
+      
+    - id: lint
+      run: gdlint project/content
