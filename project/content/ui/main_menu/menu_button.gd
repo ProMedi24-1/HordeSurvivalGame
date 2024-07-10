@@ -6,14 +6,14 @@ extends Button
 @onready var sound_player: AudioStreamPlayer = $SoundPlayer
 
 func _ready() -> void:
-    pass
-    
+	pass
+	
 func play_sound(sound: AudioStream) -> void:
-    sound_player.set_stream(sound)
-    sound_player.play()
+	sound_player.set_stream(sound)
+	sound_player.play()
 
 func _on_pressed() -> void:
-    play_sound(press_sound)
+	play_sound(press_sound)
 
 func _on_focus_entered() -> void:
-    play_sound(select_sound)
+	play_sound(select_sound)

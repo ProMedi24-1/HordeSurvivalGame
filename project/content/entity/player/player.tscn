@@ -5,13 +5,13 @@
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_x7j6f"]
 
-[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("movBody", "playerSprite", "camera")]
+[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("mov_body", "sprite", "camera")]
 collision_layer = 2
 collision_mask = 9
 motion_mode = 1
 script = ExtResource("1_7cqud")
-movBody = NodePath(".")
-playerSprite = NodePath("Sprite2D")
+mov_body = NodePath(".")
+sprite = NodePath("Sprite2D")
 camera = NodePath("Camera2D")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]

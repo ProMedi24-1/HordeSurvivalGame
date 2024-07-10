@@ -1,0 +1,13 @@
+[gd_scene load_steps=4 format=3 uid="uid://cf0bkbnb0ex20"]
+
+[ext_resource type="FontFile" uid="uid://xtswn0x4352w" path="res://assets/fonts/WhitePeaberry.fnt" id="1_ggv2t"]
+[ext_resource type="Theme" uid="uid://ccdeudfc5q0gg" path="res://content/ui/ui_theme.tres" id="1_ywt5a"]
+[ext_resource type="Script" path="res://content/ui/template/button_template.gd" id="3_4p1xd"]
+
+[node name="ButtonTemplate" type="Button"]
+offset_right = 50.0
+offset_bottom = 50.0
+theme = ExtResource("1_ywt5a")
+theme_override_fonts/font = ExtResource("1_ggv2t")
+text = "Play"
+script = ExtResource("3_4p1xd")

@@ -6,8 +6,10 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_p4mu5"]
 size = Vector2(22, 23)
 
-[node name="SwordProj" type="Node2D"]
+[node name="SwordProj" type="Node2D" node_paths=PackedStringArray("sprite", "hitbox")]
 script = ExtResource("1_0fiha")
+sprite = NodePath("Sprite2D")
+hitbox = NodePath("HitBox")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 position = Vector2(2, 0)

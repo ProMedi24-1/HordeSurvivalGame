@@ -1,0 +1,30 @@
+[gd_scene load_steps=5 format=3 uid="uid://cvkwj2f4yk85k"]
+
+[ext_resource type="Script" path="res://content/pickup/crystal/crystal_med.gd" id="1_co7bn"]
+[ext_resource type="Texture2D" uid="uid://c1hw7g3jajilu" path="res://assets/pickup/crystal/crystal_game_med.png" id="2_jycb2"]
+[ext_resource type="Texture2D" uid="uid://c2v7u78r7q0tj" path="res://assets/sprites/effect/shadow/shadow_16.png" id="3_o1fxd"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_f3fub"]
+size = Vector2(10, 10)
+
+[node name="CrystalSmall" type="Node2D" node_paths=PackedStringArray("hitbox")]
+y_sort_enabled = true
+script = ExtResource("1_co7bn")
+hitbox = NodePath("Area2D")
+
+[node name="CrystalMed" type="Sprite2D" parent="."]
+z_index = 1
+texture = ExtResource("2_jycb2")
+
+[node name="Area2D" type="Area2D" parent="."]
+collision_layer = 8
+collision_mask = 3
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("RectangleShape2D_f3fub")
+debug_color = Color(0.618227, 0.398652, 0.909658, 0.42)
+
+[node name="Shadow" type="Sprite2D" parent="."]
+position = Vector2(0, 6)
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("3_o1fxd")

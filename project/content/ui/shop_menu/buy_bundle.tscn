@@ -1,0 +1,21 @@
+[gd_scene load_steps=3 format=3 uid="uid://bqj3l1rjs17c0"]
+
+[ext_resource type="Texture2D" uid="uid://eqa4cso068x2" path="res://assets/weapons/staff/StaffSpriteLevel1.png" id="1_tghlb"]
+[ext_resource type="PackedScene" uid="uid://cf0bkbnb0ex20" path="res://content/ui/template/button_template.tscn" id="2_2coob"]
+
+[node name="BuyBundle" type="PanelContainer"]
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="HBoxContainer"]
+layout_mode = 2
+texture = ExtResource("1_tghlb")
+
+[node name="Label" type="Label" parent="HBoxContainer"]
+layout_mode = 2
+text = "Staff"
+
+[node name="ButtonTemplate" parent="HBoxContainer" instance=ExtResource("2_2coob")]
+layout_mode = 2
+text = "Buy"

@@ -1,75 +1,85 @@
 class_name GSceneAdmin extends Node
+## GSceneAdmin is responsible for managing scene transitions
+## and scene-related data within the game.
 
-
-# Register all scenes here.
-static var sceneMap := {
-    "TitleScreen": Utils.Pair.new(GStateAdmin.GameState.TITLE_SCREEN, "res://content/ui/title_screen/title_screen.tscn"),
-    "MainMenu": Utils.Pair.new(GStateAdmin.GameState.MAIN_MENU, "res://content/ui/main_menu/main_menu.tscn"),
-    "PrototypeLevel": Utils.Pair.new(GStateAdmin.GameState.PLAYING, "res://content/level/PrototypeLevel.tscn"),
+## Map to hold the scene names and their corresponding GameState and resource paths.
+static var scene_map := {
+	"TitleScreen":
+	Pair.new(GStateAdmin.GameState.TITLE_SCREEN, "res://content/ui/title_screen/title_screen.tscn"),
+	"MainMenu":
+	Pair.new(GStateAdmin.GameState.MAIN_MENU, "res://content/ui/main_menu/main_menu.tscn"),
+	"LevelMenu":
+	Pair.new(GStateAdmin.GameState.LEVEL_SELECT, "res://content/ui/level_menu/level_menu.tscn"),
+	"PrototypeLevel":
+	Pair.new(GStateAdmin.GameState.PLAYING, "res://content/level/PrototypeLevel.tscn"),
 }
 
-
-static var sceneRoot: Node
-static var levelBase: LevelBase
+static var scene_root: Node = null  ## Reference to the current scene root node.
+static var level_base: LevelBase = null  ## Reference to the LevelBase node in the scene.
 
 
 func _ready() -> void:
-    GSceneAdmin.fillLevelData()
+	self.name = "GSceneAdmin"
 
-    self.name = "GSceneAdmin"
-    GLogger.log("GSceneAdmin: Ready", Color.GREEN_YELLOW)
-
-
-static func addSceneToMap(sceneName: String, sceneState: GStateAdmin.GameState, resPath: String) -> void:
-
-    if sceneMap.has(sceneName):
-        GLogger.log("GSceneAdmin: Scene " + sceneName + " already exists", Color.RED)
-        return
-
-    sceneMap[sceneName] = Utils.Pair.new(sceneState, resPath)
+	GSceneAdmin.fill_level_data()
 
 
-static func switchScene(sceneName: String) -> void:
-    if not sceneMap.has(sceneName):
-        GLogger.log("GSceneAdmin: Scene " + sceneName + " does not exist", Color.RED)
-        return
-
-    var sceneResource := load(sceneMap[sceneName].second)
-    var gInstance := GGameGlobals.instance
-    gInstance.get_tree().change_scene_to_packed(sceneResource)
-
-    fillLevelData()
-    #gInstance.get_tree().connect("node_added", fillLevelData, CONNECT_ONE_SHOT)
-
-
-static func reloadScene() -> void:
-    GSceneAdmin.switchScene(sceneRoot.name)
+## Adds a new scene to the scene map for management.
+## [scene_name]: The name of the scene to add.
+## [scene_state]: The game state associated with the scene.
+## [res_path]: The resource path to the scene file.
+static func add_scene_to_map(
+	scene_name: String, scene_state: GStateAdmin.GameState, res_path: String
+) -> void:
+	if scene_map.has(scene_name):
+		GLogger.log("GSceneAdmin: Scene " + scene_name + " already exists", Color.RED)
+		return
+	scene_map[scene_name] = Pair.new(scene_state, res_path)
 
 
-static func fillLevelData() -> void:
-    await GGameGlobals.instance.get_tree().node_added
+## Switches the current scene to the specified scene.
+## [scene_name]: The name of the scene to switch to.
+static func switch_scene(scene_name: String) -> void:
+	if not scene_map.has(scene_name):
+		GLogger.log("GSceneAdmin: Scene " + scene_name + " does not exist", Color.RED)
+		return
 
-    sceneRoot = GGameGlobals.instance.get_tree().current_scene
-    var rootName := sceneRoot.name
+	var scene_resource := load(scene_map[scene_name].second)
+	var g_instance := GGameGlobals.instance
+	g_instance.get_tree().change_scene_to_packed(scene_resource)
+	fill_level_data()
 
-    if not sceneMap.has(rootName):
-        GLogger.log("GSceneAdmin: WARNING Scene " + rootName + " not in SceneMap", Color.YELLOW)
 
-        # If the scene does not exist in the sceneMap, it is probably a level scene.
-        # So we add it, with PLAYING state to be able to switch to it later.
-        addSceneToMap(rootName, GStateAdmin.GameState.PLAYING, sceneRoot.scene_file_path)
-    
-    # Unpause game on scene switch.
-    GStateAdmin.unpauseGame()
-    # Set the GameState.
-    GStateAdmin.gameState = sceneMap[rootName].first
+## Reloads the current scene.
+static func reload_scene() -> void:
+	GSceneAdmin.switch_scene(scene_root.name)
 
-    # Take the first Node which is of type LevelBase.
-    for child in sceneRoot.get_children():
-        if child is LevelBase:
-            levelBase = child
 
-            GLogger.log("GSceneAdmin: Found LevelBase")
-            return
+## Fills in level-specific data after a scene has been loaded.
+static func fill_level_data() -> void:
+	await GGameGlobals.instance.get_tree().node_added
 
-    GLogger.log("GSceneAdmin: Could not find LevelBase")
+	scene_root = GGameGlobals.instance.get_tree().current_scene
+	var root_name := scene_root.name
+
+	if not scene_map.has(root_name):
+		GLogger.log("GSceneAdmin: WARNING Scene " + root_name + " not in SceneMap", Color.YELLOW)
+
+		# If the scene does not exist in the sceneMap, it is probably a level scene.
+		# So we add it, with PLAYING state to be able to switch to it later.
+		add_scene_to_map(root_name, GStateAdmin.GameState.PLAYING, scene_root.scene_file_path)
+
+	# Unpause game on scene switch.
+	GStateAdmin.unpause_game()
+	# Set the GameState.
+	GStateAdmin.game_state = scene_map[root_name].first
+
+	# Take the first Node which is of type LevelBase.
+	for child in scene_root.get_children():
+		if child is LevelBase:
+			level_base = child
+
+			GLogger.log("GSceneAdmin: Found LevelBase")
+			return
+
+	GLogger.log("GSceneAdmin: Could not find LevelBase")

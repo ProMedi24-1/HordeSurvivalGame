@@ -1,84 +1,65 @@
 class_name FungusEnemy extends EnemyBase
-# FUNGUS ENEMY
+# Fungus enemy as a charger, has 3 evolutions.
+
+var mov_dir: Vector2 = Vector2.RIGHT
+var is_charging: bool = false
+var on_cooldown: bool = false
+var charge_distance: float = 100.0
+var charge_speed: float = 5000.0
+var charge_time: float = 1.0
+var cooldown_time: float = 3.0
+var org_mov_speed: float
+
+var charge_timer: Timer
+var cooldown_timer: Timer
 
 
-var movDir                = Vector2.RIGHT
-var isCharging: bool      = false
-var onCooldown: bool      = false
-var chargeDistance: float = 100.0
-var chargeSpeed: float    = 5000.0
-var chargeTime: float     = 1.0
-var cooldownTime: float   = 3.0
-var org_movSpeed: float
-
-var chargeTimer: Timer
-var cooldownTimer: Timer
-
-#var defAnim 
-#func _process(delta: float) -> void:
-	#super()
-	#print(sprite.frame)
-
-# Godot virtual functions
 func _ready() -> void:
 	super()
+	self.name = "FungusEnemy"
 
-	
-	
+	org_mov_speed = mov_speed
 
-	org_movSpeed = movSpeed
+	movement_method = func(delta) -> void: charge_to_player(delta)
+	charge_timer = Timer.new()
+	charge_timer.wait_time = charge_time
+	charge_timer.one_shot = true
+	charge_timer.connect("timeout", end_charge)
+	add_child(charge_timer)
 
-	movementMethod = func(delta) -> void:
-		chargeToPlayer(delta)
-
-	chargeTimer = Timer.new()
-	chargeTimer.wait_time = chargeTime
-	chargeTimer.one_shot = true
-	chargeTimer.connect("timeout", endCharge)
-	add_child(chargeTimer)
-
-	cooldownTimer = Timer.new()
-	cooldownTimer.wait_time = cooldownTime
-	cooldownTimer.one_shot = true
-	cooldownTimer.connect("timeout", endCooldown)
-	add_child(cooldownTimer)
-
-func endCharge() -> void:
-	isCharging = false
-	onCooldown = true
-	cooldownTimer.start()
-
-func endCooldown() -> void:
-	onCooldown = false
+	cooldown_timer = Timer.new()
+	cooldown_timer.wait_time = cooldown_time
+	cooldown_timer.one_shot = true
+	cooldown_timer.connect("timeout", end_cooldown)
+	add_child(cooldown_timer)
 
 
-func chargeToPlayer(delta) -> void:
+func end_charge() -> void:
+	is_charging = false
+	on_cooldown = true
+	cooldown_timer.start()
+
+
+func end_cooldown() -> void:
+	on_cooldown = false
+
+
+func charge_to_player(delta) -> void:
 	var player := GEntityAdmin.player
 	if player == null:
 		return
 
-	
-	
-	EnemyUtils.moveToDirection(movBody, movDir, movSpeed, delta)
+	EnemyUtils.move_to_direction(mov_body, mov_dir, mov_speed, delta)
 
-	if onCooldown or global_position.distance_to(player.global_position) > chargeDistance:
-		if not isCharging:
-			movDir = global_position.direction_to(player.global_position)
-			movSpeed = org_movSpeed
-			#defAnim.setSpeed(0.15)
-			#defAnim.play()
+	if on_cooldown or global_position.distance_to(player.global_position) > charge_distance:
+		if not is_charging:
+			mov_dir = global_position.direction_to(player.global_position)
+			mov_speed = org_mov_speed
+
 	else:
-		if not isCharging:
-			isCharging = true
-			movDir = global_position.direction_to(player.global_position)
-			movSpeed = chargeSpeed
-			#defAnim.setSpeed(0.05)
-			chargeTimer.start()
-			
-# Overriden functions
-func onDeath() -> void:
-	#LootLibrary.spawnCrystal(self.global_position)
+		if not is_charging:
+			is_charging = true
+			mov_dir = global_position.direction_to(player.global_position)
+			mov_speed = charge_speed
 
-	#CrystalSmall.spawn(global_position)
-	super()
-	
+			charge_timer.start()

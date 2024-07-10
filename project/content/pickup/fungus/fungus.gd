@@ -1,18 +1,12 @@
-class_name Fungus
-extends PickupBase
+class_name Fungus extends PickupBase
+## Fungus pickup.
+
 
 func _ready() -> void:
 	super()
 
-func onPickup() -> void:
-	#GEntityAdmin.player.addCrystal(1)
-	#print("pickup")
-	Ingredient.addIngredientToPlayer(Ingredient.IngredientType.FUNGUS)
 
-	Effects.Sound.play(SoundBundles.pickupCrystal, 1.5)
-
-# static func spawn(pos: Vector2) -> void:
-# 	var crystalInstance = preload ("res://content/pickup/crystal/crystal_small.tscn").instantiate()
-# 	crystalInstance.global_position = pos
-# 	GSceneAdmin.levelBase.add_child(crystalInstance)
-	
+## Pickup the fungus.
+func on_pickup() -> void:
+	PickupUtils.add_ingredient_to_player(Ingredient.IngredientType.FUNGUS)
+	Sound.play_sfx(Sound.Fx.PICKUP_CRYSTAL, 1.5)

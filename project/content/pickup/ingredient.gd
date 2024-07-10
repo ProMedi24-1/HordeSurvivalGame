@@ -1,46 +1,40 @@
 class_name Ingredient
+## Class for handling ingredients.
 
 
+## The base class for an ingredient.
 class IngredientBase:
-    var name: String
-    var iconTexture: Texture2D
+	var name: String  ## The name of the ingredient.
+	var icon_texture: Texture2D  ## The icon texture of the ingredient.
+	var scene: PackedScene  ## The scene of the pickup.
 
-    func _init(_name: String, _iconTexture: Texture2D) -> void:
-        self.name = _name
-        self.iconTexture = _iconTexture
+	func _init(_name: String, _icon_texture: Texture2D, _scene: PackedScene) -> void:
+		self.name = _name
+		self.icon_texture = _icon_texture
+		self.scene = _scene
 
+
+## The type of ingredient.
 enum IngredientType {
-    BATWING,
-    FUNGUS,
-    SPIDEREYE,
+	NONE,
+	BATWING,
+	FUNGUS,
+	SPIDEREYE,
 }
 
-static var ingredientTypes = {
-    IngredientType.BATWING: IngredientBase.new(
-        "Batwing", 
-        preload("res://assets/pickup/ingredient/bat_wing.png"),
-        ),
-
-    IngredientType.FUNGUS: IngredientBase.new(
-        "Fungus", 
-        preload("res://assets/pickup/ingredient/fungus.png"),
-        ),
-
+## Static map of ingredient types which loads the neccecary data.
+static var ingredient_types = {
+	IngredientType.BATWING:
+	IngredientBase.new(
+		"Batwing",
+		preload("res://assets/pickup/ingredient/bat_wing.png"),
+		# TODO: Fix double load
+		load("res://content/pickup/fungus/fungus.tscn"),
+	),
+	IngredientType.FUNGUS:
+	IngredientBase.new(
+		"Fungus",
+		preload("res://assets/pickup/ingredient/fungus.png"),
+		load("res://content/pickup/fungus/fungus.tscn"),
+	),
 }
-
-static func addIngredientToPlayer(type: IngredientType) -> void:
-    var player := GEntityAdmin.player
-
-    if player == null:
-        return
-
-    player.ingredientInventory[type] += 1
-    GLogger.log("Player: Added %s" % ingredientTypes[type].name)
-
-    # match type:
-    #     IngredientType.BATWING:
-    #         player.ingredientInventory[]
-    #     IngredientType.FUNGUS:
-    #         player.addFungus()
-    #     IngredientType.SPIDEREYE:
-    #         player.addSpiderEye()

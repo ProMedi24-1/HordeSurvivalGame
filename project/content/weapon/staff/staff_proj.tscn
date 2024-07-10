@@ -19,8 +19,9 @@ scale_max = 1.5
 color = Color(0.864675, 0.864675, 0.864675, 1)
 hue_variation_max = 0.02
 
-[node name="StaffProj" type="Node2D"]
+[node name="StaffProj" type="Node2D" node_paths=PackedStringArray("hitbox")]
 script = ExtResource("1_lryuk")
+hitbox = NodePath("HitBox")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("2_h86lq")

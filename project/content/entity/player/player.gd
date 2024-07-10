@@ -1,8 +1,6 @@
 class_name Player extends Node2D
-# Player class.
+## Player entity with basic movement and stats.
 
-
-# Member Variables
 enum HealthStatus {
 	FULL,
 	NORMAL,
@@ -10,144 +8,175 @@ enum HealthStatus {
 	DEAD,
 }
 
-var maxHealth: int              = 9
-var health: int                 = maxHealth
+const LOW_HEALTH_THRESHOLD: float = 0.25  ## The threshold for low health.
+const MAX_WEAPONS: int = 5  ## The maximum amount of weapons the player can have.
+const STD_CAMERA_ZOOM: float = 2.5  ## The standard camera zoom.
 
-var godMode: bool               = false
-var healthStatus: HealthStatus  = HealthStatus.FULL
-const lowHealthThreshold: float = 0.25
-
-var movSpeed: float = 5000.0
-
-var crystals: int             = 0
-var level: int                = 0
-var levelProgress: int        = 0
-var firstLevelReq: int        = 25
-var levelRequired: int        = firstLevelReq
-var levelReqMultiplier: float = 1.3
-
-var weaponInventory: Array[WeaponBase] = []
-var ingredientInventory: Array[int] = []
-
-var kills: int       = 0
-var damageTaken: int = 0
-var healTaken: int   = 0
-
-const defCamZoom: float = 2.5
-var cameraZoomOffset: float = 0.0
-
-
-# Linkable Nodes
-@export var movBody: CharacterBody2D
-@export var playerSprite: Sprite2D
-@export var hudRes: PackedScene = preload ("res://content/ui/hud/hud.tscn")
+# Nodes which must be linked.
+@export var mov_body: CharacterBody2D
+@export var sprite: Sprite2D
+@export var hud_scene: PackedScene = preload("res://content/ui/hud/hud.tscn")
 @export var camera: Camera2D
 
+var max_health: int = 9  ## The maximum health of the player. Currently 9 hearts.
+var health: int = max_health  ## The current health of the player.
 
-# Godot virtual functions
+var god_mode: bool = false  ## If the player is in god mode.
+var health_status: HealthStatus = HealthStatus.FULL  ## The current health status of the player.
+
+var mov_speed: float = 5000.0  ## The movement speed of the player.
+
+var crystals: int = 0  ## The amount of crystals the player has.
+var level: int = 0  ## The current level of the player.
+var level_progress: int = 0  ## The progress towards the next level.
+var first_level_req: int = 25  ## The first level requirement.
+var level_required: int = first_level_req  ## The current level requirement.
+var level_req_multiplier: float = 1.3  ## The multiplier for the next level requirement.
+
+var player_rating: float = 10.0  ## The (skill) rating of the player. Will determine the difficulty.
+
+var weapon_inventory: Array[WeaponBase] = []  ## The weapons the player has.
+var ingredient_inventory: Array[int] = []  ## The ingredients the player has.
+
+var kills: int = 0  ## The amount of kills the player has.
+var damage_taken: int = 0  ## The total amount of damage taken.
+var heal_taken: int = 0  ## The total amount of healing taken.
+
+var camera_zoom_offset: float = 0.0  ## The offset for the camera zoom.
+
+
 func _ready() -> void:
-	GEntityAdmin.registerEntity(self)
+	self.name = "Player"
+	GEntityAdmin.register_entity(self)
 
-	ingredientInventory.resize(Ingredient.IngredientType.keys().size())
+	ingredient_inventory.resize(Ingredient.IngredientType.keys().size())
 
 	# Add Staff weapon
 	var staff = preload("res://content/weapon/sword/sword.tscn").instantiate()
 	add_child(staff)
 
+	var staff2 = preload("res://content/weapon/staff/staff.tscn").instantiate()
+	add_child(staff2)
 
-	add_child(hudRes.instantiate())
-	setCameraZoom()
+	add_child(hud_scene.instantiate())
+	set_camera_zoom()
+
 
 func _physics_process(delta: float) -> void:
-	if movBody == null:
+	if mov_body == null:
 		return
-	
-	handlePlayerMovement(delta)
-	movBody.move_and_slide()
+
+	handle_player_movement(delta)
+	mov_body.move_and_slide()
 
 
-# Custom functions
-func handlePlayerMovement(delta: float) -> void:
+## Handle the player movement.
+## [delta] The delta time.
+func handle_player_movement(delta: float) -> void:
 	var direction := Vector2.ZERO
 
 	direction = Input.get_vector("MoveLeft", "MoveRight", "MoveUp", "MoveDown")
-	movBody.velocity = direction.normalized() * movSpeed * delta
+	mov_body.velocity = direction.normalized() * mov_speed * delta
 
 
-func setHealth(value: int) -> void:
+## Set the health of the player.
+## [value] The value to set the health to.
+func set_health(value: int) -> void:
 	self.health = value
 
-	updateHealthStatus()
+	update_health_status()
 
 
-func setMaxHealth(value: int) -> void:
-	self.maxHealth = value
+## Set the maximum health of the player.
+## [value] The value to set the maximum health to.
+func set_max_health(value: int) -> void:
+	self.max_health = value
 
-	setHealth(min(health, maxHealth))
-	updateHealthStatus()
+	set_health(min(health, max_health))
+	update_health_status()
 
 
-func takeDamage(_damage: int) -> void:
-	if godMode:
+## Damage the player by a certain amount. However the amount is currently
+## irrelevant as the player only takes 1 heart of damage.
+## [damage] The amount of damage to take.
+func take_damage(_damage: int) -> void:
+	if god_mode:
 		return
-
-	
-	#setHealth(max(health - damage, 0))
-	#damageTaken += damage
 
 	# new Health system just takes 1 heart of damage.
-	setHealth(max(health - 1, 0))
-	damageTaken += 1
+	#_damage = 1
+	set_health(max(health - 1, 0))
+	damage_taken += 1
 
-
-	Effects.Sound.play(SoundBundles.hitEntity)
-	Effects.Entity.playHitAnim(playerSprite, Color.RED)
+	Sound.play_sfx(Sound.Fx.HIT_ENTITY)
+	EntityEffects.play_hit_anim(sprite, Color.RED)
 
 	if health <= 0:
-		healthStatus = HealthStatus.DEAD
+		health_status = HealthStatus.DEAD
+		die()
 
 
-func takeHeal(heal: int) -> void:
-	setHealth(min(health + heal, maxHealth))
-	healTaken += heal
+## Heal the player by a certain amount.
+## [heal] The amount of healing to take.
+func take_heal(heal: int) -> void:
+	set_health(min(health + heal, max_health))
+	heal_taken += heal
 
 	#playHealEffect()
-	updateHealthStatus()
+	update_health_status()
 
 
-func updateHealthStatus() -> void:
-	if health == maxHealth:
-		healthStatus = HealthStatus.FULL
+## Update the health status based on the current health.
+func update_health_status() -> void:
+	if health == max_health:
+		health_status = HealthStatus.FULL
 		return
 
-	var healthPercent := float(health) / maxHealth
-	if healthPercent <= lowHealthThreshold:
-		healthStatus = HealthStatus.LOW
+	var health_percent = float(health) / max_health
+	if health_percent <= LOW_HEALTH_THRESHOLD:
+		health_status = HealthStatus.LOW
 	else:
-		healthStatus = HealthStatus.NORMAL
+		health_status = HealthStatus.NORMAL
 
 
-func addCrystal(amount: int) -> void:
+## Add crystals to the player.
+## [amount] The amount of crystals to add.
+func add_crystal(amount: int) -> void:
 	crystals += amount
 	GLogger.log("Player: Added %d crystals" % amount)
 
-	levelProgress += amount
-	if levelProgress >= levelRequired:
-		levelUp()
+	level_progress += amount
+	if level_progress >= level_required:
+		level_up()
 
 
-func levelUp() -> void:
+## Level up the player and update the requirement.
+func level_up() -> void:
 	level += 1
-	levelProgress = 0
-	updateLevelReq()
-	
+	level_progress = 0
+	update_level_req()
+
 	GLogger.log("Player: Level up to %d" % level)
 
 
-func updateLevelReq() -> void:
+## Update the level requirement.
+func update_level_req() -> void:
 	@warning_ignore("narrowing_conversion")
-	levelRequired = int(firstLevelReq * pow(levelReqMultiplier, level))
+	level_required = int(first_level_req * pow(level_req_multiplier, level))
 
 
-func setCameraZoom() -> void:
-	camera.zoom = Vector2(defCamZoom + cameraZoomOffset, defCamZoom + cameraZoomOffset)
+## Set the camera zoom.
+func set_camera_zoom() -> void:
+	camera.zoom = Vector2(
+		STD_CAMERA_ZOOM + camera_zoom_offset, STD_CAMERA_ZOOM + camera_zoom_offset
+	)
+
+
+## Kill the player. This will show the game over menu.
+func die() -> void:
+	var death_menu = preload("res://content/ui/gameover_menu/gameover_menu.tscn").instantiate()
+	GGameGlobals.instance.add_child(death_menu)
+
+	GStateAdmin.pause_game(true)
+
+	mov_body.visible = false

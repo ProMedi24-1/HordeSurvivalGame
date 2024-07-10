@@ -1,25 +1,25 @@
 class_name DebugUserSettings
-# User Settings Menu for testing the Settings system.
+## ImGui User Settings Menu for testing the Settings system.
+
+static var set_res_x := [1024]
+static var set_res_y := [600]
+static var set_max_fps := [60]
+static var set_vsync := [false]
+static var set_window_mode := [0]
+
+static var set_gamma := [1.0]
+static var set_camera_zoom := [1.0]
+
+static var set_colorblind_mode := [0]
+static var set_colorblind_strength := [0.0]
+static var set_camera_shake := [true]
+
+static var set_master_volume := [0.0]
+static var set_music_volume := [0.0]
+static var set_sfx_volume := [0.0]
 
 
-static var setResX       := [1024]
-static var setResY       := [600]
-static var setMaxFPS     := [60]
-static var setVsync      := [false]
-static var setWindowMode := [0]
-
-static var setGamma := [1.0]
-static var setCameraZoom := [1.0]
-
-static var setColorblindMode      := [0]
-static var setColorblindStrength  := [0.0]
-static var setCameraShake := [true]
-
-static var setMasterVolume := [0.0]
-static var setMusicVolume  := [0.0]
-static var setSFXVolume    := [0.0]
-
-static func showUserSettingsWindow(p_open: Array) -> void:
+static func show_user_settings_window(p_open: Array) -> void:
 	ImGui.SetNextWindowSize(Vector2(280, 420), ImGui.Cond_Once)
 	ImGui.SetNextWindowPos(Vector2(20, 150), ImGui.Cond_Once)
 
@@ -27,70 +27,79 @@ static func showUserSettingsWindow(p_open: Array) -> void:
 
 	ImGui.Separator()
 
-	setResX[0] = LocalSettings.resX
-	setResY[0] = LocalSettings.resY
-	setMaxFPS[0] = LocalSettings.maxFPS
-	setVsync[0] = LocalSettings.vSync
+	set_res_x[0] = LocalSettings.resolution_x
+	set_res_y[0] = LocalSettings.resolution_y
+	set_max_fps[0] = LocalSettings.max_fps
+	set_vsync[0] = LocalSettings.vsync_enabled
 
 	if ImGui.CollapsingHeader("Video"):
-		if ImGui.InputInt("resX", setResX):
-			LocalSettings.resX = setResX[0]
-		if ImGui.InputInt("resY", setResY):
-			LocalSettings.resY = setResY[0]
-		if ImGui.InputInt("maxFPS", setMaxFPS):
-			LocalSettings.maxFPS = setMaxFPS[0]
-		
-		setWindowMode[0] = LocalSettings.windowMode
-		if ImGui.SliderIntEx("windowMode", setWindowMode, 0, LocalSettings.WindowMode.size() - 1, LocalSettings.WindowMode.keys()[setWindowMode[0]]):
-			LocalSettings.windowMode = setWindowMode[0]
+		if ImGui.InputInt("res_x", set_res_x):
+			LocalSettings.resolution_x = set_res_x[0]
+		if ImGui.InputInt("res_y", set_res_y):
+			LocalSettings.resolution_y = set_res_y[0]
+		if ImGui.InputInt("max_fps", set_max_fps):
+			LocalSettings.max_fps = set_max_fps[0]
 
-		if ImGui.Checkbox("VSync", setVsync):
-			LocalSettings.vSync = setVsync[0]
+		set_window_mode[0] = LocalSettings.window_mode
+		if ImGui.SliderIntEx(
+			"window_mode",
+			set_window_mode,
+			0,
+			LocalSettings.WindowMode.size() - 1,
+			LocalSettings.WindowMode.keys()[set_window_mode[0]]
+		):
+			LocalSettings.window_mode = set_window_mode[0]
+
+		if ImGui.Checkbox("v_sync", set_vsync):
+			LocalSettings.vsync_enabled = set_vsync[0]
 
 	if ImGui.CollapsingHeader("Preference"):
-		setGamma[0] = LocalSettings.gamma
-		setCameraZoom[0] = LocalSettings.cameraZoom
-		if ImGui.SliderFloat("gamma", setGamma, 0.0, 2.0):
-			LocalSettings.gamma = setGamma[0]
-		if ImGui.SliderFloat("cameraZoom", setCameraZoom, -0.5, 1.0):
-			LocalSettings.cameraZoom = setCameraZoom[0]
+		set_gamma[0] = LocalSettings.gamma_value
+		set_camera_zoom[0] = LocalSettings.camera_zoom_level
+		if ImGui.SliderFloat("gamma", set_gamma, 0.0, 2.0):
+			LocalSettings.gamma_value = set_gamma[0]
+		if ImGui.SliderFloat("camera_zoom", set_camera_zoom, -0.5, 1.0):
+			LocalSettings.camera_zoom_level = set_camera_zoom[0]
 
 	if ImGui.CollapsingHeader("Accessibility"):
+		set_colorblind_mode[0] = LocalSettings.color_blind_filter
+		set_colorblind_strength[0] = LocalSettings.color_filter_strength
+		set_camera_shake[0] = LocalSettings.camera_shake_enabled
 
-		setColorblindMode[0] = LocalSettings.colorBlindFilter
-		setColorblindStrength[0] = LocalSettings.colorFilterStrength
-		setCameraShake[0] = LocalSettings.cameraShake
-		
-		ImGui.Text("colorblindMode")
-		if ImGui.SliderIntEx("##IcolorBlindMode", setColorblindMode, 0, LocalSettings.ColorBlindFilter.size() - 1, LocalSettings.ColorBlindFilter.keys()[setColorblindMode[0]]):
-			LocalSettings.colorBlindFilter = setColorblindMode[0]
-		ImGui.Text("colorblindStrength")
-		if ImGui.SliderFloat("##IcolorBlindStrength", setColorblindStrength, 0.0, 1.0):
-			LocalSettings.colorFilterStrength = setColorblindStrength[0]
-		ImGui.Text("cameraShakeStrength")
-		if ImGui.Checkbox("##IcameraShake", setCameraShake):
-			LocalSettings.cameraShake = setCameraShake[0]
-
+		ImGui.Text("colorblind_mode")
+		if ImGui.SliderIntEx(
+			"##IcolorBlindMode",
+			set_colorblind_mode,
+			0,
+			LocalSettings.ColorBlindFilter.size() - 1,
+			LocalSettings.ColorBlindFilter.keys()[set_colorblind_mode[0]]
+		):
+			LocalSettings.color_blind_filter = set_colorblind_mode[0]
+		ImGui.Text("colorblind_strength")
+		if ImGui.SliderFloat("##IcolorBlindStrength", set_colorblind_strength, 0.0, 1.0):
+			LocalSettings.color_filter_strength = set_colorblind_strength[0]
+		ImGui.Text("camera_shake_strength")
+		if ImGui.Checkbox("##IcameraShake", set_camera_shake):
+			LocalSettings.camera_shake_enabled = set_camera_shake[0]
 
 	if ImGui.CollapsingHeader("Audio"):
-		setMasterVolume[0] = LocalSettings.masterVolume
-		setMusicVolume[0] = LocalSettings.musicVolume
-		setSFXVolume[0] = LocalSettings.sfxVolume
+		set_master_volume[0] = LocalSettings.master_volume
+		set_music_volume[0] = LocalSettings.music_volume
+		set_sfx_volume[0] = LocalSettings.sfx_volume
 
-		ImGui.Text("Master Volume")
-		if ImGui.SliderFloat("##ImasterVolume", setMasterVolume, 0.0, 1.5):
-			LocalSettings.masterVolume = setMasterVolume[0]
-		ImGui.Text("Music Volume")
-		if ImGui.SliderFloat("##ImusicVolume", setMusicVolume, 0.0, 1.5):
-			LocalSettings.musicVolume = setMusicVolume[0]
-		ImGui.Text("SFX Volume")
-		if ImGui.SliderFloat("##IsoundVolume", setSFXVolume, 0.0, 1.5):
-			LocalSettings.sfxVolume = setSFXVolume[0]
-
+		ImGui.Text("master_volume")
+		if ImGui.SliderFloat("##ImasterVolume", set_master_volume, 0.0, 1.5):
+			LocalSettings.master_volume = set_master_volume[0]
+		ImGui.Text("music_volume")
+		if ImGui.SliderFloat("##ImusicVolume", set_music_volume, 0.0, 1.5):
+			LocalSettings.music_volume = set_music_volume[0]
+		ImGui.Text("sfx_volume")
+		if ImGui.SliderFloat("##IsoundVolume", set_sfx_volume, 0.0, 1.5):
+			LocalSettings.sfx_volume = set_sfx_volume[0]
 
 	ImGui.Separator()
 	if ImGui.Button("Apply Settings"):
-		LocalSettings.applySettings()	
+		LocalSettings.apply_settings()
 
 	if ImGui.Button("Load"):
 		#LocalSettings.loadSettings()
