@@ -1,4 +1,4 @@
-name: "Export-Debug CI"
+name: "Export-Debug CI 📦"
 on:
   push:
     branches:
