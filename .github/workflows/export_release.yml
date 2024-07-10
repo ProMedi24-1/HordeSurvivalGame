@@ -1,4 +1,4 @@
-name: "Export Release"
+name: "Export Release 📦"
 
 on:
   workflow_dispatch:
