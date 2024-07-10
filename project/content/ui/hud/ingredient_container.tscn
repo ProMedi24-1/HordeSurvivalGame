@@ -4,11 +4,11 @@
 [ext_resource type="Script" path="res://content/ui/hud/ingredient_container.gd" id="1_yreyb"]
 [ext_resource type="FontFile" uid="uid://xtswn0x4352w" path="res://assets/fonts/WhitePeaberry.fnt" id="2_j1h8e"]
 
-[node name="IngredientContainer" type="HBoxContainer" node_paths=PackedStringArray("iconTex", "label")]
+[node name="IngredientContainer" type="HBoxContainer" node_paths=PackedStringArray("icon_tex", "label")]
 offset_right = 40.0
 offset_bottom = 40.0
 script = ExtResource("1_yreyb")
-iconTex = NodePath("Icon")
+icon_tex = NodePath("Icon")
 label = NodePath("Label")
 
 [node name="Icon" type="TextureRect" parent="."]

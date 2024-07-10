@@ -1,51 +1,63 @@
 class_name GStateAdmin extends Node
+## GStateAdmin is responsible for managing the game state,
+## including pausing and unpausing the game.
 
-
+## Enum to represent the various states the game can be in.
 enum GameState {
-	NONE,
-	TITLE_SCREEN,
-	MAIN_MENU,
-	LEVEL_SELECT,
-	PLAYING,
+	NONE,  ## Initial state, or no specific state.
+	TITLE_SCREEN,  ## When the game is at the title screen.
+	MAIN_MENU,  ## When the game is at the main menu.
+	LEVEL_SELECT,  ## When the player is selecting a level.
+	PLAYING,  ## When in a level or undefined scene.
 }
 
+## The scene used for the pause menu.
+const PAUSE_MENU_SCENE: PackedScene = preload("res://content/ui/pause_menu/pause_menu.tscn")
 
-static var gameState: GameState           = GameState.NONE
-static var gamePaused: bool               = false
-static var pauseMenuScene: PackedScene    = preload ("res://content/ui/pause_menu/pause_menu.tscn")
-static var pauseMenuInstance: CanvasLayer = null
+
+## Static variable to hold the current game state.
+static var game_state: GameState = GameState.NONE
+## Static boolean to track if the game is paused.
+static var game_paused: bool = false
+
 
 
 func _ready() -> void:
 	self.name = "GStateAdmin"
-	GLogger.log("GStateAdmin: Ready", Color.GREEN_YELLOW)
 
 
+## Pauses the game on input.
 func _input(event: InputEvent) -> void:
-	if event.is_action_pressed("PauseMenu") and gameState == GameState.PLAYING:
-		GStateAdmin.togglePauseGame()
+	if event.is_action_pressed("PauseMenu") and game_state == GameState.PLAYING:
+		GStateAdmin.toggle_pause_game()
 
 
-static func togglePauseGame() -> void:
-	if gameState == GameState.PLAYING:
-		if gamePaused:
-			unpauseGame()
+## Toggles the pause state of the game.
+static func toggle_pause_game() -> void:
+	if game_state == GameState.PLAYING:
+		if game_paused:
+			unpause_game()
 		else:
-			pauseGame()
+			pause_game()
 
 
-static func pauseGame() -> void:
-	GSceneAdmin.sceneRoot.process_mode = Node.PROCESS_MODE_DISABLED
-	pauseMenuInstance = pauseMenuScene.instantiate()
-	GGameGlobals.instance.add_child(pauseMenuInstance)
+## Pauses the game by disabling the processing of the main scene.
+static func pause_game(gameover: bool = false) -> void:
+	if GSceneAdmin.scene_root != null:
+		GSceneAdmin.scene_root.process_mode = Node.PROCESS_MODE_DISABLED
 
-	gamePaused = true
+	if not gameover:
+		var pause_menu_instance := PAUSE_MENU_SCENE.instantiate()
+		GGameGlobals.instance.add_child(pause_menu_instance)
+
+	game_paused = true
 
 
-static func unpauseGame() -> void:
-	GSceneAdmin.sceneRoot.process_mode = Node.PROCESS_MODE_INHERIT
-	
-	if pauseMenuInstance:
-		pauseMenuInstance.queue_free()
+## Unpauses the game by enabling the processing of the main scene.
+static func unpause_game() -> void:
+	GSceneAdmin.scene_root.process_mode = Node.PROCESS_MODE_INHERIT
 
-	gamePaused = false
+	#if pauseMenuInstance:
+	#pauseMenuInstance.queue_free()
+
+	game_paused = false

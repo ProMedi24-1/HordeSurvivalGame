@@ -1,34 +1,14 @@
 class_name BatEnemy extends EnemyBase
-# BAT ENEMY
+## Bat enemy as a flyer, has 3 evolutions.
 
-
-# Godot virtual functions
 func _ready() -> void:
 	super()
+	self.name = "BatEnemy"
 
-	movementMethod = func(delta) -> void:
-		EnemyUtils.moveToPlayer(movBody, movSpeed, delta) 
-	
-	#Effects.Anim.playStdAnim(sprite, 4, 0.15, true)
-	
-	var defAnim = Effects.Anim.SpriteAnim.new(sprite, 5, 0.15)
-	defAnim.looped = true
-	defAnim.play()
+	# Set movement to basic move to player.
+	movement_method = func(delta) -> void:
+		EnemyUtils.move_to_player(mov_body, mov_speed, delta)
 
-static func spawn(pos: Vector2, evolution: int ) -> void:
-	var evolutions = [
-		load("res://content/entity/enemy/bat/bat_ev1.tscn"), 
-		load("res://content/entity/enemy/bat/bat_ev2.tscn"), 
-		load("res://content/entity/enemy/bat/bat_ev3.tscn")
-		]
-
-	var enemyInstance = evolutions[evolution].instantiate()
-
-	enemyInstance.global_position = pos
-	GSceneAdmin.levelBase.add_child(enemyInstance)
-
-# Overriden functions
-#func onDeath() -> void:
-	#LootLibrary.spawnCrystal(self.global_position)
-	#super()
-	
+	var std_anim = Anim.SpriteAnim.new(sprite, 5, 0.15)
+	std_anim.looped = true
+	std_anim.play()

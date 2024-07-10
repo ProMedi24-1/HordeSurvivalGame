@@ -1,17 +1,22 @@
 class_name DebugPlayerMenu
-# Player Menu with Cheats to test player behaviour.
+## ImGui Player Menu with Cheats to test player behaviour.
+
+static var show_pos := false
+static var show_velocity := false
+static var set_health := [0]
+static var set_max_health := [200]
+static var set_god_mode := [false]
+static var damage_input := [25]
+static var heal_input := [25]
+static var set_mov_speed := [0.0]
+
+static var add_crystals := [10]
+static var set_progress := [0]
+static var set_level := [5]
+static var set_req_mult := [1.5]
 
 
-static var showPos      := false
-static var showVelocity := false
-static var setHealth    := [0]
-static var setMaxHealth := [200]
-static var setGodMode   := [false]
-static var damageInput  := [25]
-static var healInput    := [25]
-static var setMovSpeed  := [0.0]
-
-static func showPlayerMenuWindow(p_open: Array) -> void:
+static func show_player_menu_window(p_open: Array) -> void:
 	ImGui.SetNextWindowSize(Vector2(280, 420), ImGui.Cond_Once)
 	ImGui.SetNextWindowPos(Vector2(20, 150), ImGui.Cond_Once)
 
@@ -24,50 +29,49 @@ static func showPlayerMenuWindow(p_open: Array) -> void:
 		return
 
 	var player := GEntityAdmin.player
-	
+
 	ImGui.Begin("Player Menu", p_open, ImGui.WindowFlags_NoSavedSettings)
 
-	const tableFlags := ImGui.TableFlags_Borders
-	if ImGui.BeginTable("infoTable", 2, tableFlags):
-
+	const TABLE_FLAGS := ImGui.TableFlags_Borders
+	if ImGui.BeginTable("infoTable", 2, TABLE_FLAGS):
 		ImGui.TableNextRow()
 		ImGui.TableNextColumn()
-		showPos = ImGui.TreeNodeEx("Position: ", ImGui.TreeNodeFlags_DefaultOpen)
+		show_pos = ImGui.TreeNodeEx("Position: ", ImGui.TreeNodeFlags_DefaultOpen)
 		ImGui.TableNextColumn()
 		ImGui.Text("")
 
-		if showPos:
+		if show_pos:
 			ImGui.TableNextRow()
 			ImGui.TableNextColumn()
 			ImGui.Text(" Position X: ")
 			ImGui.TableNextColumn()
-			ImGui.Text(" %d " % player.movBody.global_position.x)
+			ImGui.Text(" %d " % player.mov_body.global_position.x)
 
 			ImGui.TableNextRow()
 			ImGui.TableNextColumn()
 			ImGui.Text(" Position Y: ")
 			ImGui.TableNextColumn()
-			ImGui.Text(" %d " % player.movBody.global_position.y)
+			ImGui.Text(" %d " % player.mov_body.global_position.y)
 			ImGui.TreePop()
 
 		ImGui.TableNextRow()
 		ImGui.TableNextColumn()
-		showVelocity = ImGui.TreeNodeEx("Velocity: ", ImGui.TreeNodeFlags_DefaultOpen)
+		show_velocity = ImGui.TreeNodeEx("Velocity: ", ImGui.TreeNodeFlags_DefaultOpen)
 		ImGui.TableNextColumn()
 		ImGui.Text("")
 
-		if showVelocity:
+		if show_velocity:
 			ImGui.TableNextRow()
 			ImGui.TableNextColumn()
 			ImGui.Text(" Velocity X: ")
 			ImGui.TableNextColumn()
-			ImGui.Text(" %d " % player.movBody.velocity.x)
+			ImGui.Text(" %d " % player.mov_body.velocity.x)
 
 			ImGui.TableNextRow()
 			ImGui.TableNextColumn()
 			ImGui.Text(" Velocity Y: ")
 			ImGui.TableNextColumn()
-			ImGui.Text(" %d " % player.movBody.velocity.y)
+			ImGui.Text(" %d " % player.mov_body.velocity.y)
 			ImGui.TreePop()
 
 		ImGui.EndTable()
@@ -76,89 +80,86 @@ static func showPlayerMenuWindow(p_open: Array) -> void:
 	ImGui.Separator()
 
 	if ImGui.BeginTabBar("##Tabs", ImGui.TabBarFlags_None):
-
 		if ImGui.BeginTabItem("General"):
-			drawGeneralTab()
+			draw_general_tab()
 			ImGui.EndTabItem()
 
 		if ImGui.BeginTabItem("Progress"):
-			drawProgressTab()
+			draw_progress_tab()
 			ImGui.EndTabItem()
-		
-		if ImGui.BeginTabItem("Weapons"):
 
+		if ImGui.BeginTabItem("Weapons"):
 			ImGui.EndTabItem()
 
 		if ImGui.BeginTabItem("Stats"):
-			drawStatsTab()
+			draw_stats_tab()
 			ImGui.EndTabItem()
 
 		ImGui.EndTabBar()
 	ImGui.End()
 
 
-static func drawGeneralTab() -> void:
+static func draw_general_tab() -> void:
 	var player := GEntityAdmin.player
 	ImGui.SeparatorText("Health")
-	ImGui.TextColored(Color.GREEN, "Health: [%d/%d]" % [player.health, player.maxHealth])
+	ImGui.TextColored(Color.GREEN, "Health: [%d/%d]" % [player.health, player.max_health])
 	ImGui.SameLine()
-	ImGui.Text("HealthState: %s" % player.HealthStatus.keys()[player.healthStatus])
+	ImGui.Text("HealthState: %s" % player.HealthStatus.keys()[player.health_status])
 
 	@warning_ignore("integer_division")
-	var bar: float = float(player.health) / float(player.maxHealth)
-	ImGui.ProgressBar(bar, Vector2( - 1, 15))
+	var bar: float = float(player.health) / float(player.max_health)
+	ImGui.ProgressBar(bar, Vector2(-1, 15))
 
-	setHealth[0] = player.health
-	if ImGui.SliderInt("Set Health", setHealth, 0, player.maxHealth):
-		player.setHealth(setHealth[0])
+	set_health[0] = player.health
+	if ImGui.SliderInt("Set Health", set_health, 0, player.max_health):
+		player.set_health(set_health[0])
 
 	ImGui.Text("Max Health:")
-	ImGui.InputInt("##maxHealthInput", setMaxHealth)
+	ImGui.InputInt("##maxHealthInput", set_max_health)
 	ImGui.SameLine()
 	if ImGui.Button("Set##maxHealth"):
-		player.setMaxHealth(setMaxHealth[0])
+		player.set_max_health(set_max_health[0])
 
-	setGodMode[0] = player.godMode
-	if ImGui.Checkbox("God Mode", setGodMode):
-		player.godMode = setGodMode[0]
+	set_god_mode[0] = player.god_mode
+	if ImGui.Checkbox("God Mode", set_god_mode):
+		player.god_mode = set_god_mode[0]
 
 	if ImGui.TreeNode("Actions"):
-
 		ImGui.SetNextItemWidth(100)
-		ImGui.InputInt("##damageInput", damageInput)
+		ImGui.InputInt("##damage_input", damage_input)
 		ImGui.SameLine()
 		if ImGui.Button("Damage"):
-			player.takeDamage(damageInput[0])
+			player.take_damage(damage_input[0])
 
 		ImGui.SetNextItemWidth(100)
-		ImGui.InputInt("##healInput", healInput)
+		ImGui.InputInt("##heal_input", heal_input)
 		ImGui.SameLine()
 		if ImGui.Button("Heal"):
-			player.takeHeal(healInput[0])
+			player.take_heal(heal_input[0])
 
 		ImGui.TreePop()
 
 	ImGui.SeparatorText("Movement")
 
-	setMovSpeed[0] = player.movSpeed
+	set_mov_speed[0] = player.mov_speed
 
 	ImGui.Text("Movement Speed:")
 	ImGui.SetNextItemWidth(250)
-	if ImGui.DragFloatEx("##Set Movement Speed1", setMovSpeed, 50, 0.0, 25000.0):
-		player.movSpeed = setMovSpeed[0]
+	if ImGui.DragFloatEx("##Set Movement Speed1", set_mov_speed, 50, 0.0, 25000.0):
+		player.mov_speed = set_mov_speed[0]
 
 
-static func drawStatsTab() -> void:
+static func draw_stats_tab() -> void:
 	var player := GEntityAdmin.player
-	var level := GSceneAdmin.levelBase
-	const tableFlags := ImGui.TableFlags_Borders|ImGui.TableFlags_RowBg
-	if ImGui.BeginTable("statsTable", 2, tableFlags):
+	var level := GSceneAdmin.level_base
+	const TABLE_FLAGS := ImGui.TableFlags_Borders | ImGui.TableFlags_RowBg
 
+	if ImGui.BeginTable("statsTable", 2, TABLE_FLAGS):
 		ImGui.TableNextRow()
 		ImGui.TableNextColumn()
 		ImGui.Text("maxHealth:")
 		ImGui.TableNextColumn()
-		ImGui.Text(str(player.maxHealth))
+		ImGui.Text(str(player.max_health))
 
 		ImGui.TableNextRow()
 		ImGui.TableNextColumn()
@@ -170,26 +171,26 @@ static func drawStatsTab() -> void:
 		ImGui.TableNextColumn()
 		ImGui.Text("healthStatus:")
 		ImGui.TableNextColumn()
-		ImGui.Text(player.HealthStatus.keys()[player.healthStatus])
+		ImGui.Text(player.HealthStatus.keys()[player.health_status])
 
 		ImGui.TableNextRow()
 		ImGui.TableNextColumn()
 		ImGui.Text("godMode:")
 		ImGui.TableNextColumn()
-		ImGui.Text(str(player.godMode))
+		ImGui.Text(str(player.god_mode))
 
 		ImGui.TableNextRow()
 		ImGui.TableNextColumn()
 		ImGui.Text("movSpeed:")
 		ImGui.TableNextColumn()
-		ImGui.Text(str(player.movSpeed))
+		ImGui.Text(str(player.mov_speed))
 
 		ImGui.TableNextRow()
 		ImGui.TableNextColumn()
 		ImGui.Text("level:")
 		ImGui.TableNextColumn()
 		ImGui.Text(str(player.level))
-		
+
 		ImGui.TableNextRow()
 		ImGui.TableNextColumn()
 		ImGui.Text("crystals:")
@@ -200,29 +201,28 @@ static func drawStatsTab() -> void:
 		ImGui.TableNextColumn()
 		ImGui.Text("levelProgress:")
 		ImGui.TableNextColumn()
-		ImGui.Text(str(player.levelProgress))
+		ImGui.Text(str(player.level_progress))
 
 		ImGui.TableNextRow()
 		ImGui.TableNextColumn()
 		ImGui.Text("levelRequired:")
 		ImGui.TableNextColumn()
-		ImGui.Text(str(player.levelRequired))
+		ImGui.Text(str(player.level_required))
 
 		ImGui.TableNextRow()
 		ImGui.TableNextColumn()
 		ImGui.Text("levelReqMultiplier:")
 		ImGui.TableNextColumn()
-		ImGui.Text(str(player.levelReqMultiplier))
+		ImGui.Text(str(player.level_req_multiplier))
 
 		ImGui.EndTable()
 
-	if ImGui.BeginTable("levelTable", 2, tableFlags):
-
+	if ImGui.BeginTable("levelTable", 2, TABLE_FLAGS):
 		ImGui.TableNextRow()
 		ImGui.TableNextColumn()
 		ImGui.Text("timeSurvived:")
 		ImGui.TableNextColumn()
-		ImGui.Text(str(level.timeElapsed))
+		ImGui.Text(str(level.time_elapsed))
 
 		ImGui.TableNextRow()
 		ImGui.TableNextColumn()
@@ -234,61 +234,55 @@ static func drawStatsTab() -> void:
 		ImGui.TableNextColumn()
 		ImGui.Text("damageTaken:")
 		ImGui.TableNextColumn()
-		ImGui.Text(str(player.damageTaken))
+		ImGui.Text(str(player.damage_taken))
 
 		ImGui.TableNextRow()
 		ImGui.TableNextColumn()
 		ImGui.Text("healTaken:")
 		ImGui.TableNextColumn()
-		ImGui.Text(str(player.healTaken))
+		ImGui.Text(str(player.heal_taken))
 
 		ImGui.EndTable()
 
 
-static var addCrystals := [10]
-static var setProgress := [0]
-static var setLevel    := [5]
-static var setReqMult  := [1.5]
-
-static func drawProgressTab() -> void:
+static func draw_progress_tab() -> void:
 	var player := GEntityAdmin.player
 
 	ImGui.SeparatorText("Level")
 
 	ImGui.TextColored(Color.AQUAMARINE, "Level: %d" % player.level)
 	ImGui.SameLine()
-	ImGui.TextColored(Color.AQUAMARINE, "[%d/%d]" % [player.levelProgress, player.levelRequired])
+	ImGui.TextColored(Color.AQUAMARINE, "[%d/%d]" % [player.level_progress, player.level_required])
 	ImGui.SameLine()
-	ImGui.Text("nextReqMult: %.2f" % player.levelReqMultiplier)
+	ImGui.Text("nextReqMult: %.2f" % player.level_req_multiplier)
 
-	var bar: float = float(player.levelProgress) / float(player.levelRequired)
-	ImGui.ProgressBar(bar, Vector2( - 1, 15))
+	var bar: float = float(player.level_progress) / float(player.level_required)
+	ImGui.ProgressBar(bar, Vector2(-1, 15))
 
-	setProgress[0] = player.levelProgress
-	if ImGui.SliderInt("Progress##slider", setProgress, 0, player.levelRequired):
-		player.levelProgress = setProgress[0]
+	set_progress[0] = player.level_progress
+	if ImGui.SliderInt("Progress##slider", set_progress, 0, player.level_required):
+		player.level_progress = set_progress[0]
 
-	if ImGui.InputInt("Set Level##levelInput", setLevel):
-		player.level = setLevel[0]
-		player.updateLevelReq()
+	if ImGui.InputInt("Set Level##levelInput", set_level):
+		player.level = set_level[0]
+		player.update_level_req()
 
-	setReqMult[0] = player.levelReqMultiplier
-	if ImGui.InputFloat("Set ReqMult##reqMultInput", setReqMult):
-		player.levelReqMultiplier = setReqMult[0]
-		player.updateLevelReq()
+	set_req_mult[0] = player.level_req_multiplier
+	if ImGui.InputFloat("Set ReqMult##reqMultInput", set_req_mult):
+		player.level_req_multiplier = set_req_mult[0]
+		player.update_level_req()
 
 	if ImGui.TreeNode("Actions##2"):
-
 		ImGui.SetNextItemWidth(100)
-		ImGui.InputInt("##crystalInput", addCrystals)
+		ImGui.InputInt("##crystalInput", add_crystals)
 		ImGui.SameLine()
 		if ImGui.Button("Add Crystals"):
-			player.addCrystal(addCrystals[0])
+			player.add_crystal(add_crystals[0])
 
 		if ImGui.Button("Reset Level"):
 			player.level = 0
-			player.levelProgress = 0
-			player.updateLevelReq()
+			player.level_progress = 0
+			player.update_level_req()
 			#player.levelRequired = 25
 
 		if ImGui.Button("Reset Crystals"):

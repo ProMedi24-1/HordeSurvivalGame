@@ -3,66 +3,66 @@ extends Node
 
 #signal timeChanged()
 
-const maxDifficulty = 100
+const max_difficulty = 100
 var difficulty: int = 0
-var isAdaptive: bool = false
-var isDecoupled: bool = false
-var isStatic: bool = false
+var is_adaptive: bool = false
+var is_decoupled: bool = false
+var is_static: bool = false
 
-var maxTime = 600
-var timeElapsed: int = 0
-var holdTime: bool = false
+var max_time = 600
+var time_elapsed: int = 0
+var hold_time: bool = false
 
-var wave: int = 0
 
 func _ready() -> void:
-	var levelTimer := Timer.new()
-	
-	levelTimer.wait_time = 1
-	levelTimer.one_shot = false;
-	levelTimer.connect("timeout", updateTime)
-	add_child(levelTimer)
-	levelTimer.start()
+	var level_timer := Timer.new()
 
-	GLogger.log("LevelBase: Ready", Color.GREEN_YELLOW)
+	level_timer.wait_time = 1
+	level_timer.one_shot = false;
+	level_timer.connect("timeout", update_time)
+	add_child(level_timer)
+	level_timer.start()
 
-func updateTime() -> void:
-	if holdTime:
+	#GLogger.log("LevelBase: Ready", Color.GREEN_YELLOW)
+
+func update_time() -> void:
+	if hold_time:
 		return
 
-	if timeElapsed >= maxTime:
+	if time_elapsed >= max_time:
 		GLogger.log("Max Time reached")
-		updateDifficulty()
+		#update_difficulty()
 	else:
-		timeElapsed += 1
-		updateDifficulty()
+		time_elapsed += 1
+		#update_difficulty()
 
-	#timeChanged.emit()
+	#time_changed.emit()
+	#print(difficulty)
 
-func updateDifficulty() -> void:
-	if isStatic:
-		return
+# func update_difficulty() -> void:
+# 	if is_static:
+# 		return
 
-	if isAdaptive:
-		updateAdaptive()
-	else:
-		updateLinear()
+# 	if is_adaptive:
+# 		update_adaptive()
+# 	else:
+# 		update_linear()
 
-func updateLinear() -> void:
-	if isDecoupled:
-		@warning_ignore("integer_division")
-		difficulty += (100 / maxTime)
-		difficulty = min(difficulty, maxDifficulty)
-		
-	else:
-		@warning_ignore("integer_division")
-		difficulty = ((timeElapsed / maxTime) * 100)
-		difficulty = min(difficulty, maxDifficulty)
+# func updateLinear() -> void:
+# 	if isDecoupled:
+# 		@warning_ignore("integer_division")
+# 		difficulty += (100 / maxTime)
+# 		difficulty = min(difficulty, maxDifficulty)
 
-func updateAdaptive() -> void:
-	# TODO: Implement.
-	pass
+# 	else:
+# 		@warning_ignore("integer_division")
+# 		difficulty = ((timeElapsed / maxTime) * 100)
+# 		difficulty = min(difficulty, maxDifficulty)
 
-func getTimeString() -> String:
+# func updateAdaptive() -> void:
+# 	# TODO: Implement.
+# 	pass
+
+func get_time_string() -> String:
 	@warning_ignore("integer_division")
-	return "%02d:%02d" % [timeElapsed / 60, timeElapsed % 60]
+	return "%02d:%02d" % [time_elapsed / 60, time_elapsed % 60]

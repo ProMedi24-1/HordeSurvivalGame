@@ -1,26 +1,34 @@
 extends CanvasLayer
 
+@export var play_button: Button
+@export var settings_button: Button
+@export var credits_button: Button
+@export var quit_button: Button
 
-@onready var playButton := $ButtonsBox/PlayButton
-@onready var settingsButton := $ButtonsBox/SettingsButton
-@onready var creditsButton := $ButtonsBox/CreditsButton
-@onready var quitButton := $ButtonsBox/QuitButton
+@export var settings_scene: PackedScene
+@export var credits_scene: PackedScene
 
 
 func _ready() -> void:
-	playButton.connect("pressed", playPressed)
-	settingsButton.connect("pressed", settingsPressed)
-	creditsButton.connect("pressed", creditsPressed)
-	quitButton.connect("pressed", quitPressed)
+	play_button.press_event = play_pressed
+	settings_button.press_event = settings_pressed
+	credits_button.press_event = credits_pressed
+	quit_button.press_event = quit_pressed
 
-func playPressed() -> void:
-	pass
 
-func settingsPressed() -> void:
-	pass
+func play_pressed() -> void:
+	GSceneAdmin.switch_scene("LevelMenu")
 
-func creditsPressed() -> void:
-	pass
 
-func quitPressed() -> void:
+func settings_pressed() -> void:
+	var settings := settings_scene.instantiate()
+	add_child(settings)
+
+
+func credits_pressed() -> void:
+	var credits := credits_scene.instantiate()
+	add_child(credits)
+
+
+func quit_pressed() -> void:
 	get_tree().quit()

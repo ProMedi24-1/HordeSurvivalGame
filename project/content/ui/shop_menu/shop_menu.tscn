@@ -1,0 +1,119 @@
+[gd_scene load_steps=3 format=3 uid="uid://bw8txerrq8s8m"]
+
+[ext_resource type="FontFile" uid="uid://xtswn0x4352w" path="res://assets/fonts/WhitePeaberry.fnt" id="1_i85jf"]
+[ext_resource type="PackedScene" uid="uid://bqj3l1rjs17c0" path="res://content/ui/shop_menu/buy_bundle.tscn" id="2_6fy2e"]
+
+[node name="ShopMenu" type="CanvasLayer"]
+
+[node name="Panel" type="Panel" parent="."]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -523.0
+offset_top = -233.0
+offset_right = 514.0
+offset_bottom = 268.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="Panel"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -234.0
+offset_top = -238.5
+offset_right = -194.0
+offset_bottom = -213.5
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(1.705, 1.705)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("1_i85jf")
+text = "Shop"
+
+[node name="Label2" type="Label" parent="Panel"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -237.0
+offset_top = -189.5
+offset_right = -200.0
+offset_bottom = -164.5
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(1.245, 1.245)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("1_i85jf")
+text = "Buy"
+
+[node name="HSeparator" type="HSeparator" parent="Panel"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -230.0
+offset_top = -200.5
+offset_right = -43.0
+offset_bottom = -191.5
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(2.145, 2.145)
+
+[node name="HSeparator2" type="VSeparator" parent="Panel"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -18.0
+offset_top = -156.5
+offset_right = -2.0
+offset_bottom = 17.5
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(2.145, 2.145)
+
+[node name="ScrollContainer" type="ScrollContainer" parent="Panel"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 0.559
+anchor_right = 0.5
+anchor_bottom = 0.559
+offset_left = -237.0
+offset_top = -186.059
+offset_right = -14.0
+offset_bottom = 185.941
+vertical_scroll_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel/ScrollContainer"]
+layout_mode = 2
+
+[node name="BuyBundle2" parent="Panel/ScrollContainer/VBoxContainer" instance=ExtResource("2_6fy2e")]
+layout_mode = 2
+
+[node name="BuyBundle" parent="Panel/ScrollContainer/VBoxContainer" instance=ExtResource("2_6fy2e")]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Panel"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.497
+anchor_top = 0.541
+anchor_right = 0.497
+anchor_bottom = 0.541
+offset_left = 19.921
+offset_top = -176.041
+offset_right = 381.921
+offset_bottom = 195.959

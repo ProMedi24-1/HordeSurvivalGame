@@ -1,123 +1,134 @@
 class_name DebugProfilers
-# Profiler menus for tracking performance, memory and logs.
+## ImGui Profiler menus for tracking performance, memory and logs.
+
+static var fps_current: int
+static var fps_average: int
+static var fps_max: int
+static var frame_time: float
+static var fps_buffer := CircBuffer.new(50)
+
+static var show_static := false
+static var show_rendering := false
+
+static var scroll_to_btm := [true]
 
 
-static var fpsCurrent: int
-static var fpsAverage: int
-static var fpsMax: int
-static var frameTime: float
-static var fpsBuffer := Utils.CircBuffer.new(50)
+static func show_frame_window(p_open: Array) -> void:
+	fps_current = Engine.get_frames_per_second() as int
+	fps_max = Engine.max_fps
 
-static func showFrameWindow(p_open: Array) -> void:
-	fpsCurrent = Engine.get_frames_per_second() as int
-	fpsMax = Engine.max_fps
+	frame_time = Performance.get_monitor(Performance.TIME_PROCESS)
+	frame_time *= 1000
+	const FT_BUDGET := 8
 
-	frameTime = Performance.get_monitor(Performance.TIME_PROCESS)
-	frameTime *= 1000
-	const ftBudget := 8
+	fps_buffer.push_back(fps_current)
 
-	fpsBuffer.pushBack(fpsCurrent)
-
-	fpsAverage = Utils.accumulate(fpsBuffer.buffer) / fpsBuffer.bufSize
+	fps_average = Math.accumulate(fps_buffer.buffer) / fps_buffer.buf_size
 
 	ImGui.SetNextWindowSize(Vector2(280, 130), ImGui.Cond_Once)
 	ImGui.SetNextWindowPos(Vector2(850, 130), ImGui.Cond_Once)
 	ImGui.Begin("Frame", p_open, ImGui.WindowFlags_NoSavedSettings)
 
-	ImGui.Text("FPS: %d" % fpsCurrent)
+	ImGui.Text("FPS: %d" % fps_current)
 	ImGui.SameLine()
-	ImGui.Text("Avg: %d" % fpsAverage)
+	ImGui.Text("Avg: %d" % fps_average)
 	ImGui.SameLine()
-	ImGui.Text("Max %d" % fpsMax)
+	ImGui.Text("Max %d" % fps_max)
 
 	if ImGui.BeginTable("ftTable", 2):
 		ImGui.TableSetupColumnEx("", ImGui.TableColumnFlags_WidthFixed, 125)
 
 		ImGui.TableNextRow()
 		ImGui.TableNextColumn()
-		ImGui.Text("FrameTime: %.2fms" % frameTime)
+		ImGui.Text("FrameTime: %.2fms" % frame_time)
 
 		ImGui.TableNextColumn()
-		ImGui.ProgressBar(frameTime / ftBudget, Vector2( - 1, 15), "%d/%dms" % [frameTime, ftBudget])
+		ImGui.ProgressBar(
+			frame_time / FT_BUDGET, Vector2(-1, 15), "%d/%dms" % [frame_time, FT_BUDGET]
+		)
 
 		ImGui.EndTable()
 
 	ImGui.Separator()
-	ImGui.PlotLinesEx("##fpsPlot", fpsBuffer.buffer, fpsBuffer.bufSize, 0, "", 0, (fpsMax + 10), Vector2( - 1, 50))
-	
+	ImGui.PlotLinesEx(
+		"##fpsPlot", fps_buffer.buffer, fps_buffer.buf_size, 0, "", 0, fps_max + 10, Vector2(-1, 50)
+	)
+
 	ImGui.End()
 
 
-static var showStatic    := false
-static var showRendering := false
-
-static func showMemoryWindow(p_open: Array) -> void:
+static func show_memory_window(p_open: Array) -> void:
 	ImGui.SetNextWindowSize(Vector2(300, 170), ImGui.Cond_Once)
 	ImGui.SetNextWindowPos(Vector2(830, 390), ImGui.Cond_Once)
 	ImGui.Begin("Memory", p_open, ImGui.WindowFlags_NoSavedSettings)
 
-	const memFlags := ImGui.TableFlags_Borders|ImGui.TableFlags_RowBg
-	if ImGui.BeginTable("memTable", 2, memFlags):
-
+	const MEM_FLAGS := ImGui.TableFlags_Borders | ImGui.TableFlags_RowBg
+	if ImGui.BeginTable("memTable", 2, MEM_FLAGS):
 		ImGui.TableNextRow()
 		ImGui.TableNextColumn()
-		showStatic = ImGui.CollapsingHeader("Static", ImGui.TreeNodeFlags_DefaultOpen)
+		show_static = ImGui.CollapsingHeader("Static", ImGui.TreeNodeFlags_DefaultOpen)
 		ImGui.TableNextColumn()
 		ImGui.Text("")
 
-		const bToMB = 10e6
-		if showStatic:
+		const B_TO_MB := 10e6
+		if show_static:
 			ImGui.TableNextRow()
 			ImGui.TableNextColumn()
 			ImGui.Text("Memory Static:")
 			ImGui.TableNextColumn()
-			ImGui.Text("%.2f MB" % (Performance.get_monitor(Performance.MEMORY_STATIC) / bToMB))
+			ImGui.Text("%.2f MB" % (Performance.get_monitor(Performance.MEMORY_STATIC) / B_TO_MB))
 
 			ImGui.TableNextRow()
 			ImGui.TableNextColumn()
 			ImGui.Text("Memory Static Max:")
 			ImGui.TableNextColumn()
-			ImGui.Text("%.2f MB" % (Performance.get_monitor(Performance.MEMORY_STATIC_MAX) / bToMB))
+			ImGui.Text(
+				"%.2f MB" % (Performance.get_monitor(Performance.MEMORY_STATIC_MAX) / B_TO_MB)
+			)
 
 		ImGui.TableNextRow()
 		ImGui.TableNextColumn()
-		showRendering = ImGui.CollapsingHeader("Rendering", ImGui.TreeNodeFlags_DefaultOpen)
+		show_rendering = ImGui.CollapsingHeader("Rendering", ImGui.TreeNodeFlags_DefaultOpen)
 		ImGui.TableNextColumn()
 		ImGui.Text("")
 
-		if showRendering:
+		if show_rendering:
 			ImGui.TableNextRow()
 			ImGui.TableNextColumn()
 			ImGui.Text("Memory Video:")
 			ImGui.TableNextColumn()
-			ImGui.Text("%.2f MB" % (Performance.get_monitor(Performance.RENDER_VIDEO_MEM_USED) / bToMB))
+			ImGui.Text(
+				"%.2f MB" % (Performance.get_monitor(Performance.RENDER_VIDEO_MEM_USED) / B_TO_MB)
+			)
 
 			ImGui.TableNextRow()
 			ImGui.TableNextColumn()
 			ImGui.Text("Memory Texture:")
 			ImGui.TableNextColumn()
-			ImGui.Text("%.2f MB" % (Performance.get_monitor(Performance.RENDER_TEXTURE_MEM_USED) / bToMB))
+			ImGui.Text(
+				"%.2f MB" % (Performance.get_monitor(Performance.RENDER_TEXTURE_MEM_USED) / B_TO_MB)
+			)
 
 			ImGui.TableNextRow()
 			ImGui.TableNextColumn()
 			ImGui.Text("Memory Buffer:")
 			ImGui.TableNextColumn()
-			ImGui.Text("%.2f MB" % (Performance.get_monitor(Performance.RENDER_BUFFER_MEM_USED) / bToMB))
+			ImGui.Text(
+				"%.2f MB" % (Performance.get_monitor(Performance.RENDER_BUFFER_MEM_USED) / B_TO_MB)
+			)
 
 		ImGui.EndTable()
 
 	ImGui.End()
 
 
-static var scrollToBtm := [true]
-
-static func showLoggerWindow(p_open: Array) -> void:
+static func show_logger_window(p_open: Array) -> void:
 	ImGui.SetNextWindowSize(Vector2(320, 250), ImGui.Cond_Once)
 	ImGui.SetNextWindowPos(Vector2(430, 380), ImGui.Cond_Once)
 	ImGui.Begin("Logger", p_open, ImGui.WindowFlags_NoSavedSettings)
 
 	if ImGui.Button("Clear Log"):
-		GLogger.clearLogBuffer()
+		GLogger.clear_log_buffer()
 
 	ImGui.SameLine()
 	if ImGui.Button("Test Log"):
@@ -126,19 +137,19 @@ static func showLoggerWindow(p_open: Array) -> void:
 		GLogger.log("Test Log", Color.BLUE)
 
 	ImGui.SameLine()
-	ImGui.Checkbox("Scroll To Bottom", scrollToBtm)
+	ImGui.Checkbox("Scroll To Bottom", scroll_to_btm)
 
 	ImGui.Separator()
 
 	if ImGui.BeginChild("ScrollingRegion", Vector2(0, 0), false):
 		ImGui.PushTextWrapPos()
 
-		for logMsg in GLogger.logBuffer:
-			ImGui.TextColored(logMsg.getFirst(), logMsg.getSecond())
+		for log_msg in GLogger.log_buffer:
+			ImGui.TextColored(log_msg.first, log_msg.second)
 
 		ImGui.PopTextWrapPos()
 
-		if scrollToBtm[0]:
+		if scroll_to_btm[0]:
 			ImGui.SetScrollHereY(1.0)
 
 		ImGui.EndChild()

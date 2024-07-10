@@ -6,10 +6,10 @@
 [sub_resource type="CircleShape2D" id="CircleShape2D_rxbr0"]
 radius = 86.0
 
-[node name="Sword" type="Node2D" node_paths=PackedStringArray("weaponRange")]
+[node name="Sword" type="Node2D" node_paths=PackedStringArray("weapon_range")]
 script = ExtResource("1_jevnn")
-projScene = ExtResource("2_wvocb")
-weaponRange = NodePath("Area2D")
+proj_scene = ExtResource("2_wvocb")
+weapon_range = NodePath("Area2D")
 
 [node name="Area2D" type="Area2D" parent="."]
 collision_layer = 16

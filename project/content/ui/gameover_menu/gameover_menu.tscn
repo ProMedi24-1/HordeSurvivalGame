@@ -1,0 +1,47 @@
+[gd_scene load_steps=4 format=3 uid="uid://cldc4tf4mgjyp"]
+
+[ext_resource type="Script" path="res://content/ui/gameover_menu/gameover_menu.gd" id="1_boqwd"]
+[ext_resource type="FontFile" uid="uid://xtswn0x4352w" path="res://assets/fonts/WhitePeaberry.fnt" id="1_cjjfp"]
+[ext_resource type="PackedScene" uid="uid://cf0bkbnb0ex20" path="res://content/ui/template/button_template.tscn" id="1_t3mr0"]
+
+[node name="GameOver" type="CanvasLayer" node_paths=PackedStringArray("restart_button", "quit_button")]
+script = ExtResource("1_boqwd")
+restart_button = NodePath("VBoxContainer/RestartButton")
+quit_button = NodePath("VBoxContainer/QuitButton")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="RestartButton" parent="VBoxContainer" instance=ExtResource("1_t3mr0")]
+layout_mode = 2
+text = "Restart"
+
+[node name="QuitButton" parent="VBoxContainer" instance=ExtResource("1_t3mr0")]
+layout_mode = 2
+text = "Quit"
+
+[node name="Label" type="Label" parent="."]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -127.0
+offset_top = 106.0
+offset_right = -42.0
+offset_bottom = 131.0
+grow_horizontal = 2
+scale = Vector2(3, 3)
+theme_override_colors/font_color = Color(1, 0.0884705, 0.0805846, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("1_cjjfp")
+text = "Game Over
+"

@@ -1,15 +1,18 @@
 class_name GEntityAdmin extends Node
+## GEntityAdmin is responsible for managing all entities,
+## including registration and tracking of the player.
 
-
-static var entities := []
-static var player: Player
+static var entities := []  ## Static array to hold all registered entities.
+static var player: Player  ## Static reference to the player entity.
 
 
 func _ready() -> void:
 	self.name = "GEntityAdmin"
-	
 
-static func registerEntity(entity: Node) -> void:
+
+## Registers an entity with the entity manager.
+## [entity]: The entity to register, can be of any type derived from Node.
+static func register_entity(entity: Node) -> void:
 	entities.append(entity)
 
 	if entity is Player:
@@ -19,5 +22,7 @@ static func registerEntity(entity: Node) -> void:
 		GLogger.log("GEntityAdmin: Registered entity: " + str(entity), Color.PURPLE)
 
 
-static func unregisterEntity(entity: Node) -> void:
+# Unregisters an entity from the entity manager.
+# [entity]: The entity to unregister.
+static func unregister_entity(entity: Node) -> void:
 	entities.erase(entity)

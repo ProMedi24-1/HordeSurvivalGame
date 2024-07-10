@@ -1,37 +1,37 @@
-[gd_scene load_steps=3 format=3 uid="uid://b226jg4nta1kd"]
+[gd_scene load_steps=4 format=3 uid="uid://b226jg4nta1kd"]
 
 [ext_resource type="Script" path="res://content/ui/pause_menu/pause_menu.gd" id="1_l8kgm"]
-[ext_resource type="PackedScene" uid="uid://1ak1ku3d4xvu" path="res://content/ui/main_menu/menu_button.tscn" id="2_htxpw"]
+[ext_resource type="PackedScene" uid="uid://dsth8jw0fejpd" path="res://content/ui/settings_menu/settings_menu.tscn" id="2_csghl"]
+[ext_resource type="PackedScene" uid="uid://cf0bkbnb0ex20" path="res://content/ui/template/button_template.tscn" id="2_twd1d"]
 
-[node name="CanvasLayer" type="CanvasLayer"]
+[node name="PauseMenu" type="CanvasLayer" node_paths=PackedStringArray("continue_button", "settings_button", "quit_button")]
 script = ExtResource("1_l8kgm")
+continue_button = NodePath("VBoxContainer/ContinueButton")
+settings_button = NodePath("VBoxContainer/SettingsButton")
+quit_button = NodePath("VBoxContainer/QuitButton")
+settings_scene = ExtResource("2_csghl")
 
-[node name="Control" type="Control" parent="."]
-layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="VBoxContainer" type="VBoxContainer" parent="Control"]
-layout_mode = 1
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -20.0
-offset_top = -20.0
-offset_right = 20.0
-offset_bottom = 20.0
+offset_left = -42.0
+offset_top = -53.5
+offset_right = 42.0
+offset_bottom = 53.5
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="ContinueButton" parent="Control/VBoxContainer" instance=ExtResource("2_htxpw")]
+[node name="ContinueButton" parent="VBoxContainer" instance=ExtResource("2_twd1d")]
 layout_mode = 2
 text = "Continue"
 
-[node name="QuitButton" parent="Control/VBoxContainer" instance=ExtResource("2_htxpw")]
+[node name="SettingsButton" parent="VBoxContainer" instance=ExtResource("2_twd1d")]
+layout_mode = 2
+text = "Settings"
+
+[node name="QuitButton" parent="VBoxContainer" instance=ExtResource("2_twd1d")]
 layout_mode = 2
 text = "Quit"

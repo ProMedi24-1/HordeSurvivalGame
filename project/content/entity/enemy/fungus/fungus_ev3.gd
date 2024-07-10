@@ -1,33 +1,40 @@
 extends FungusEnemy
-# Evolution 1 of FUNGUS ENEMY
+# Evolution 3.
 
-# Set the stats here.
+var std_anim: Anim.SpriteAnim
+
+
+# Constructor, configure the stats here!
 func _init() -> void:
-	health        = 100
-	movSpeed      = 1400.0
+	health = 100
+	mov_speed = 1400.0
 
-	chargeDistance = 2500.0
-	chargeSpeed   = 6000.0
-	chargeTime    = 1.5
+	charge_distance = 2500.0
+	charge_speed = 6000.0
+	charge_time = 1.5
 
-	meleeDamage   = 8
-	meleeCooldown = 0.8
+	melee_damage = 8
+	melee_cooldown = 0.8
 
-var defAnim	
+	crystal_rating = 0.8
+	ingredient = Ingredient.IngredientType.FUNGUS
+	ingredient_chance = 1.0
+
 
 func _ready() -> void:
 	super()
-	
-	defAnim = Effects.Anim.SpriteAnim.new(sprite, 16, 0.06)
+	self.name = "FungusEnemy[Ev3]"
 
-	defAnim.looped = true
-	defAnim.play()
+	std_anim = Anim.SpriteAnim.new(sprite, 16, 0.06)
+	std_anim.looped = true
+	std_anim.play()
 
-# This is awful, but i dont care currently.
+
+# This is awful, because we are checking every frame
+# if we are charging or not. But i dont care currently.
+# TODO: Refactor this to use signals instead.
 func _process(_delta) -> void:
-	
-	#print(sprite.frame)
-	if isCharging:
-		defAnim.setSpeed(0.02)
+	if is_charging:
+		std_anim.set_speed(0.02)
 	else:
-		defAnim.setSpeed(0.06)
+		std_anim.set_speed(0.06)

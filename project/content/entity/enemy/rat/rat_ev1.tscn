@@ -1,0 +1,43 @@
+[gd_scene load_steps=6 format=3 uid="uid://cdrfskxt3d0x7"]
+
+[ext_resource type="Texture2D" uid="uid://w40gpeuq28ua" path="res://assets/entity/enemy/rat/RatSpriteSheet.png" id="1_mv1cg"]
+[ext_resource type="Texture2D" uid="uid://b5de2fwe7gy8q" path="res://assets/sprites/effect/shadow/shadow_24.png" id="2_e3kla"]
+[ext_resource type="Script" path="res://content/entity/enemy/rat/rat_enemy.gd" id="3_wxqna"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_why8i"]
+radius = 6.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_2ryt4"]
+radius = 8.0
+
+[node name="RatEv1" type="CharacterBody2D"]
+collision_layer = 4
+motion_mode = 1
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_why8i")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+z_index = 1
+position = Vector2(0, -6)
+texture = ExtResource("1_mv1cg")
+vframes = 5
+frame = 3
+
+[node name="HitBox" type="Area2D" parent="."]
+collision_layer = 4
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitBox"]
+shape = SubResource("CircleShape2D_2ryt4")
+debug_color = Color(0.948125, 0.109551, 0.502569, 0.42)
+
+[node name="Shadow" type="Sprite2D" parent="."]
+position = Vector2(0, 8)
+texture = ExtResource("2_e3kla")
+
+[node name="Node2D" type="Node2D" parent="." node_paths=PackedStringArray("mov_body", "sprite", "hit_box")]
+script = ExtResource("3_wxqna")
+mov_body = NodePath("..")
+sprite = NodePath("../Sprite2D")
+hit_box = NodePath("../HitBox")

@@ -1,27 +1,34 @@
-class_name PickupBase
-extends Node2D
+class_name PickupBase extends Node2D
+## Base class for all pickups.
 
-@export var hitbox: Area2D
+@export var hitbox: Area2D  ## The hitbox for the pickup.
+
 
 func _ready() -> void:
-    if hitbox == null:
-        return
-    
-    hitbox.connect("body_entered", pickup)
+	self.name = "PickupBase"
 
-func pickup(_Node) -> void:
-    #print("pickup")
-    onPickup() # Custom pickup function for chilren.
+	if hitbox == null:
+		return
 
-    #Effects.playSound(pickupSound)
-    hitbox.queue_free()
-    playPickupAnim()
+	hitbox.connect("body_entered", pickup)
 
-# Override
-func onPickup() -> void:
-    pass
 
-func playPickupAnim() -> void:
-    var tween = self.create_tween()
-    tween.tween_property(self, "scale", Vector2(), 0.1)
-    tween.tween_callback(self.queue_free)
+## Pickup the pickup.
+## [_Node]: The node that entered the hitbox, not used.
+func pickup(_node) -> void:
+	on_pickup()  # Custom pickup function for chilren.
+
+	hitbox.queue_free()
+	play_pickup_anim()
+
+
+## Override in children.
+func on_pickup() -> void:
+	pass
+
+
+## Play the pickup animation.
+func play_pickup_anim() -> void:
+	var tween = self.create_tween()
+	tween.tween_property(self, "scale", Vector2(), 0.1)
+	tween.tween_callback(self.queue_free)
