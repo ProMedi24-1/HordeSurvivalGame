@@ -5,6 +5,10 @@
 ![](https://github.com/ProMedi24-1/HordeSurvivalGame/actions/workflows/export_release.yml/badge.svg)
 ![](https://img.shields.io/static/v1?label=Godot&message=4.3&color=blue&logo=godotengine)
 
+
+<img src="https://github.com/ProMedi24-1/HordeSurvivalGame/assets/139063007/08f73577-1a20-4dc0-b269-8c38853c7d0f" width=630>
+
+
 A Survivors/Brotato-like game with a static and adaptive difficulty, made with the [Godot Game Engine.](https://godotengine.org/) (4.3-beta3)
 
 This  project is developed as part of the academic module **Project Media Creation (2024)** at **TU-Berlin**. It aims to explore different user experiences by implementing
