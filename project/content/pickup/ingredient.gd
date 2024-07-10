@@ -28,8 +28,7 @@ static var ingredient_types = {
 	IngredientBase.new(
 		"Batwing",
 		preload("res://assets/pickup/ingredient/bat_wing.png"),
-		# TODO: Fix double load
-		load("res://content/pickup/fungus/fungus.tscn"),
+		load("res://content/pickup/bat_wing/bat_wing.tscn"),
 	),
 	IngredientType.FUNGUS:
 	IngredientBase.new(

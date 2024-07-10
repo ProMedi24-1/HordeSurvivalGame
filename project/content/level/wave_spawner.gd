@@ -53,8 +53,8 @@ static var enemy_types = {
 ## placed in the editor.
 static var spawn_points: Array = []
 
-static var waveDuration: float = 60.0 ## Duration for one Wave in seconds
-static var currentWave: int = 0 ## Current wave number
+static var wave_duration: float = 60.0 ## Duration for one Wave in seconds
+static var current_wave: int = 0 ## Current wave number
 
 
 func _ready() -> void:
@@ -89,6 +89,15 @@ static func spawn_enemy_at(type: EnemyType, pos: Vector2) -> void:
 
 ## Wave Class for spawning enemies.
 class Wave extends Node:
+
+	const SPAWN_TIME_LOOKUP = {
+		-20: 0.5,
+		-10: 1.0,
+		0: 2.0,
+		10: 3.0,
+		20: 4.0,
+	}
+
 	var paused: bool = false ## Flag to pause the wave
 	var spawn_interval: float = 2.0 ## Time between enemy spawns
 	var spawn_timer: Timer
@@ -103,13 +112,6 @@ class Wave extends Node:
 	# 	Pair.new(20, INF): 10  # If the player rating is much lower, spawn very slowly
 	# }
 
-	const spawn_time_lookup = {
-		-20: 0.5,
-		-10: 1.0,
-		0: 2.0,
-		10: 3.0,
-		20: 4.0,
-	}
 
 
 	## Select an enemy to spawn based on player and enemy rating.
@@ -123,8 +125,8 @@ class Wave extends Node:
 			var enemy_rating = WaveSpawner.enemy_types[enemy_type].second as float
 			var rating_difference = player_rating - enemy_rating
 
-			const rating_threshold = 10.0
-			if abs(rating_difference) <= rating_threshold: # This threshold can be adjusted
+			const RATING_THRESHOLD = 10.0
+			if abs(rating_difference) <= RATING_THRESHOLD: # This threshold can be adjusted
 				# Also adjust on rating the times the enemy is in the array
 				#for i in range(0, 10 - abs(rating_difference) / 2):
 				possible_enemies.append(enemy_type)
@@ -145,9 +147,9 @@ class Wave extends Node:
 
 
 			# Find the spawn time based on the rating difference in our lookup table.
-			for rating_range in spawn_time_lookup.keys():
+			for rating_range in SPAWN_TIME_LOOKUP.keys():
 				if rating_difference <= rating_range:
-					spawn_time = spawn_time_lookup[rating_range]
+					spawn_time = SPAWN_TIME_LOOKUP[rating_range]
 					break
 
 			print("Rating difference: ", rating_difference, "Spawn time: ", spawn_time)
@@ -174,7 +176,7 @@ class Wave extends Node:
 		var wave_timer = Timer.new()
 		wave_timer.one_shot = true
 		wave_timer.autostart = true
-		wave_timer.wait_time = WaveSpawner.waveDuration
+		wave_timer.wait_time = WaveSpawner.wave_duration
 
 		wave_running = true
 
