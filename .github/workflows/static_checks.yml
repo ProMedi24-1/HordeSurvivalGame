@@ -1,0 +1,15 @@
+name: "Static checks"
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  static-checks:
+    name: 'Static checks'
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+    - uses: Scony/godot-gdscript-toolkit@multiline-lambdas
+    - run: gdlint project/content
