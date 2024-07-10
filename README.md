@@ -1,6 +1,6 @@
 # Horde-Survival-Game 👾
 
-![ci workflow](https://github.com/ProMedi24-1/HordeSurvivalGame/actions/workflows/export_debug.yml/badge.svg) ![release workflow](https://github.com/ProMedi24-1/HordeSurvivalGame/actions/workflows/export_release.yml/badge.svg)
+![checks workflow](https://github.com/ProMedi24-1/HordeSurvivalGame/actions/workflows/static_checks.yml/badge.svg) ![ci workflow](https://github.com/ProMedi24-1/HordeSurvivalGame/actions/workflows/export_debug.yml/badge.svg) ![release workflow](https://github.com/ProMedi24-1/HordeSurvivalGame/actions/workflows/export_release.yml/badge.svg)
 
 Creation of a Horde-Survival-Game with a static and adaptive Difficulty, made with the [Godot Game Engine.](https://godotengine.org/)
 
