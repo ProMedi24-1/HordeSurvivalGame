@@ -22,7 +22,7 @@ static func spawn_crystal(pos: Vector2, type: CrystalType) -> void:
 	var crystal_inst = CRYSTAL_SCENES[type].instantiate()
 	crystal_inst.global_position = pos
 	GSceneAdmin.level_base.add_child.call_deferred(crystal_inst)
-	
+
 
 ## Spawn a ingredient at a position.
 ## [pos]: The position to spawn at.

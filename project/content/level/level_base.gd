@@ -3,7 +3,7 @@ extends Node
 
 #signal timeChanged()
 
-const max_difficulty = 100
+const MAX_DIFFICULTY = 100
 var difficulty: int = 0
 var is_adaptive: bool = false
 var is_decoupled: bool = false
