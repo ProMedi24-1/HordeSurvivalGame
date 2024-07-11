@@ -1,9 +1,12 @@
 name: "🐧 Linux"
 
+env:
+  PLATFORM: linux
+  EXPORT_NAME: Linux/X11
+  FILE_EXT: .x86-64
+
 on:
-  push:
-    branches:
-      - main
+  workflow_call:
 
 jobs:
   linux-build:
@@ -23,13 +26,13 @@ jobs:
 
       - name: Build Debug
         run: |
-          mkdir -v -p build/linux
+          mkdir -v -p build/${PLATFORM}
           cd project
-          godot --headless --verbose --export-debug "Linux/X11" ../build/linux/linux-debug.x86-64
+          godot --headless --verbose --export-debug "${EXPORT_NAME}" ../build/${PLATFORM}/${PLATFORM}-debug${FILE_EXT}
 
       - name: Upload Artifact
         uses: actions/upload-artifact@v4
         with:
-          name: linux-debug
-          path: build/linux
+          name: ${PLATFORM}-debug
+          path: build/${PLATFORM}
         
