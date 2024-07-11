@@ -7,18 +7,18 @@ on:
 
 jobs:
   static-checks:
-    name: 🧪 Static Checks
+    #name: 🧪 Static Checks
     uses: ./.github/workflows/static_checks.yml
     
   linux-build:
-    name: 🐧 Linux
+    #name: 🐧 Linux
     needs: static-checks
     uses: ./.github/workflows/linux_build.yml   
     with:
         export-mode: debug    
 
   windows-build:
-    name: 🪟 Windows
+    #name: 🪟 Windows
     needs: static-checks
     uses: ./.github/workflows/windows_build.yml   
     with:
