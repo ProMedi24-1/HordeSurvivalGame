@@ -1,0 +1,75 @@
+name: "📦 Release Export"
+
+on:
+  workflow_dispatch:
+    inputs:
+      semver:
+        description: "Which version you want to release?"
+        required: true
+        default: "v0.0.1"
+        
+      prerelease:
+        description: "Is this a pre-release?"
+        required: false
+        default: "false"
+        type: boolean
+
+permissions:
+  packages: write
+  contents: write
+
+jobs:
+  static-checks:
+    #name: 🧪 Static Checks
+    uses: ./.github/workflows/static_checks.yml
+    
+  linux-build:
+    #name: 🐧 Linux
+    needs: static-checks
+    uses: ./.github/workflows/linux_build.yml   
+    with:
+        export-mode: release    
+
+  windows-build:
+    #name: 🪟 Windows
+    needs: static-checks
+    uses: ./.github/workflows/windows_build.yml   
+    with:
+        export-mode: release
+
+  macos-build:
+    #name: 🍏 MacOS
+    needs: static-checks
+    uses: ./.github/workflows/macos_build.yml   
+    with:
+        export-mode: release
+
+  release:
+    name: Release
+    runs-on: ubuntu-latest
+    needs: [linux-build, windows-build, macos-build]
+    steps:
+    - name: Download Artifacts
+      uses: actions/download-artifact@v4
+      with:
+        path: downloads/
+
+    - name: Zip Artifacts
+      run: |
+        cd downloads
+        ls -la
+        zip -r windows-${{ github.event.inputs.semver }}.zip ./windows-release/
+        zip -r linux-${{ github.event.inputs.semver }}.zip ./linux-release/
+        zip -r macos-${{ github.event.inputs.semver }}.zip ./macos-release/
+        ls -la
+        cd ..
+        
+    - name: Create Release 
+      uses: ncipollo/release-action@v1
+      with:
+        skipIfReleaseExists: true
+        generateReleaseNotes: true
+        prerelease: ${{ github.event.inputs.prerelease }}
+        tag: ${{ github.event.inputs.semver }}
+        commit: main
+        artifacts: "downloads/*.zip" 
