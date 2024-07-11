@@ -1,7 +1,7 @@
 [gd_scene load_steps=6 format=3 uid="uid://cdrfskxt3d0x7"]
 
 [ext_resource type="Texture2D" uid="uid://w40gpeuq28ua" path="res://assets/entity/enemy/rat/RatSpriteSheet.png" id="1_mv1cg"]
-[ext_resource type="Texture2D" uid="uid://b5de2fwe7gy8q" path="res://assets/sprites/effect/shadow/shadow_24.png" id="2_e3kla"]
+[ext_resource type="Texture2D" uid="uid://b5de2fwe7gy8q" path="res://assets/effects/shadow/shadow_24.png" id="2_e3kla"]
 [ext_resource type="Script" path="res://content/entity/enemy/rat/rat_enemy.gd" id="3_wxqna"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_why8i"]

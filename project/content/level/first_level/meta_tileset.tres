@@ -1,0 +1,10 @@
+[gd_resource type="TileSet" load_steps=3 format=3 uid="uid://d4nbpgdjtljvb"]
+
+[ext_resource type="PackedScene" uid="uid://jasjokckt75g" path="res://content/level/tile/collision_tile.tscn" id="1_bssg7"]
+
+[sub_resource type="TileSetScenesCollectionSource" id="TileSetScenesCollectionSource_k3pji"]
+resource_name = "Meta"
+scenes/1/scene = ExtResource("1_bssg7")
+
+[resource]
+sources/0 = SubResource("TileSetScenesCollectionSource_k3pji")

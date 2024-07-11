@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://content/pickup/crystal/crystal_large.gd" id="1_wy6cp"]
 [ext_resource type="Texture2D" uid="uid://bfw26m2caceo" path="res://assets/pickup/crystal/crystal_game_large.png" id="2_15ehx"]
-[ext_resource type="Texture2D" uid="uid://c2v7u78r7q0tj" path="res://assets/sprites/effect/shadow/shadow_16.png" id="3_yi4y4"]
+[ext_resource type="Texture2D" uid="uid://c2v7u78r7q0tj" path="res://assets/effects/shadow/shadow_16.png" id="3_yi4y4"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_f3fub"]
 size = Vector2(10, 10)

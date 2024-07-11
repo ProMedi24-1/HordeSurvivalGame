@@ -9,9 +9,15 @@ const GAMMA_CORRECTION_SHADER: Shader = preload("res://content/shader/gamma.gdsh
 static var color_blind_filter: ColorRect = null
 static var gamma_correction: ColorRect = null
 
+static var fade_filter: ColorRect = null
+
+static var instance: GPostProcessing = null
 
 func _ready() -> void:
 	self.name = "GPostProcessing"
+
+	# Set the singleton instance.
+	instance = self
 
 	# Set as a higher layer so the HUD is also effected.
 	layer = 2
@@ -37,6 +43,13 @@ func _ready() -> void:
 	gamma_correction.anchors_preset = Control.PRESET_FULL_RECT
 	gamma_correction.material = ShaderMaterial.new()
 	gamma_correction.material.shader = GAMMA_CORRECTION_SHADER
+
+	# Initialize the black fade filter.
+	fade_filter = ColorRect.new()
+	add_child(fade_filter)
+	fade_filter.color = Color(0, 0, 0, 0)
+	fade_filter.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	fade_filter.anchors_preset = Control.PRESET_FULL_RECT
 
 
 ## Sets the mode for the color blindness filter based on user settings.
@@ -67,3 +80,20 @@ static func set_colorblind_filter_strength(strength: float) -> void:
 ## [strength]: The strength of the gamma correction filter.
 static func set_gamma(strength: float) -> void:
 	gamma_correction.material.set_shader_parameter("gamma", strength)
+
+
+## Fades the screen to black.
+static func fade_to_black() -> void:
+	var fade_tween = Tween.new()
+	instance.add_child(fade_tween)
+	fade_tween.tween_property(fade_filter, "color:a", 1, 1)
+
+
+## Fades the screen from black.
+static func fade_from_black() -> void:
+	fade_filter.color = Color(0, 0, 0, 1)
+
+	var fade_tween = instance.create_tween()
+	fade_tween.tween_property(fade_filter, "color:a", 0, 3)
+
+	#await fade_tween.finished

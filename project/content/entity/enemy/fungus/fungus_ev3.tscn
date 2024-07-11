@@ -1,7 +1,7 @@
 [gd_scene load_steps=6 format=3 uid="uid://b1ae8qhdfb5xm"]
 
 [ext_resource type="Texture2D" uid="uid://b475t32u0i4b7" path="res://assets/entity/enemy/fungus/FungusEv3SheetAnim.png" id="1_0ok6g"]
-[ext_resource type="Texture2D" uid="uid://b5de2fwe7gy8q" path="res://assets/sprites/effect/shadow/shadow_24.png" id="2_x1m7r"]
+[ext_resource type="Texture2D" uid="uid://b5de2fwe7gy8q" path="res://assets/effects/shadow/shadow_24.png" id="2_x1m7r"]
 [ext_resource type="Script" path="res://content/entity/enemy/fungus/fungus_ev3.gd" id="3_7y28m"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_why8i"]

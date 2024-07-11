@@ -15,8 +15,8 @@ func _ready() -> void:
 	var platform := OS.get_name()
 
 	# Load and set the custom cursor image.
-	var cursor = load("res://assets/ui/cursor_24.png")
-	Input.set_custom_mouse_cursor(cursor, Input.CURSOR_ARROW, Vector2(0, 0))
+	#var cursor = load("res://assets/ui/cursor_24.png")
+	#Input.set_custom_mouse_cursor(cursor, Input.CURSOR_ARROW, Vector2(0, 0))
 
 	if is_debug:
 		add_debug_menus()
