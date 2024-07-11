@@ -17,6 +17,7 @@ jobs:
         uses: chickensoft-games/setup-godot@v2
         with:
           version: "4.3.0-beta.3"
+          use-dotnet: false
           include-templates: true
           cache: false
 
@@ -24,7 +25,7 @@ jobs:
         run: |
           mkdir -v -p build/linux
           cd project
-          godot --headless --verbose --export-debug "Linux/X11" ../build/linux
+          godot --headless --verbose --export-debug "Linux/X11" ../build/linux/linux-debug.x86-64
 
       - name: Upload Artifact
         uses: actions/upload-artifact@v4
