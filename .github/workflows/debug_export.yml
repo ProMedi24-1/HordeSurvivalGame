@@ -1,8 +1,5 @@
 name: "🛠️ Debug Export"
 
-env:
-  EXPORT_MODE: debug
-
 on:
   push:
     branches:
@@ -17,4 +14,5 @@ jobs:
     name: 🐧 Linux
     needs: static-checks
     uses: ./.github/workflows/linux_build.yml   
-        
+    with:
+        environment: Debug    
