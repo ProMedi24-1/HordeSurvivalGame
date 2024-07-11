@@ -11,7 +11,6 @@ jobs:
   linux-build:
     name: "🐧 Linux"
     runs-on: ubuntu-latest
-    #environment: ${{ inputs.environment }}
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -28,11 +27,11 @@ jobs:
         run: |
           mkdir -v -p build/linux
           cd project
-          godot --headless --verbose --export-${{ inputs.export-mode }} "Linux/X11" ../build/linux/linux-debug.x86-64
+          godot --headless --verbose --export-${{ inputs.export-mode }} "Linux/X11" ../build/linux/linux-${{ inputs.export-mode }}.x86-64
 
       - name: Upload Artifact
         uses: actions/upload-artifact@v4
         with:
-          name: linux-debug
-          path: build/linux
+          name: "linux-${{ inputs.export-mode }}"
+          path: "build/linux"
         
