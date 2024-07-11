@@ -1,0 +1,34 @@
+name: "🐧 Linux"
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  linux-build:
+    name: "🐧 Linux"
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Godot
+        uses: chickensoft-games/setup-godot@v2
+        with:
+          version: "4.3.0-beta.3"
+          include-templates: true
+          cache: false
+
+      - name: Build Debug
+        run: |
+          mkdir -v -p build/linux
+          cd project
+          godot --headless --verbose --export-debug "Linux/X11" ../build/linux
+
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: linux-debug
+          path: build/linux
+        
