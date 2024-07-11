@@ -1,0 +1,52 @@
+[gd_scene load_steps=8 format=3 uid="uid://cylubcpyh8g5w"]
+
+[ext_resource type="Texture2D" uid="uid://cjwm2cm6omefx" path="res://assets/props/cauldron/cauldron.png" id="1_ed1ue"]
+[ext_resource type="Script" path="res://content/level/props/cauldron.gd" id="1_okok4"]
+[ext_resource type="Texture2D" uid="uid://bgss6k88g4hpf" path="res://assets/props/cauldron/cauldron_liquid_sheet.png" id="2_uec7e"]
+[ext_resource type="Texture2D" uid="uid://b44anacxavxwi" path="res://assets/props/cauldron/cauldron_fire_sheet.png" id="3_e362i"]
+[ext_resource type="Texture2D" uid="uid://c5r75rfy3st1c" path="res://assets/effects/shadow/shadow_32.png" id="4_eqj7n"]
+[ext_resource type="Texture2D" uid="uid://de1kva575b2mj" path="res://assets/effects/light/point_light.png" id="6_f5cl4"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_pcedn"]
+radius = 17.0
+
+[node name="Cauldron" type="Node2D" node_paths=PackedStringArray("liquid_sprite", "fire_sprite")]
+y_sort_enabled = true
+script = ExtResource("1_okok4")
+liquid_sprite = NodePath("CauldronLiquid")
+fire_sprite = NodePath("CauldronFire")
+
+[node name="CauldronBase" type="Sprite2D" parent="."]
+z_index = 1
+y_sort_enabled = true
+texture = ExtResource("1_ed1ue")
+
+[node name="CauldronLiquid" type="Sprite2D" parent="."]
+modulate = Color(0.775844, 0.358476, 1, 1)
+z_index = 2
+position = Vector2(0, -11)
+texture = ExtResource("2_uec7e")
+hframes = 4
+
+[node name="CauldronFire" type="Sprite2D" parent="."]
+z_index = 1
+y_sort_enabled = true
+position = Vector2(0, 14)
+texture = ExtResource("3_e362i")
+hframes = 4
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+z_index = 1
+shape = SubResource("CircleShape2D_pcedn")
+
+[node name="Shadow" type="Sprite2D" parent="."]
+position = Vector2(0, 18)
+scale = Vector2(1.5, 1.5)
+texture = ExtResource("4_eqj7n")
+
+[node name="PointLight2D" type="PointLight2D" parent="."]
+position = Vector2(0, 10)
+color = Color(0.937344, 0.297253, 0, 1)
+texture = ExtResource("6_f5cl4")

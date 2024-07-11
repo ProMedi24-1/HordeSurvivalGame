@@ -59,6 +59,8 @@ func _ready() -> void:
 	self.name = "Player"
 	GEntityAdmin.register_entity(self)
 
+	GPostProcessing.fade_from_black()
+
 	ingredient_inventory.resize(Ingredient.IngredientType.keys().size())
 
 	# Add Staff weapon

@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://content/pickup/fungus/fungus.gd" id="1_fedgt"]
 [ext_resource type="Texture2D" uid="uid://uyhdqigplvg1" path="res://assets/pickup/ingredient/fungus_pickup.png" id="2_pny0t"]
-[ext_resource type="Texture2D" uid="uid://c2v7u78r7q0tj" path="res://assets/sprites/effect/shadow/shadow_16.png" id="3_whe3t"]
+[ext_resource type="Texture2D" uid="uid://c2v7u78r7q0tj" path="res://assets/effects/shadow/shadow_16.png" id="3_whe3t"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_f3fub"]
 size = Vector2(10, 10)
