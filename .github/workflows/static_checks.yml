@@ -1,4 +1,4 @@
-name: "Static checks 🧪"
+name: "🧪 Static Checks "
 
 on:
   push:
@@ -10,14 +10,14 @@ on:
 
 jobs:
   static-checks:
-    name: 'Static checks 🧪'
+    name: "🧪 Static Checks"
     runs-on: ubuntu-latest
     steps:
     - id: install-python
       uses: actions/setup-python@v5
       with:
         python-version: "3.x"
-    #    cache: "pip"
+        #cache: "pip"
     
     - id: upgrade-setuptools
       run: pip install --upgrade setuptools
