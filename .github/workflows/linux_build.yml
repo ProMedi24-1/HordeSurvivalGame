@@ -1,10 +1,5 @@
 name: "🐧 Linux"
 
-env:
-  PLATFORM: linux
-  EXPORT_NAME: Linux/X11
-  FILE_EXT: .x86-64
-
 on:
   workflow_call:
 
@@ -12,6 +7,7 @@ jobs:
   linux-build:
     name: "🐧 Linux"
     runs-on: ubuntu-latest
+    environment: ${{ inputs.environment }}
     steps:
       - name: Checkout
         uses: actions/checkout@v4
