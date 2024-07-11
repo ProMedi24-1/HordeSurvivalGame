@@ -28,7 +28,7 @@ jobs:
         run: |
           mkdir -v -p build/${PLATFORM}
           cd project
-          godot --headless --verbose --export-debug "${EXPORT_NAME}" ../build/${PLATFORM}/${PLATFORM}-debug${FILE_EXT}
+          godot --headless --verbose --export-${EXPORT_MODE} "${EXPORT_NAME}" ../build/${PLATFORM}/${PLATFORM}-debug${FILE_EXT}
 
       - name: Upload Artifact
         uses: actions/upload-artifact@v4
