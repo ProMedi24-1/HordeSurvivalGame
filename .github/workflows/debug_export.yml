@@ -22,4 +22,11 @@ jobs:
     needs: static-checks
     uses: ./.github/workflows/windows_build.yml   
     with:
+        export-mode: debug
+
+  macos-build:
+    #name: 🍏 MacOS
+    needs: static-checks
+    uses: ./.github/workflows/macos_build.yml   
+    with:
         export-mode: debug    
