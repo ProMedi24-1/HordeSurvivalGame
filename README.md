@@ -1,8 +1,8 @@
 # Horde-Survival-Game 👾
 
 ![](https://github.com/ProMedi24-1/HordeSurvivalGame/actions/workflows/static_checks.yml/badge.svg) 
-![](https://github.com/ProMedi24-1/HordeSurvivalGame/actions/workflows/export_debug.yml/badge.svg) 
-![](https://github.com/ProMedi24-1/HordeSurvivalGame/actions/workflows/export_release.yml/badge.svg)
+![](https://github.com/ProMedi24-1/HordeSurvivalGame/actions/workflows/debug_export.yml/badge.svg) 
+![](https://github.com/ProMedi24-1/HordeSurvivalGame/actions/workflows/release_export.yml/badge.svg)
 ![](https://img.shields.io/static/v1?label=Godot&message=4.3&color=blue&logo=godotengine)
 
 
