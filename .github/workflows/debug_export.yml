@@ -15,4 +15,4 @@ jobs:
     needs: static-checks
     uses: ./.github/workflows/linux_build.yml   
     with:
-        environment: Debug    
+        export-mode: debug    
