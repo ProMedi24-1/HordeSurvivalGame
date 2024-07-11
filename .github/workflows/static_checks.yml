@@ -1,4 +1,4 @@
-name: "🧪 Static checks "
+name: "🧪 Static Checks "
 
 on:
   push:
@@ -10,7 +10,7 @@ on:
 
 jobs:
   static-checks:
-    name: "🧪 Static checks"
+    name: "🧪 Static Checks"
     runs-on: ubuntu-latest
     steps:
     - id: install-python
