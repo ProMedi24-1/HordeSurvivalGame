@@ -16,3 +16,10 @@ jobs:
     uses: ./.github/workflows/linux_build.yml   
     with:
         export-mode: debug    
+
+  windows-build:
+    name: 🪟 Windows
+    needs: static-checks
+    uses: ./.github/workflows/windows_build.yml   
+    with:
+        export-mode: debug    
