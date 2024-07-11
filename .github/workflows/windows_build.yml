@@ -1,4 +1,4 @@
-name: "🪟 Windows"
+name: "🏁 Windows"
 
 on:
   workflow_call:
@@ -9,7 +9,7 @@ on:
 
 jobs:
   linux-build:
-    name: "🪟 Windows"
+    name: "🏁 Windows"
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
