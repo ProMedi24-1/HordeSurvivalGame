@@ -7,9 +7,10 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_f3fub"]
 size = Vector2(10, 10)
 
-[node name="BatWing" type="Node2D"]
+[node name="BatWing" type="Node2D" node_paths=PackedStringArray("hitbox")]
 y_sort_enabled = true
 script = ExtResource("1_j4jj3")
+hitbox = NodePath("Area2D")
 
 [node name="FungusSprite" type="Sprite2D" parent="."]
 z_index = 1

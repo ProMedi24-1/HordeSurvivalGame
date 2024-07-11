@@ -12,6 +12,12 @@ const LOW_HEALTH_THRESHOLD: float = 0.25  ## The threshold for low health.
 const MAX_WEAPONS: int = 5  ## The maximum amount of weapons the player can have.
 const STD_CAMERA_ZOOM: float = 2.5  ## The standard camera zoom.
 
+## The normal sprite.
+const NORMAL_SPRITE: Texture2D = preload("res://assets/entity/player/kitty.png")
+## The right walk sprite.
+const WALK_SPRITE: Texture2D = preload("res://assets/entity/player/kitty_right.png")
+const NUM_WALK_FRAMES: int = 6  ## The number of walk frames.
+
 # Nodes which must be linked.
 @export var mov_body: CharacterBody2D
 @export var sprite: Sprite2D
@@ -33,7 +39,8 @@ var first_level_req: int = 25  ## The first level requirement.
 var level_required: int = first_level_req  ## The current level requirement.
 var level_req_multiplier: float = 1.3  ## The multiplier for the next level requirement.
 
-var player_rating: float = 10.0  ## The (skill) rating of the player. Will determine the difficulty.
+## The (skill) rating of the player. Will determine the difficulty.
+var player_rating: float = 10.0
 
 var weapon_inventory: Array[WeaponBase] = []  ## The weapons the player has.
 var ingredient_inventory: Array[int] = []  ## The ingredients the player has.
@@ -44,6 +51,9 @@ var heal_taken: int = 0  ## The total amount of healing taken.
 
 var camera_zoom_offset: float = 0.0  ## The offset for the camera zoom.
 
+## The walk animation for our player.
+## NOTE: This needs to be @onready because the sprite is not registered in the constructor.
+@onready var walk_anim = Anim.SpriteAnim.new(sprite, NUM_WALK_FRAMES, 0.1)
 
 func _ready() -> void:
 	self.name = "Player"
@@ -76,6 +86,24 @@ func handle_player_movement(delta: float) -> void:
 	var direction := Vector2.ZERO
 
 	direction = Input.get_vector("MoveLeft", "MoveRight", "MoveUp", "MoveDown")
+
+	if direction.x != 0:
+		sprite.texture = WALK_SPRITE
+		sprite.hframes = NUM_WALK_FRAMES
+		sprite.flip_h = direction.x < 0
+
+		if not walk_anim.playing:
+			walk_anim.looped = true
+			walk_anim.play()
+
+	else:
+		sprite.texture = NORMAL_SPRITE
+		sprite.hframes = 1
+		sprite.frame = 0
+		sprite.flip_h = false
+
+		walk_anim.stop()
+
 	mov_body.velocity = direction.normalized() * mov_speed * delta
 
 
