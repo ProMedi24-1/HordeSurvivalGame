@@ -1,0 +1,36 @@
+name: "🍏 MacOS"
+
+on:
+  workflow_call:
+    inputs:
+      export-mode:
+        type: string
+        required: true
+
+jobs:
+  linux-build:
+    name: "🍏 MacOS"
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Godot
+        uses: chickensoft-games/setup-godot@v2
+        with:
+          version: "4.3.0-beta.3"
+          use-dotnet: false
+          include-templates: true
+          cache: false
+
+      - name: Build Debug
+        run: |
+          mkdir -v -p build/macos
+          cd project
+          godot --headless --verbose --export-${{ inputs.export-mode }} "macOS" ../build/macos/macos-${{ inputs.export-mode }}.zip
+
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: "macos-${{ inputs.export-mode }}"
+          path: "build/macos"
