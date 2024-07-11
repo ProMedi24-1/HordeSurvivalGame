@@ -2,6 +2,10 @@ name: "🐧 Linux"
 
 on:
   workflow_call:
+    inputs:
+      environment:
+        type: string
+        required: true
 
 jobs:
   linux-build:
