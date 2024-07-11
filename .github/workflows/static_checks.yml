@@ -10,7 +10,7 @@ on:
 
 jobs:
   static-checks:
-    name: 'Static checks'
+    name: 'Static checks 🧪'
     runs-on: ubuntu-latest
     steps:
     - id: install-python
