@@ -1,0 +1,20 @@
+name: "🛠️ Debug Export"
+
+env:
+  EXPORT_MODE: debug
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  static-checks:
+    name: 🧪 Static Checks
+    uses: ./.github/workflows/static_checks.yml
+    
+  linux-build:
+    name: 🐧 Linux
+    needs: static-checks
+    uses: ./.github/workflows/linux_build.yml   
+        
