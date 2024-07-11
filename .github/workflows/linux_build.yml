@@ -26,13 +26,13 @@ jobs:
 
       - name: Build Debug
         run: |
-          mkdir -v -p build/${PLATFORM}
+          mkdir -v -p build/linux
           cd project
-          godot --headless --verbose --export-${EXPORT_MODE} "${EXPORT_NAME}" ../build/${PLATFORM}/${PLATFORM}-debug${FILE_EXT}
+          godot --headless --verbose --export-debug "Linux/X11" ../build/linux/linux-debug.x86-64
 
       - name: Upload Artifact
         uses: actions/upload-artifact@v4
         with:
-          name: ${PLATFORM}-debug
-          path: build/${PLATFORM}
+          name: linux-debug
+          path: build/linux
         
