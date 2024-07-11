@@ -1,11 +1,10 @@
-[gd_scene load_steps=8 format=3 uid="uid://b2whtobxgnksr"]
+[gd_scene load_steps=7 format=3 uid="uid://b2whtobxgnksr"]
 
 [ext_resource type="Script" path="res://content/ui/main_menu/main_menu.gd" id="1_utroe"]
 [ext_resource type="PackedScene" uid="uid://dukxq4xtiyvh0" path="res://content/ui/credits_menu/credits_menu.tscn" id="2_3udew"]
 [ext_resource type="PackedScene" uid="uid://dsth8jw0fejpd" path="res://content/ui/settings_menu/settings_menu.tscn" id="2_sftoc"]
 [ext_resource type="FontFile" uid="uid://xtswn0x4352w" path="res://assets/fonts/WhitePeaberry.fnt" id="12_7hsl8"]
 [ext_resource type="PackedScene" uid="uid://cf0bkbnb0ex20" path="res://content/ui/template/button_template.tscn" id="15_hs7j2"]
-[ext_resource type="Script" path="res://content/effects/music_player.gd" id="15_qi7p1"]
 
 [sub_resource type="Environment" id="Environment_mu3nm"]
 background_mode = 3
@@ -62,9 +61,6 @@ text = "Credits"
 [node name="QuitButton" parent="ButtonsBox" instance=ExtResource("15_hs7j2")]
 layout_mode = 2
 text = "Quit"
-
-[node name="MusicPlayer" type="AudioStreamPlayer" parent="."]
-script = ExtResource("15_qi7p1")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_mu3nm")

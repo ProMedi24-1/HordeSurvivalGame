@@ -11,6 +11,7 @@ class SpriteAnim:
 	var speed_scale: float = 0.0
 	var paused: bool = false
 	var looped: bool = false
+	var playing: bool = false
 	var tween: Tween
 	var callbacker: CallbackTweener
 
@@ -20,12 +21,21 @@ class SpriteAnim:
 		speed_scale = _speed_scale
 
 	func play() -> void:
-		tween = sprite.create_tween()
+		if tween == null:
+			tween = sprite.create_tween()
+		#tween = sprite.create_tween()
 
 		tween.set_loops()
 
 		if not paused:
 			callbacker = tween.tween_callback(advance_frame).set_delay(speed_scale)
+			playing = true
+
+	func stop() -> void:
+		if tween != null:
+			tween.kill()
+			tween = null
+			playing = false
 
 	func advance_frame() -> void:
 		if sprite.frame >= (frame_count - 1):

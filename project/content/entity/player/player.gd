@@ -12,6 +12,10 @@ const LOW_HEALTH_THRESHOLD: float = 0.25  ## The threshold for low health.
 const MAX_WEAPONS: int = 5  ## The maximum amount of weapons the player can have.
 const STD_CAMERA_ZOOM: float = 2.5  ## The standard camera zoom.
 
+const NORMAL_SPRITE: Texture2D = preload("res://assets/entity/player/kitty.png")  ## The normal sprite.
+const WALK_SPRITE: Texture2D = preload("res://assets/entity/player/kitty_right.png")  ## The right walk sprite.
+const NUM_WALK_FRAMES: int = 6  ## The number of walk frames.
+
 # Nodes which must be linked.
 @export var mov_body: CharacterBody2D
 @export var sprite: Sprite2D
@@ -69,6 +73,10 @@ func _physics_process(delta: float) -> void:
 	handle_player_movement(delta)
 	mov_body.move_and_slide()
 
+## The walk animation for our player.
+## NOTE: This needs to be @onready because the sprite is not registered in the constructor.
+@onready var walk_anim = Anim.SpriteAnim.new(sprite, NUM_WALK_FRAMES, 0.1)
+
 
 ## Handle the player movement.
 ## [delta] The delta time.
@@ -76,6 +84,24 @@ func handle_player_movement(delta: float) -> void:
 	var direction := Vector2.ZERO
 
 	direction = Input.get_vector("MoveLeft", "MoveRight", "MoveUp", "MoveDown")
+
+	if direction.x != 0:
+		sprite.texture = WALK_SPRITE
+		sprite.hframes = NUM_WALK_FRAMES
+		sprite.flip_h = direction.x < 0
+
+		if not walk_anim.playing:
+			walk_anim.looped = true
+			walk_anim.play()
+
+	else:
+		sprite.texture = NORMAL_SPRITE
+		sprite.hframes = 1
+		sprite.frame = 0
+		sprite.flip_h = false
+
+		walk_anim.stop()
+
 	mov_body.velocity = direction.normalized() * mov_speed * delta
 
 
