@@ -3,7 +3,7 @@ name: "🐧 Linux"
 on:
   workflow_call:
     inputs:
-      environment:
+      export-mode:
         type: string
         required: true
 
@@ -11,7 +11,7 @@ jobs:
   linux-build:
     name: "🐧 Linux"
     runs-on: ubuntu-latest
-    environment: ${{ inputs.environment }}
+    #environment: ${{ inputs.environment }}
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -28,7 +28,7 @@ jobs:
         run: |
           mkdir -v -p build/linux
           cd project
-          godot --headless --verbose --export-debug "Linux/X11" ../build/linux/linux-debug.x86-64
+          godot --headless --verbose --export-${{ inputs.export-mode }} "Linux/X11" ../build/linux/linux-debug.x86-64
 
       - name: Upload Artifact
         uses: actions/upload-artifact@v4
