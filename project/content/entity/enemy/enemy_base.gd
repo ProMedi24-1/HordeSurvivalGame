@@ -62,6 +62,7 @@ func die() -> void:
 
 	if GEntityAdmin.player:
 		GEntityAdmin.player.kills += 1
+		GEntityAdmin.player.kills_in_wave += 1
 
 	# TODO: Play death animation.
 	self.get_parent().queue_free()

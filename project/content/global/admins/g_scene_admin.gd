@@ -44,6 +44,12 @@ static func switch_scene(scene_name: String) -> void:
 		GLogger.log("GSceneAdmin: Scene " + scene_name + " does not exist", Color.RED)
 		return
 
+
+	GSceneAdmin.scene_root = null
+	GSceneAdmin.level_base = null
+	GEntityAdmin.entities.clear()
+	GEntityAdmin.player = null
+
 	var scene_resource := load(scene_map[scene_name].second)
 	var g_instance := GGameGlobals.instance
 	g_instance.get_tree().change_scene_to_packed(scene_resource)
