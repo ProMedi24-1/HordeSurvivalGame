@@ -1,0 +1,48 @@
+[gd_scene load_steps=3 format=3 uid="uid://hbjuobbqwpb6"]
+
+[ext_resource type="Texture2D" uid="uid://b0vk7pku0aqe2" path="res://assets/ui/hud/potion_sprite_white.png" id="1_ksvim"]
+[ext_resource type="FontFile" uid="uid://xtswn0x4352w" path="res://assets/fonts/WhitePeaberry.fnt" id="2_71fr0"]
+
+[node name="UpgradeMenu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Panel" type="Panel" parent="."]
+layout_mode = 0
+offset_left = 100.0
+offset_top = 97.0
+offset_right = 367.0
+offset_bottom = 483.0
+
+[node name="TextureRect" type="TextureRect" parent="."]
+modulate = Color(0.830448, 0, 0.26159, 1)
+layout_mode = 0
+offset_left = 194.0
+offset_top = 154.0
+offset_right = 234.0
+offset_bottom = 194.0
+scale = Vector2(1.8, 1.8)
+texture = ExtResource("1_ksvim")
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 0
+offset_left = 174.0
+offset_top = 131.0
+offset_right = 280.0
+offset_bottom = 154.0
+text = "Health Potion
+"
+
+[node name="Label2" type="Label" parent="."]
+layout_mode = 0
+offset_left = 150.0
+offset_top = 234.0
+offset_right = 313.0
+offset_bottom = 259.0
+theme_override_fonts/font = ExtResource("2_71fr0")
+text = "Heal to full Health
+"

@@ -6,8 +6,10 @@
 [ext_resource type="Texture2D" uid="uid://de1kva575b2mj" path="res://assets/effects/light/point_light.png" id="4_21q0b"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_x7j6f"]
+radius = 9.0
 
 [node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("mov_body", "sprite", "camera")]
+y_sort_enabled = true
 collision_layer = 2
 collision_mask = 9
 motion_mode = 1
@@ -38,13 +40,9 @@ drag_right_margin = 0.05
 drag_bottom_margin = 0.05
 
 [node name="Shadow" type="Sprite2D" parent="."]
-modulate = Color(1, 1, 1, 0.584314)
-z_index = 1
-y_sort_enabled = true
 position = Vector2(0, 11)
 texture = ExtResource("3_em4db")
 
 [node name="PointLight2D" type="PointLight2D" parent="."]
 color = Color(0.51563, 0.00809232, 0.584935, 1)
-energy = 0.51
 texture = ExtResource("4_21q0b")

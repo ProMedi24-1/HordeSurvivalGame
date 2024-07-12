@@ -1,18 +1,22 @@
-class_name LevelBase
-extends Node
+class_name LevelBase extends Node
 
-#signal timeChanged()
+enum LevelAmbience {
+	NON_SPOOKY,
+	HALF_SPOOKY,
+	SPOOKY,
+}
 
-const MAX_DIFFICULTY = 100
-var difficulty: int = 0
-var is_adaptive: bool = false
-var is_decoupled: bool = false
-var is_static: bool = false
+@export var level_modulate: CanvasModulate
 
-var max_time = 600
+var ambience_state: LevelAmbience = LevelAmbience.NON_SPOOKY
 var time_elapsed: int = 0
 var hold_time: bool = false
 
+static var ambience_map: Dictionary = {
+	LevelAmbience.NON_SPOOKY: Color.from_string("#e8d4d4", Color.GRAY),
+	LevelAmbience.HALF_SPOOKY: Color.from_string("#9a6e6e", Color.GRAY),
+	LevelAmbience.SPOOKY: Color.from_string("#3f2929", Color.GRAY),
+}
 
 func _ready() -> void:
 	var level_timer := Timer.new()
@@ -23,46 +27,28 @@ func _ready() -> void:
 	add_child(level_timer)
 	level_timer.start()
 
-	#GLogger.log("LevelBase: Ready", Color.GREEN_YELLOW)
-
+## Update the time elapsed.
 func update_time() -> void:
 	if hold_time:
 		return
 
-	if time_elapsed >= max_time:
-		GLogger.log("Max Time reached")
-		#update_difficulty()
-	else:
-		time_elapsed += 1
-		#update_difficulty()
+	time_elapsed += 1
 
-	#time_changed.emit()
-	#print(difficulty)
 
-# func update_difficulty() -> void:
-# 	if is_static:
-# 		return
-
-# 	if is_adaptive:
-# 		update_adaptive()
-# 	else:
-# 		update_linear()
-
-# func updateLinear() -> void:
-# 	if isDecoupled:
-# 		@warning_ignore("integer_division")
-# 		difficulty += (100 / maxTime)
-# 		difficulty = min(difficulty, maxDifficulty)
-
-# 	else:
-# 		@warning_ignore("integer_division")
-# 		difficulty = ((timeElapsed / maxTime) * 100)
-# 		difficulty = min(difficulty, maxDifficulty)
-
-# func updateAdaptive() -> void:
-# 	# TODO: Implement.
-# 	pass
-
+## Returns the elapsed time as a string.
 func get_time_string() -> String:
 	@warning_ignore("integer_division")
 	return "%02d:%02d" % [time_elapsed / 60, time_elapsed % 60]
+
+
+func change_ambience(ambience: LevelAmbience) -> void:
+	#GPostProcessing.fade_to_black()
+
+	var ambience_change = func() -> void:
+		ambience_state = ambience
+		level_modulate.color = ambience_map[ambience]
+
+	GPostProcessing.fade_transition(ambience_change)
+
+	#GPostProcessing.fade_from_black()
+

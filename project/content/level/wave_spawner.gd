@@ -55,7 +55,8 @@ static var spawn_points: Array = []
 
 static var wave_duration: float = 60.0 ## Duration for one Wave in seconds
 static var current_wave: int = 0 ## Current wave number
-
+static var wave_ref: Wave ## Reference to the current wave
+static var adaptive_difficulty: bool = false ## If the difficulty should adapt to the player rating
 
 func _ready() -> void:
 	set_spawn_points()
@@ -75,13 +76,14 @@ static func spawn_enemy(type: EnemyType) -> void:
 	if spawn_points.size() == 0:
 		return
 
-	spawn_enemy_at(type, spawn_points[randi_range(0, spawn_points.size() - 1)].position)
+	spawn_enemy_at(type, spawn_points[randi() % spawn_points.size()].position)
 
 
 ## Spawn an enemy of the given type at the given position.
 ## [type]: The type of enemy to spawn.
 ## [pos]: The position to spawn the enemy at.
 static func spawn_enemy_at(type: EnemyType, pos: Vector2) -> void:
+	#print("Spawning enemy at: ", pos)
 	var enemy = enemy_types[type].first.instantiate()
 	enemy.global_position = pos
 	GSceneAdmin.scene_root.add_child.call_deferred(enemy)
@@ -90,86 +92,83 @@ static func spawn_enemy_at(type: EnemyType, pos: Vector2) -> void:
 ## Wave Class for spawning enemies.
 class Wave extends Node:
 
+	const RATING_THRESHOLD := 15.0
+
+	## Lookup table for spawn times based on the rating difference.
+	## Spawn time in seconds
 	const SPAWN_TIME_LOOKUP = {
-		-20: 0.5,
-		-10: 1.0,
-		0: 2.0,
-		10: 3.0,
-		20: 4.0,
+		[-INF, -15]: 2.0,
+		[-15, -10]: 2.5,
+		[-10, -5]: 2.7,
+		[-5, 5]: 3.0,
+		[5, 10]: 8.0,
+		[10, 15]: 10,
+		[15, RATING_THRESHOLD]: 10.0,
 	}
 
-	var paused: bool = false ## Flag to pause the wave
-	var spawn_interval: float = 2.0 ## Time between enemy spawns
-	var spawn_timer: Timer
-
 	var wave_running: bool = false
+	var wave_spawning: bool = true
 
+	## Array of enemy candidates to spawn. Contains a Pair of the EnemyType and
+	## the time to spawn the next of his type.
+	var enemy_candidates: Array[Pair] = []
 
-	# static var spawn_time_lookup = {
-	# 	Pair.new(-INF, -20): 0.5,  # If the player rating is much higher than the enemy's, spawn quickly
-	# 	Pair.new(-20, 0): 2,  # If the player rating is slightly higher, spawn a bit slower
-	# 	Pair.new(0, 20): 5,  # If the player rating is slightly lower, spawn even slower
-	# 	Pair.new(20, INF): 10  # If the player rating is much lower, spawn very slowly
-	# }
+	## Set up the enemy candidates for the wave.
+	## The candidates are based on the player rating and the enemy rating.
+	func setup_candidates() -> void:
+		print("Setting up enemy candidates...")
+		enemy_candidates = []
 
-
-
-	## Select an enemy to spawn based on player and enemy rating.
-	## [return]: a pair of the enemy type and the time until the next spawn.
-	func select_enemy_by_rating() -> Pair:
-		var player_rating = GEntityAdmin.player.player_rating
-		var possible_enemies = []
-
-		# Iterate through all enemy types to find those suitable based on player rating
 		for enemy_type in WaveSpawner.enemy_types.keys():
-			var enemy_rating = WaveSpawner.enemy_types[enemy_type].second as float
-			var rating_difference = player_rating - enemy_rating
+			var enemy_rating := WaveSpawner.enemy_types[enemy_type].second as float
+			var rating_difference := GEntityAdmin.player.player_rating - enemy_rating
 
-			const RATING_THRESHOLD = 10.0
-			if abs(rating_difference) <= RATING_THRESHOLD: # This threshold can be adjusted
-				# Also adjust on rating the times the enemy is in the array
-				#for i in range(0, 10 - abs(rating_difference) / 2):
-				possible_enemies.append(enemy_type)
+			var calculate_spawn_time = func() -> float:
+				var spawn_time := 0.5
 
-		# If no enemies are close enough in rating, just pick the lowest.
-		if possible_enemies.is_empty():
-			possible_enemies = WaveSpawner.enemy_types.keys()
-			#var lowest_enemy: EnemyType = EnemyType.BAT_EV1
+				# Set the spawn time by our lookup table.
+				for rating_range in SPAWN_TIME_LOOKUP.keys():
+					if rating_difference >= rating_range[0] and rating_difference < rating_range[1]:
+						spawn_time = SPAWN_TIME_LOOKUP[rating_range]
+						break
 
-		# Select a random enemy from the filtered list
-		var selected_enemy_type = possible_enemies[randi() % possible_enemies.size()]
-		#var enemy_pair = WaveSpawner.enemy_types[selected_enemy_type]
+				return spawn_time
 
-		var next_spawn = func() -> float:
-			var enemy_rating: float  = WaveSpawner.enemy_types[selected_enemy_type].second as float
-			var rating_difference = player_rating - enemy_rating
-			var spawn_time := 10.0
+			# Append every enemy which is lower than the player rating
+			#const RATING_THRESHOLD := 20.0
+			if enemy_rating <= GEntityAdmin.player.player_rating + RATING_THRESHOLD:
+				enemy_candidates.append(Pair.new(enemy_type, calculate_spawn_time.call()))
+
+		for enemy in enemy_candidates:
+			print("Enemy: ", WaveSpawner.EnemyType.keys()[enemy.first], " Time: ", enemy.second)
+
+	func create_spawn_timers() -> void:
+		print("creating spawn timers")
+
+		for enemy in enemy_candidates:
+			var enemy_type = enemy.first
+			var spawn_time = enemy.second
+
+			var spawn_timer = Timer.new()
+			spawn_timer.one_shot = true
+			spawn_timer.autostart = true
+			spawn_timer.wait_time = spawn_time
+			add_child(spawn_timer)
+
+			var spawn_func = func() -> void:
+				#print("spawning enemy")
+				if not wave_running:
+					#spawn_timer.stop()
+					return
+
+				if wave_spawning:
+					WaveSpawner.spawn_enemy(enemy_type)
+					spawn_timer.wait_time = spawn_time + randf_range(-1, 1)
+					spawn_timer.start()
+
+			spawn_timer.connect("timeout", spawn_func)
 
 
-			# Find the spawn time based on the rating difference in our lookup table.
-			for rating_range in SPAWN_TIME_LOOKUP.keys():
-				if rating_difference <= rating_range:
-					spawn_time = SPAWN_TIME_LOOKUP[rating_range]
-					break
-
-			print("Rating difference: ", rating_difference, "Spawn time: ", spawn_time)
-			return spawn_time
-
-
-		return Pair.new(selected_enemy_type, next_spawn.call())
-
-
-	## Start the wave by spawning enemies
-	func start_wave() -> void:
-		spawn_enemies()
-
-	## End the current wave by removing all enemies
-	func end_wave() -> void:
-		wave_running = false
-
-		for enemies in GEntityAdmin.entities:
-			if enemies is EnemyBase:
-				enemies.queue_free()
 
 
 	func spawn_enemies() -> void:
@@ -183,22 +182,33 @@ class Wave extends Node:
 		wave_timer.connect("timeout", end_wave)
 		add_child(wave_timer)
 
-		spawn_timer = Timer.new()
-		spawn_timer.one_shot = true
-		spawn_timer.autostart = true
-		spawn_timer.wait_time = 0.5 #spawn_interval
-		add_child(spawn_timer)
+		setup_candidates()
+		create_spawn_timers()
 
-		var spawn_func := func() -> void:
-			print("spawning enemy")
-			if not wave_running:
-				return
+	## Start the wave by spawning enemies
+	func start_wave() -> void:
+		WaveSpawner.wave_ref = self
 
-			if not paused:
-				var enemy := select_enemy_by_rating()
+		WaveSpawner.current_wave += 1
 
-				WaveSpawner.spawn_enemy(enemy.first)
-				spawn_timer.wait_time = enemy.second
-				spawn_timer.start()
+		# Reset per player wave stats
+		GEntityAdmin.player.damage_taken = 0
+		GEntityAdmin.player.kills_in_wave = 0
 
-		spawn_timer.connect("timeout", spawn_func)
+		spawn_enemies()
+
+	## End the current wave by removing all enemies
+	func end_wave() -> void:
+		wave_running = false
+
+		for enemies in GEntityAdmin.entities:
+			if enemies is EnemyBase:
+				enemies.die()
+
+
+		if WaveSpawner.adaptive_difficulty:
+			GEntityAdmin.player.update_player_rating(true)
+		else:
+			GEntityAdmin.player.update_player_rating(false, 3.0) # rating increase
+
+

@@ -10,6 +10,7 @@ static var color_blind_filter: ColorRect = null
 static var gamma_correction: ColorRect = null
 
 static var fade_filter: ColorRect = null
+static var fade_tween: Tween = null
 
 static var instance: GPostProcessing = null
 
@@ -82,18 +83,40 @@ static func set_gamma(strength: float) -> void:
 	gamma_correction.material.set_shader_parameter("gamma", strength)
 
 
+# TODO: FIX Tweens not restarting properly.
+
 ## Fades the screen to black.
 static func fade_to_black() -> void:
-	var fade_tween = Tween.new()
-	instance.add_child(fade_tween)
-	fade_tween.tween_property(fade_filter, "color:a", 1, 1)
+	if fade_tween:
+		fade_tween.kill()
+
+	fade_tween = instance.create_tween()
+	#instance.add_child(fade_tween)
+	fade_tween.tween_property(fade_filter, "color:a", 1, 3)
 
 
 ## Fades the screen from black.
 static func fade_from_black() -> void:
 	fade_filter.color = Color(0, 0, 0, 1)
+	if fade_tween:
+		fade_tween.kill()
 
-	var fade_tween = instance.create_tween()
+	fade_tween = instance.create_tween()
 	fade_tween.tween_property(fade_filter, "color:a", 0, 3)
 
 	#await fade_tween.finished
+
+static func fade_transition(callback: Callable) -> void:
+	if fade_tween:
+		fade_tween.kill()
+
+	fade_tween = instance.create_tween()
+	fade_tween.tween_property(fade_filter, "color:a", 1, 1)
+	await fade_tween.finished
+	fade_tween.stop()
+	callback.call()
+	fade_tween.tween_property(fade_filter, "color:a", 0, 2)
+	fade_tween.play()
+
+	await fade_tween.finished
+

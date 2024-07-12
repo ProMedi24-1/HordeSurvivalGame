@@ -30,7 +30,7 @@ var health: int = max_health  ## The current health of the player.
 var god_mode: bool = false  ## If the player is in god mode.
 var health_status: HealthStatus = HealthStatus.FULL  ## The current health status of the player.
 
-var mov_speed: float = 5000.0  ## The movement speed of the player.
+var mov_speed: float = 6000.0  ## The movement speed of the player.
 
 var crystals: int = 0  ## The amount of crystals the player has.
 var level: int = 0  ## The current level of the player.
@@ -39,15 +39,26 @@ var first_level_req: int = 25  ## The first level requirement.
 var level_required: int = first_level_req  ## The current level requirement.
 var level_req_multiplier: float = 1.3  ## The multiplier for the next level requirement.
 
-## The (skill) rating of the player. Will determine the difficulty.
-var player_rating: float = 10.0
 
 var weapon_inventory: Array[WeaponBase] = []  ## The weapons the player has.
 var ingredient_inventory: Array[int] = []  ## The ingredients the player has.
 
+## The (skill) rating of the player. Will determine the difficulty.
+var player_rating: float = 10.0
+
 var kills: int = 0  ## The amount of kills the player has.
-var damage_taken: int = 0  ## The total amount of damage taken.
-var heal_taken: int = 0  ## The total amount of healing taken.
+
+# Factors to determine the player rating.
+var damage_taken: int = 0 ## Amount of damage taken in a Wave.
+var kills_in_wave: int = 0  ## Amount of kills in a Wave.
+
+
+
+
+#var damage_taken: int = 0  ## The total amount of damage taken.
+#var heal_taken: int = 0  ## The total amount of healing taken.
+
+
 
 var camera_zoom_offset: float = 0.0  ## The offset for the camera zoom.
 
@@ -148,12 +159,31 @@ func take_damage(_damage: int) -> void:
 
 ## Heal the player by a certain amount.
 ## [heal] The amount of healing to take.
-func take_heal(heal: int) -> void:
-	set_health(min(health + heal, max_health))
-	heal_taken += heal
+#func take_heal(heal: int) -> void:
+#	set_health(min(health + heal, max_health))
+#	#heal_taken += heal
+#	#playHealEffect()
+#	update_health_status()
 
-	#playHealEffect()
-	update_health_status()
+
+## Update the player rating. If adaptive is true, the player rating will be
+## updated based on the performance in the current wave.
+## [adaptive]: If the rating should be adaptive.
+## [increase]: The increase in rating if not adaptive.
+func update_player_rating(adaptive: bool, increase: float = 3.0) -> void:
+	if adaptive:
+
+		var rating = 10.0
+		if damage_taken > 0:
+			rating -= damage_taken / 10.0
+		if kills_in_wave > 0:
+			rating += kills_in_wave / 10.0
+
+		player_rating = rating
+
+	else:
+		player_rating += increase
+
 
 
 ## Update the health status based on the current health.

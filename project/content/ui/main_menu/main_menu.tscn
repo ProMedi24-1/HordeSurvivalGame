@@ -1,8 +1,7 @@
-[gd_scene load_steps=7 format=3 uid="uid://b2whtobxgnksr"]
+[gd_scene load_steps=6 format=3 uid="uid://b2whtobxgnksr"]
 
 [ext_resource type="Script" path="res://content/ui/main_menu/main_menu.gd" id="1_utroe"]
 [ext_resource type="PackedScene" uid="uid://dukxq4xtiyvh0" path="res://content/ui/credits_menu/credits_menu.tscn" id="2_3udew"]
-[ext_resource type="PackedScene" uid="uid://dsth8jw0fejpd" path="res://content/ui/settings_menu/settings_menu.tscn" id="2_sftoc"]
 [ext_resource type="FontFile" uid="uid://xtswn0x4352w" path="res://assets/fonts/WhitePeaberry.fnt" id="12_7hsl8"]
 [ext_resource type="PackedScene" uid="uid://cf0bkbnb0ex20" path="res://content/ui/template/button_template.tscn" id="15_hs7j2"]
 
@@ -16,7 +15,6 @@ play_button = NodePath("ButtonsBox/PlayButton")
 settings_button = NodePath("ButtonsBox/SettingsButton")
 credits_button = NodePath("ButtonsBox/CreditsButton")
 quit_button = NodePath("ButtonsBox/QuitButton")
-settings_scene = ExtResource("2_sftoc")
 credits_scene = ExtResource("2_3udew")
 
 [node name="TitleLabel" type="Label" parent="."]
