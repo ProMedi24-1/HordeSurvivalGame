@@ -37,6 +37,7 @@ Download the latest release from the [Releases](https://github.com/ProMedi24-1/H
 
 ### Game Assets:
 - Various assets made by [KenneyNL](https://kenney.nl/) **CC0**
+- Top Down Kit by [Cainos](https://cainos.itch.io/pixel-art-top-down-basic) 
 - PeaBerry Font by [emhou](https://emhuo.itch.io/peaberry-pixel-font) **OFL**
 - Audio made by [Ovani Sound](https://ovanisound.com/) **[TOS](https://ovanisound.com/policies/terms-of-service)**
 
