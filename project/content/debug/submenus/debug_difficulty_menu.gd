@@ -51,7 +51,8 @@ static func show_difficulty_menu_window(p_open: Array) -> void:
 	ImGui.Text("Kills in Wave: %d" % GEntityAdmin.player.kills_in_wave)
 
 	ImGui.SeparatorText("Ambience")
-	ImGui.Text("Ambience State: %s" % LevelBase.LevelAmbience.keys()[GSceneAdmin.level_base.ambience_state])
+	ImGui.Text("Ambience State: %s" % LevelBase.LevelAmbience.keys()[
+								GSceneAdmin.level_base.ambience_state])
 	if ImGui.Button("Non Spooky"):
 		GSceneAdmin.level_base.change_ambience(LevelBase.LevelAmbience.NON_SPOOKY)
 
