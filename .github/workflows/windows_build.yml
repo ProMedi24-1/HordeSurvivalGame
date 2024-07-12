@@ -27,7 +27,7 @@ jobs:
         run: |
           mkdir -v -p build/windows
           cd project
-          godot --verbose --export-${{ inputs.export-mode }} "Windows Desktop" ../build/windows/windows-${{ inputs.export-mode }}.exe
+          godot --headless --verbose --export-${{ inputs.export-mode }} "Windows Desktop" ../build/windows/windows-${{ inputs.export-mode }}.exe
 
       - name: Upload Artifact
         uses: actions/upload-artifact@v4
