@@ -111,11 +111,11 @@ static func fade_transition(callback: Callable) -> void:
 		fade_tween.kill()
 
 	fade_tween = instance.create_tween()
-	fade_tween.tween_property(fade_filter, "color:a", 1, 1)
+	fade_tween.tween_property(fade_filter, "color:a", 1, 0.5)
 	await fade_tween.finished
 	fade_tween.stop()
 	callback.call()
-	fade_tween.tween_property(fade_filter, "color:a", 0, 2)
+	fade_tween.tween_property(fade_filter, "color:a", 0, 1)
 	fade_tween.play()
 
 	await fade_tween.finished

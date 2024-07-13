@@ -32,6 +32,7 @@ func _ready() -> void:
 
 	gamma_slider.max_value = 2.0
 	gamma_slider.value = LocalSettings.gamma_value
+	gamma_slider.min_value = 0.5
 
 	zoom_slider.max_value = 1.0
 	zoom_slider.min_value = -1.0

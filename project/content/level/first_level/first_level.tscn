@@ -29,6 +29,7 @@ adjustment_enabled = true
 adjustment_saturation = 1.15
 
 [node name="FirstLevel" type="Node2D"]
+y_sort_enabled = true
 
 [node name="Background" type="TextureRect" parent="."]
 offset_left = -1200.0

@@ -11,12 +11,13 @@
 [ext_resource type="Texture2D" uid="uid://b22bqxhc3ko3h" path="res://assets/ui/hud/mana_full.png" id="9_huqni"]
 [ext_resource type="PackedScene" uid="uid://eouvthg2pe16" path="res://content/ui/hud/ingredient_container.tscn" id="9_nuu2i"]
 
-[node name="Hud" type="CanvasLayer" node_paths=PackedStringArray("health_label", "heart_box", "time_label", "kill_label", "crystal_label", "level_bar", "level_label", "ingredients_box")]
+[node name="Hud" type="CanvasLayer" node_paths=PackedStringArray("health_label", "heart_box", "time_label", "kill_label", "wave_label", "crystal_label", "level_bar", "level_label", "ingredients_box")]
 script = ExtResource("1_kfcjf")
 health_label = NodePath("Health/HealthLabel")
 heart_box = NodePath("Health/HeartBox")
 time_label = NodePath("TimeLabel")
 kill_label = NodePath("Kills/KillsLabel")
+wave_label = NodePath("Waves/WaveLabel")
 crystal_label = NodePath("Level/CrystalLabel")
 level_bar = NodePath("Level/LevelBar")
 level_label = NodePath("Level/LevelLabel")
@@ -203,6 +204,7 @@ scale = Vector2(1.5, 1.5)
 texture = ExtResource("4_ti6po")
 
 [node name="LevelLabel" type="Label" parent="Level"]
+visible = false
 layout_mode = 1
 anchors_preset = 7
 anchor_left = 0.5
@@ -239,6 +241,7 @@ theme_override_font_sizes/font_size = 26
 text = "256"
 
 [node name="LevelBar" type="TextureProgressBar" parent="Level"]
+visible = false
 layout_mode = 0
 offset_left = 23.0
 offset_top = -169.0
@@ -272,10 +275,10 @@ anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
-offset_left = -222.645
-offset_top = -74.52
-offset_right = -163.645
-offset_bottom = -33.52
+offset_left = -224.645
+offset_top = -84.52
+offset_right = -165.645
+offset_bottom = -43.52
 grow_horizontal = 2
 grow_vertical = 0
 scale = Vector2(0.75, 0.75)
@@ -285,14 +288,48 @@ theme_override_font_sizes/font_size = 26
 text = "LV 1
 "
 
+[node name="HealthLabel2" type="Label" parent="Weapons/HealthLabel2"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -5.5
+offset_top = 51.0
+offset_right = 17.5
+offset_bottom = 92.0
+grow_horizontal = 2
+grow_vertical = 0
+scale = Vector2(0.75, 0.75)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("5_ngsn1")
+theme_override_font_sizes/font_size = 26
+text = "1
+"
+
 [node name="TextureRect" type="TextureRect" parent="Weapons"]
 layout_mode = 0
-offset_left = -209.645
-offset_top = -4.52002
-offset_right = -177.645
-offset_bottom = 27.48
+offset_left = -205.645
+offset_top = -15.52
+offset_right = -173.645
+offset_bottom = 16.48
 scale = Vector2(1.5, 1.5)
 texture = ExtResource("6_yrstg")
+
+[node name="LevelBar2" type="TextureProgressBar" parent="Weapons"]
+visible = false
+layout_mode = 0
+offset_left = -153.645
+offset_top = -35.52
+offset_right = -127.645
+offset_bottom = 103.48
+scale = Vector2(0.525, 0.525)
+max_value = 82.205
+value = 49.0
+fill_mode = 3
+texture_under = ExtResource("8_28lhr")
+texture_progress = ExtResource("9_huqni")
 
 [node name="Ingredients" type="VBoxContainer" parent="."]
 anchors_preset = 4

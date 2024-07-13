@@ -20,10 +20,13 @@ color = Color(0.864675, 0.864675, 0.864675, 1)
 hue_variation_max = 0.02
 
 [node name="StaffProj" type="Node2D" node_paths=PackedStringArray("hitbox")]
+z_index = 1
+y_sort_enabled = true
 script = ExtResource("1_lryuk")
 hitbox = NodePath("HitBox")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
+z_index = 1
 texture = ExtResource("2_h86lq")
 
 [node name="HitBox" type="Area2D" parent="."]

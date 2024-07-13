@@ -1,0 +1,411 @@
+[gd_scene load_steps=6 format=3 uid="uid://cklgwuj5b5q5p"]
+
+[ext_resource type="FontFile" uid="uid://xtswn0x4352w" path="res://assets/fonts/WhitePeaberry.fnt" id="1_4h30g"]
+[ext_resource type="Script" path="res://content/ui/settings_menu/settings_menu.gd" id="1_p7qjj"]
+[ext_resource type="Theme" uid="uid://ccdeudfc5q0gg" path="res://content/ui/ui_theme.tres" id="2_hinfp"]
+[ext_resource type="PackedScene" uid="uid://cf0bkbnb0ex20" path="res://content/ui/template/button_template.tscn" id="2_un3ps"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_iaq7t"]
+bg_color = Color(0.18359, 0.18359, 0.18359, 1)
+
+[node name="CanvasLayer" type="CanvasLayer"]
+
+[node name="SettingsMenu" type="Control" parent="." node_paths=PackedStringArray("close_button", "apply_button", "max_fps_box", "vsync_box", "window_mode_box", "gamma_slider", "zoom_slider", "colorblind_filter_box", "camera_shake_box", "master_slider", "music_slider", "sfx_slider")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_p7qjj")
+close_button = NodePath("CloseButton")
+apply_button = NodePath("ApplyButton")
+max_fps_box = NodePath("BoxContainer10/MaxFPSBox")
+vsync_box = NodePath("BoxContainer9/VSyncBox")
+window_mode_box = NodePath("BoxContainer8/WindowModeBox")
+gamma_slider = NodePath("BoxContainer6/GammaSlider")
+zoom_slider = NodePath("BoxContainer7/ZoomSlider")
+colorblind_filter_box = NodePath("BoxContainer5/ColorFilterBox")
+camera_shake_box = NodePath("BoxContainer4/ShakeBox")
+master_slider = NodePath("BoxContainer/MasterSlider")
+music_slider = NodePath("BoxContainer2/MusicSlider")
+sfx_slider = NodePath("BoxContainer3/SFXSlider")
+
+[node name="Panel" type="Panel" parent="SettingsMenu"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -224.0
+offset_top = -302.0
+offset_right = 218.0
+offset_bottom = 294.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("2_hinfp")
+theme_override_styles/panel = SubResource("StyleBoxFlat_iaq7t")
+
+[node name="Label" type="Label" parent="SettingsMenu"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -37.0
+offset_top = 22.0
+offset_right = 43.0
+offset_bottom = 52.0
+grow_horizontal = 2
+scale = Vector2(1.32, 1.32)
+pivot_offset = Vector2(40, 15)
+theme_override_fonts/font = ExtResource("1_4h30g")
+text = "Settings"
+
+[node name="Label2" type="Label" parent="SettingsMenu"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -199.0
+offset_top = -267.0
+offset_right = -119.0
+offset_bottom = -237.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(1.32, 1.32)
+pivot_offset = Vector2(40, 15)
+theme_override_fonts/font = ExtResource("1_4h30g")
+text = "Video"
+
+[node name="Label3" type="Label" parent="SettingsMenu"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -201.0
+offset_top = -134.2
+offset_right = -106.0
+offset_bottom = -104.2
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(1.32, 1.32)
+pivot_offset = Vector2(40, 15)
+theme_override_fonts/font = ExtResource("1_4h30g")
+text = "Preference"
+
+[node name="Label4" type="Label" parent="SettingsMenu"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -200.0
+offset_top = -15.0
+offset_right = -83.0
+offset_bottom = 15.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(1.32, 1.32)
+pivot_offset = Vector2(40, 15)
+theme_override_fonts/font = ExtResource("1_4h30g")
+text = "Accessibility"
+
+[node name="Label5" type="Label" parent="SettingsMenu"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -197.0
+offset_top = 84.0
+offset_right = -80.0
+offset_bottom = 114.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(1.32, 1.32)
+pivot_offset = Vector2(40, 15)
+theme_override_fonts/font = ExtResource("1_4h30g")
+text = "Audio"
+
+[node name="CloseButton" parent="SettingsMenu" instance=ExtResource("2_un3ps")]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -208.0
+offset_top = -62.0
+offset_right = -146.0
+offset_bottom = -36.0
+grow_horizontal = 2
+grow_vertical = 0
+text = "Close"
+
+[node name="ApplyButton" parent="SettingsMenu" instance=ExtResource("2_un3ps")]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -130.0
+offset_top = -62.0
+offset_right = -68.0
+offset_bottom = -36.0
+grow_horizontal = 2
+grow_vertical = 0
+text = "Apply"
+
+[node name="BoxContainer" type="BoxContainer" parent="SettingsMenu"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -208.0
+offset_top = 110.0
+offset_right = 179.0
+offset_bottom = 150.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="SettingsMenu/BoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("1_4h30g")
+text = "Master Volume"
+
+[node name="MasterSlider" type="HSlider" parent="SettingsMenu/BoxContainer"]
+custom_minimum_size = Vector2(261.1, 0)
+layout_mode = 2
+size_flags_vertical = 4
+step = 0.05
+
+[node name="BoxContainer4" type="BoxContainer" parent="SettingsMenu"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -210.0
+offset_top = 44.0
+offset_right = 177.0
+offset_bottom = 84.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="SettingsMenu/BoxContainer4"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("1_4h30g")
+text = "Camera Shake"
+
+[node name="ShakeBox" type="CheckBox" parent="SettingsMenu/BoxContainer4"]
+custom_minimum_size = Vector2(261.1, 0)
+layout_mode = 2
+size_flags_vertical = 4
+
+[node name="BoxContainer5" type="BoxContainer" parent="SettingsMenu"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -210.0
+offset_top = 10.0
+offset_right = 208.0
+offset_bottom = 50.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="SettingsMenu/BoxContainer5"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("1_4h30g")
+text = "Colorblind Filter"
+
+[node name="ColorFilterBox" type="OptionButton" parent="SettingsMenu/BoxContainer5"]
+custom_minimum_size = Vector2(261.1, 0)
+layout_mode = 2
+size_flags_vertical = 4
+
+[node name="BoxContainer8" type="BoxContainer" parent="SettingsMenu"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -214.0
+offset_top = -212.0
+offset_right = 204.0
+offset_bottom = -172.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="SettingsMenu/BoxContainer8"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("1_4h30g")
+text = "Window Mode"
+
+[node name="WindowModeBox" type="OptionButton" parent="SettingsMenu/BoxContainer8"]
+custom_minimum_size = Vector2(261.1, 0)
+layout_mode = 2
+size_flags_vertical = 4
+
+[node name="BoxContainer10" type="BoxContainer" parent="SettingsMenu"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -214.0
+offset_top = -244.0
+offset_right = 204.0
+offset_bottom = -204.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="SettingsMenu/BoxContainer10"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("1_4h30g")
+text = "Max FPS"
+
+[node name="MaxFPSBox" type="SpinBox" parent="SettingsMenu/BoxContainer10"]
+custom_minimum_size = Vector2(261.1, 0)
+layout_mode = 2
+size_flags_vertical = 4
+max_value = 999.0
+
+[node name="BoxContainer9" type="BoxContainer" parent="SettingsMenu"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -214.0
+offset_top = -180.0
+offset_right = 204.0
+offset_bottom = -140.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="SettingsMenu/BoxContainer9"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("1_4h30g")
+text = "VSync"
+
+[node name="VSyncBox" type="CheckBox" parent="SettingsMenu/BoxContainer9"]
+custom_minimum_size = Vector2(261.1, 0)
+layout_mode = 2
+size_flags_vertical = 4
+
+[node name="BoxContainer3" type="BoxContainer" parent="SettingsMenu"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -210.0
+offset_top = 190.0
+offset_right = 177.0
+offset_bottom = 230.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="SettingsMenu/BoxContainer3"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("1_4h30g")
+text = "SFX Volume"
+
+[node name="SFXSlider" type="HSlider" parent="SettingsMenu/BoxContainer3"]
+custom_minimum_size = Vector2(261.1, 0)
+layout_mode = 2
+size_flags_vertical = 4
+step = 0.05
+
+[node name="BoxContainer6" type="BoxContainer" parent="SettingsMenu"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -214.0
+offset_top = -99.2
+offset_right = 173.0
+offset_bottom = -59.2
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="SettingsMenu/BoxContainer6"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("1_4h30g")
+text = "Gamma"
+
+[node name="GammaSlider" type="HSlider" parent="SettingsMenu/BoxContainer6"]
+custom_minimum_size = Vector2(261.1, 0)
+layout_mode = 2
+size_flags_vertical = 4
+step = 0.05
+
+[node name="BoxContainer7" type="BoxContainer" parent="SettingsMenu"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -214.0
+offset_top = -59.2
+offset_right = 173.0
+offset_bottom = -19.2
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="SettingsMenu/BoxContainer7"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("1_4h30g")
+text = "Camera Zoom"
+
+[node name="ZoomSlider" type="HSlider" parent="SettingsMenu/BoxContainer7"]
+custom_minimum_size = Vector2(261.1, 0)
+layout_mode = 2
+size_flags_vertical = 4
+step = 0.05
+
+[node name="BoxContainer2" type="BoxContainer" parent="SettingsMenu"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -208.0
+offset_top = 150.0
+offset_right = 179.0
+offset_bottom = 190.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="SettingsMenu/BoxContainer2"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("1_4h30g")
+text = "Music Volume"
+
+[node name="MusicSlider" type="HSlider" parent="SettingsMenu/BoxContainer2"]
+custom_minimum_size = Vector2(261.1, 0)
+layout_mode = 2
+size_flags_vertical = 4
+step = 0.05

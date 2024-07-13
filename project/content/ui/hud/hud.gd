@@ -5,6 +5,7 @@ extends CanvasLayer
 
 @export var time_label: Label
 @export var kill_label: Label
+@export var wave_label: Label
 
 @export var crystal_label: Label
 @export var level_bar: TextureProgressBar
@@ -33,6 +34,7 @@ func _process(_delta: float) -> void:
 
 	if GSceneAdmin.level_base:
 		update_time_label()
+		update_wave_label()
 
 
 func update_heart_box() -> void:
@@ -92,6 +94,8 @@ func update_level_bar() -> void:
 func update_level_label() -> void:
 	level_label.text = "[LVL] %d" % GEntityAdmin.player.level
 
+func update_wave_label() -> void:
+	wave_label.text = "WAVE %d" % WaveSpawner.current_wave
 
 func update_ingredients_box() -> void:
 	var children := ingredients_box.get_children()

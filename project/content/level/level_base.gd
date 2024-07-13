@@ -1,5 +1,8 @@
 class_name LevelBase extends Node
 
+signal ambience_changed(ambience: LevelAmbience)
+signal time_changed()
+
 enum LevelAmbience {
 	NON_SPOOKY,
 	HALF_SPOOKY,
@@ -10,6 +13,7 @@ enum LevelAmbience {
 
 var ambience_state: LevelAmbience = LevelAmbience.NON_SPOOKY
 var time_elapsed: int = 0
+static var time_elapsed_wave: int = 0
 var hold_time: bool = false
 
 static var ambience_map: Dictionary = {
@@ -33,6 +37,8 @@ func update_time() -> void:
 		return
 
 	time_elapsed += 1
+	time_elapsed_wave += 1
+	time_changed.emit()
 
 
 ## Returns the elapsed time as a string.
@@ -48,7 +54,10 @@ func change_ambience(ambience: LevelAmbience) -> void:
 		ambience_state = ambience
 		level_modulate.color = ambience_map[ambience]
 
+
 	GPostProcessing.fade_transition(ambience_change)
+
+	ambience_changed.emit(ambience)
 
 	#GPostProcessing.fade_from_black()
 

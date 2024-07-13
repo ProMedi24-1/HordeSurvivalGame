@@ -9,6 +9,9 @@ func _ready() -> void:
 	super()
 	self.name = "Sword"
 
+	weapon_name = "Sword"
+
+
 	cooldown_time = 0.7
 	cooldown = create_tween()
 	cooldown.set_loops()
@@ -23,7 +26,7 @@ func attack() -> void:
 
 	var projectile := proj_scene.instantiate()
 	GSceneAdmin.scene_root.add_child(projectile)
-	projectile.damage = 5
+	projectile.damage = damage
 	projectile.scale = Vector2(1.3, 1.3)
 
 	# Add offset to the projectile

@@ -89,11 +89,12 @@ static func show_player_menu_window(p_open: Array) -> void:
 			ImGui.EndTabItem()
 
 		if ImGui.BeginTabItem("Weapons"):
+			draw_weapons_tab()
 			ImGui.EndTabItem()
 
-		if ImGui.BeginTabItem("Stats"):
-			draw_stats_tab()
-			ImGui.EndTabItem()
+		#if ImGui.BeginTabItem("Stats"):
+			#draw_stats_tab()
+			#ImGui.EndTabItem()
 
 		ImGui.EndTabBar()
 	ImGui.End()
@@ -148,6 +149,57 @@ static func draw_general_tab() -> void:
 	if ImGui.DragFloatEx("##Set Movement Speed1", set_mov_speed, 50, 0.0, 25000.0):
 		player.mov_speed = set_mov_speed[0]
 
+
+static func draw_weapons_tab() -> void:
+	var player := GEntityAdmin.player
+	#ImGui.SeparatorText("Weapons")
+	ImGui.Text("Add Weapons")
+
+	for i in WeaponUtils.WeaponType.size():
+		if ImGui.Button("Add %s" % WeaponUtils.WeaponType.keys()[i]):
+			WeaponUtils.add_weapon_to_player(i)
+
+
+	ImGui.SeparatorText("Inventory")
+	if ImGui.BeginChild("ScrollingRegion", Vector2(0, 0), false):
+		for i in player.weapon_inventory.size():
+			var weapon := player.weapon_inventory[i]
+			if weapon == null:
+				continue
+
+			ImGui.Text("Weapon: %s" % weapon.weapon_name)
+			ImGui.Text("Slot: %d" % weapon.weapon_slot)
+			ImGui.Text("Level: %d" % weapon.level)
+			ImGui.Text("Progress: %d" % weapon.level_progress)
+			ImGui.Text("Required: %d" % weapon.level_required)
+			ImGui.Text("Damage: %d" % weapon.damage)
+			ImGui.Text("Cooldown: %.2f" % weapon.cooldown_time)
+
+			#ImGui::PushID(i)
+			ImGui.PushID("LevelUp" + str(i))
+			if ImGui.Button("Level Up"):
+				weapon.level_up()
+			ImGui.PopID()
+
+			ImGui.SameLine()
+				#if ImGui.Button("Attack"):
+					#weapon.attack()
+
+			ImGui.PushID("Attack" + str(i))
+			if ImGui.Button("Attack"):
+				weapon.attack()
+			ImGui.PopID()
+
+			ImGui.SameLine()
+
+			ImGui.PushID("Discard" + str(i))
+			if ImGui.Button("Discard"):
+				WeaponUtils.discard_weapon_from_player(weapon.weapon_slot - 1)
+			ImGui.PopID()
+
+
+			ImGui.Separator()
+		ImGui.EndChild()
 
 static func draw_stats_tab() -> void:
 	var player := GEntityAdmin.player
