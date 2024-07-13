@@ -12,6 +12,8 @@ static var scene_map := {
 	Pair.new(GStateAdmin.GameState.LEVEL_SELECT, "res://content/ui/level_menu/level_menu.tscn"),
 	"PrototypeLevel":
 	Pair.new(GStateAdmin.GameState.PLAYING, "res://content/level/PrototypeLevel.tscn"),
+	"FirstLevel":
+	Pair.new(GStateAdmin.GameState.PLAYING, "res://content/level/first_level/first_level.tscn"),
 }
 
 static var scene_root: Node = null  ## Reference to the current scene root node.

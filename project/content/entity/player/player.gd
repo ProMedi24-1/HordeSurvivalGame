@@ -31,6 +31,9 @@ var god_mode: bool = false  ## If the player is in god mode.
 var health_status: HealthStatus = HealthStatus.FULL  ## The current health status of the player.
 
 var mov_speed: float = 6000.0  ## The movement speed of the player.
+var attack_speed: float = 1.0  ## The attack speed of the player.
+var dodge_chance: float = 0.0  ## The chance to dodge an attack.
+
 
 var crystals: int = 0  ## The amount of crystals the player has.
 var level: int = 0  ## The current level of the player.
@@ -51,7 +54,8 @@ var kills: int = 0  ## The amount of kills the player has.
 # Factors to determine the player rating.
 var damage_taken: int = 0 ## Amount of damage taken in a Wave.
 var kills_in_wave: int = 0  ## Amount of kills in a Wave.
-
+var ingredients_collected: int = 0  ## Amount of ingredients collected in a Wave.
+var crystals_collected: int = 0  ## Amount of crystals collected in a Wave.
 
 
 
@@ -74,12 +78,10 @@ func _ready() -> void:
 
 	ingredient_inventory.resize(Ingredient.IngredientType.keys().size())
 
-	# Add Staff weapon
-	var staff = preload("res://content/weapon/sword/sword.tscn").instantiate()
-	add_child(staff)
 
-	var staff2 = preload("res://content/weapon/staff/staff.tscn").instantiate()
-	add_child(staff2)
+	WeaponUtils.add_weapon_to_player(WeaponUtils.WeaponType.STAFF)
+	WeaponUtils.add_weapon_to_player(WeaponUtils.WeaponType.STAFF)
+
 
 	add_child(hud_scene.instantiate())
 	set_camera_zoom()
@@ -142,6 +144,13 @@ func set_max_health(value: int) -> void:
 ## [damage] The amount of damage to take.
 func take_damage(_damage: int) -> void:
 	if god_mode:
+		return
+
+	if health_status == HealthStatus.DEAD:
+		return
+
+	if randf_range(0.0, 1.0) < dodge_chance:
+		#Sound.play_sfx(Sound.Fx.DODGE)
 		return
 
 	# new Health system just takes 1 heart of damage.

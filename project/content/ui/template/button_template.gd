@@ -21,13 +21,15 @@ func _ready() -> void:
 	focus_entered.connect(on_focus_begin)
 	focus_exited.connect(on_focus_end)
 	mouse_entered.connect(on_hover_begin)
+	mouse_exited.connect(on_hover_end)
 	button_down.connect(on_down)
-	button_up.connect(on_up)
+	#button_up.connect(on_up)
 
-	std_scale = scale
+	# std_scale = scale
 
-	# NOTE: does not work somehow?
-	pivot_offset = Vector2(size.x / 2, size.y / 2)
+	# # NOTE: does not work somehow?
+	# pivot_offset = Vector2(size.x / 2, size.y / 2)
+	#pass
 
 
 ## Change the state of the button.
@@ -37,11 +39,17 @@ func change_state(new_state: ButtonState) -> void:
 
 	match state:
 		ButtonState.NORMAL:
-			create_tween().tween_property(self, "scale", std_scale, 0.03)
+			var t = create_tween()
+			if t:
+				t.tween_property(self, "scale", std_scale, 0.03)
 		ButtonState.FOCUSED:
-			create_tween().tween_property(self, "scale", std_scale * HOVER_SCALE, 0.03)
+			var t = create_tween()
+			if t:
+				create_tween().tween_property(self, "scale", std_scale * HOVER_SCALE, 0.03)
 		ButtonState.PRESSED:
-			create_tween().tween_property(self, "scale", std_scale * DOWN_SCALE, 0.03)
+			var t = create_tween()
+			if t:
+				create_tween().tween_property(self, "scale", std_scale * DOWN_SCALE, 0.03)
 
 
 ## Call the press event.
@@ -53,24 +61,30 @@ func on_pressed() -> void:
 ## On button down. When the button is pressed.
 func on_down() -> void:
 	Sound.play_sfx(Sound.Fx.CLICK, 2)
-	change_state(ButtonState.PRESSED)
+	#change_state(ButtonState.PRESSED)
 
 
 ## On button up. When the button is released.
-func on_up() -> void:
-	change_state(ButtonState.FOCUSED)
-
+#func on_up() -> void:
+	#change_state(ButtonState.FOCUSED)
+	#pass
 
 ## On focus begin, when the mouse hovers over the button.
 func on_focus_begin() -> void:
 	Sound.play_sfx(Sound.Fx.HOVER, 2, 0.5)
-	change_state(ButtonState.FOCUSED)
+	#change_state(ButtonState.FOCUSED)
 
 
 ## On focus end, when the mouse leaves the button.
 func on_focus_end() -> void:
-	change_state(ButtonState.NORMAL)
+	#print("focus end")
+	#change_state(ButtonState.NORMAL)
+	#self.release_focus()
+	pass
 
+func on_hover_end() -> void:
+	#change_state(ButtonState.NORMAL)
+	self.release_focus()
 
 ## Grab focus when the mouse hovers over the button.
 func on_hover_begin() -> void:

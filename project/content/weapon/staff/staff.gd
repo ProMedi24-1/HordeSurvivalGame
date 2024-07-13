@@ -9,6 +9,9 @@ func _ready() -> void:
 	super()
 	self.name = "Staff"
 
+	weapon_name = "Staff"
+
+
 	cooldown_time = 0.5
 	cooldown = create_tween()
 	cooldown.set_loops()
@@ -23,7 +26,7 @@ func attack() -> void:
 
 	var projectile := proj_scene.instantiate()
 	GSceneAdmin.scene_root.add_child(projectile)
-	projectile.damage = 5
+	projectile.damage = damage
 
 	var direction = global_position.direction_to(target.global_position)
 	projectile.global_position = self.global_position + direction * 10

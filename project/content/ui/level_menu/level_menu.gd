@@ -17,8 +17,10 @@ func on_back() -> void:
 
 
 func on_normal() -> void:
-	GSceneAdmin.switch_scene("PrototypeLevel")
+	GSceneAdmin.switch_scene("FirstLevel")
+	WaveSpawner.adaptive_difficulty = false
 
 
 func on_adaptive() -> void:
-	GSceneAdmin.switch_scene("AdaptiveLevel")
+	GSceneAdmin.switch_scene("FirstLevel")
+	WaveSpawner.adaptive_difficulty = true

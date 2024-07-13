@@ -13,6 +13,19 @@ enum EnemyType {
 	EYE_EV1,
 }
 
+const WAVE_TIMES := {
+	1: 30.0,
+	3: 45.0,
+	5: 60.0,
+}
+
+
+const WAVE_AMBIENCES = {
+	1: LevelBase.LevelAmbience.NON_SPOOKY,
+	10: LevelBase.LevelAmbience.HALF_SPOOKY,
+	20: LevelBase.LevelAmbience.SPOOKY,
+}
+
 # Map of enemy types to their scene and rating.
 static var enemy_types = {
 	EnemyType.BAT_EV1: Pair.new(
@@ -63,6 +76,8 @@ func _ready() -> void:
 
 	var wave = Wave.new()
 	add_child.call_deferred(wave)
+	current_wave = 0
+
 	wave.start_wave()
 
 ## Fill the spawn_points array with all children of the WaveSpawner node.
@@ -108,10 +123,13 @@ class Wave extends Node:
 
 	var wave_running: bool = false
 	var wave_spawning: bool = true
+	#var time_elapsed_wave: int = 0
 
 	## Array of enemy candidates to spawn. Contains a Pair of the EnemyType and
 	## the time to spawn the next of his type.
 	var enemy_candidates: Array[Pair] = []
+
+	var wave_timer: Timer
 
 	## Set up the enemy candidates for the wave.
 	## The candidates are based on the player rating and the enemy rating.
@@ -172,7 +190,7 @@ class Wave extends Node:
 
 
 	func spawn_enemies() -> void:
-		var wave_timer = Timer.new()
+		wave_timer = Timer.new()
 		wave_timer.one_shot = true
 		wave_timer.autostart = true
 		wave_timer.wait_time = WaveSpawner.wave_duration
@@ -189,7 +207,28 @@ class Wave extends Node:
 	func start_wave() -> void:
 		WaveSpawner.wave_ref = self
 
+		GSceneAdmin.level_base.time_elapsed_wave = 0
 		WaveSpawner.current_wave += 1
+
+		# Set the wave duration based on the current wave. if its in the range
+		# of the WAVE_TIMES dictionary.
+		if WaveSpawner.current_wave < WAVE_TIMES.keys()[1]:
+			WaveSpawner.wave_duration = WAVE_TIMES.values()[0]
+		elif WaveSpawner.current_wave < WAVE_TIMES.keys()[2]:
+			WaveSpawner.wave_duration = WAVE_TIMES.values()[1]
+		else:
+			WaveSpawner.wave_duration = WAVE_TIMES.values()[2]
+
+		if WaveSpawner.current_wave < WAVE_AMBIENCES.keys()[1]:
+			GSceneAdmin.level_base.change_ambience(WAVE_AMBIENCES.values()[0])
+		elif WaveSpawner.current_wave < WAVE_AMBIENCES.keys()[2]:
+			GSceneAdmin.level_base.change_ambience(WAVE_AMBIENCES.values()[1])
+		else:
+			GSceneAdmin.level_base.change_ambience(WAVE_AMBIENCES.values()[2])
+
+		# Set the ambience based on the current wave.
+		#if WaveSpawner.WAVE_AMBIENCES.has(WaveSpawner.current_wave):
+			#GSceneAdmin.level_base.set_ambience(WaveSpawner.WAVE_AMBIENCES[WaveSpawner.current_wave])
 
 		# Reset per player wave stats
 		GEntityAdmin.player.damage_taken = 0
@@ -203,8 +242,18 @@ class Wave extends Node:
 
 		for enemies in GEntityAdmin.entities:
 			if enemies is EnemyBase:
-				enemies.die()
+				enemies.die(false, false)
 
+		# Clean up timers
+		for timer in get_children():
+			timer.queue_free()
+
+		wave_timer = null
+
+		GStateAdmin.pause_game()
+		var upgrade_menu = load("res://content/ui/upgrade_menu/upgrade_menu.tscn").instantiate()
+		GGameGlobals.instance.add_child(upgrade_menu)
+		upgrade_menu.layer = 2
 
 		if WaveSpawner.adaptive_difficulty:
 			GEntityAdmin.player.update_player_rating(true)

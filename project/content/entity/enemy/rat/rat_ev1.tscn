@@ -11,6 +11,8 @@ radius = 6.0
 radius = 8.0
 
 [node name="RatEv1" type="CharacterBody2D"]
+z_index = 1
+y_sort_enabled = true
 collision_layer = 4
 motion_mode = 1
 
@@ -19,6 +21,7 @@ shape = SubResource("CircleShape2D_why8i")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 z_index = 1
+y_sort_enabled = true
 position = Vector2(0, -6)
 texture = ExtResource("1_mv1cg")
 vframes = 5
@@ -33,6 +36,7 @@ shape = SubResource("CircleShape2D_2ryt4")
 debug_color = Color(0.948125, 0.109551, 0.502569, 0.42)
 
 [node name="Shadow" type="Sprite2D" parent="."]
+y_sort_enabled = true
 position = Vector2(0, 8)
 texture = ExtResource("2_e3kla")
 

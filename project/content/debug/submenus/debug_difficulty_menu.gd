@@ -28,9 +28,13 @@ static func show_difficulty_menu_window(p_open: Array) -> void:
 	if ImGui.Checkbox("Adaptive Difficulty", set_adaptive):
 		WaveSpawner.adaptive_difficulty = set_adaptive[0]
 
-	ImGui.SeparatorText("Waves")
 	ImGui.Text("Time elapsed: %d" % GSceneAdmin.level_base.time_elapsed)
+	ImGui.SeparatorText("Waves")
+	if WaveSpawner.wave_ref.wave_timer:
+		ImGui.Text("Wave Time left: %d/%d" % [
+			WaveSpawner.wave_ref.wave_timer.time_left, WaveSpawner.wave_duration])
 	ImGui.Text("Current Wave: %d" % WaveSpawner.current_wave)
+	ImGui.Text("Wave Duration: %d" % WaveSpawner.wave_duration)
 
 
 	if ImGui.Button("End Wave"):

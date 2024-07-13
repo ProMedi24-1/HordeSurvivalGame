@@ -57,12 +57,14 @@ func take_damage(damage: int) -> void:
 
 
 ## Kill the enemy and spawn loot.
-func die() -> void:
-	EnemyUtils.spawn_loot(self.global_position, crystal_rating, ingredient, ingredient_chance)
+func die(spawn_loot: bool = true, get_kills: bool = true) -> void:
+	if spawn_loot:
+		EnemyUtils.spawn_loot(self.global_position, crystal_rating, ingredient, ingredient_chance)
 
-	if GEntityAdmin.player:
+	if get_kills and GEntityAdmin.player:
 		GEntityAdmin.player.kills += 1
 		GEntityAdmin.player.kills_in_wave += 1
+
 
 	# TODO: Play death animation.
 	self.get_parent().queue_free()
