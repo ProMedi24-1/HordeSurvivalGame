@@ -29,7 +29,7 @@ func _ready() -> void:
 
 	# # NOTE: does not work somehow?
 	# pivot_offset = Vector2(size.x / 2, size.y / 2)
-	pass
+	#pass
 
 
 ## Change the state of the button.
