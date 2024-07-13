@@ -23,7 +23,7 @@ func _ready() -> void:
 	mouse_entered.connect(on_hover_begin)
 	mouse_exited.connect(on_hover_end)
 	button_down.connect(on_down)
-	button_up.connect(on_up)
+	#button_up.connect(on_up)
 
 	# std_scale = scale
 
@@ -65,9 +65,9 @@ func on_down() -> void:
 
 
 ## On button up. When the button is released.
-func on_up() -> void:
+#func on_up() -> void:
 	#change_state(ButtonState.FOCUSED)
-	pass
+	#pass
 
 ## On focus begin, when the mouse hovers over the button.
 func on_focus_begin() -> void:

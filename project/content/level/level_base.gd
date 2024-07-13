@@ -13,9 +13,9 @@ enum LevelAmbience {
 
 var ambience_state: LevelAmbience = LevelAmbience.NON_SPOOKY
 var time_elapsed: int = 0
-static var time_elapsed_wave: int = 0
 var hold_time: bool = false
 
+static var time_elapsed_wave: int = 0
 static var ambience_map: Dictionary = {
 	LevelAmbience.NON_SPOOKY: Color.from_string("#e8d4d4", Color.GRAY),
 	LevelAmbience.HALF_SPOOKY: Color.from_string("#9a6e6e", Color.GRAY),

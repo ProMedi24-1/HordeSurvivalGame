@@ -31,7 +31,8 @@ static func show_difficulty_menu_window(p_open: Array) -> void:
 	ImGui.Text("Time elapsed: %d" % GSceneAdmin.level_base.time_elapsed)
 	ImGui.SeparatorText("Waves")
 	if WaveSpawner.wave_ref.wave_timer:
-		ImGui.Text("Wave Time left: %d/%d" % [WaveSpawner.wave_ref.wave_timer.time_left, WaveSpawner.wave_duration])
+		ImGui.Text("Wave Time left: %d/%d" % [
+			WaveSpawner.wave_ref.wave_timer.time_left, WaveSpawner.wave_duration])
 	ImGui.Text("Current Wave: %d" % WaveSpawner.current_wave)
 	ImGui.Text("Wave Duration: %d" % WaveSpawner.wave_duration)
 
