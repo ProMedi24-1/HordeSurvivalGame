@@ -1,11 +1,83 @@
-[gd_scene load_steps=5 format=3 uid="uid://dqbopikdqflyj"]
+[gd_scene load_steps=15 format=3 uid="uid://dqbopikdqflyj"]
 
 [ext_resource type="FontFile" uid="uid://xtswn0x4352w" path="res://assets/fonts/WhitePeaberry.fnt" id="1_gyx5e"]
 [ext_resource type="Script" path="res://content/ui/level_menu/level_menu.gd" id="1_pxp2x"]
+[ext_resource type="Theme" uid="uid://ccdeudfc5q0gg" path="res://content/ui/ui_theme.tres" id="2_6dypq"]
+[ext_resource type="Texture2D" uid="uid://ctd3dkytxdabb" path="res://assets/entity/enemy/bat/BatEv2Sheet.png" id="2_hbi2f"]
 [ext_resource type="PackedScene" uid="uid://cf0bkbnb0ex20" path="res://content/ui/template/button_template.tscn" id="2_t2crq"]
-[ext_resource type="Texture2D" uid="uid://dn5h7p02wsxsp" path="res://assets/icon/icon.svg" id="3_b7d6x"]
+[ext_resource type="Texture2D" uid="uid://ctl1mc68yua1e" path="res://assets/entity/enemy/bat/BatEv3Sheet.png" id="3_jk5cc"]
+[ext_resource type="Texture2D" uid="uid://dxqerigk4sqn3" path="res://assets/level/level_preview.PNG" id="5_luogf"]
+[ext_resource type="Texture2D" uid="uid://b1vvdhpawadbs" path="res://assets/entity/enemy/bat/BatEv1Sheet.png" id="6_sldm5"]
 
-[node name="LevelMenu" type="Control" node_paths=PackedStringArray("back_button", "normal_button", "adaptive_button")]
+[sub_resource type="Gradient" id="Gradient_8j7ov"]
+colors = PackedColorArray(0.0017138, 0.0114016, 0.0348836, 1, 0.0117647, 0.0705882, 0.145098, 1)
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_hl0mk"]
+noise_type = 3
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_xbd1u"]
+width = 100
+height = 100
+seamless_blend_skirt = 0.391
+color_ramp = SubResource("Gradient_8j7ov")
+noise = SubResource("FastNoiseLite_hl0mk")
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3eae2"]
+bg_color = Color(0.158472, 0.158472, 0.158472, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_w8usx"]
+bg_color = Color(0.103744, 0.103744, 0.103743, 1)
+
+[sub_resource type="Environment" id="Environment_mrgna"]
+background_mode = 3
+tonemap_mode = 2
+
+[node name="LevelLayer" type="CanvasLayer"]
+
+[node name="BGColor" type="TextureRect" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("NoiseTexture2D_xbd1u")
+
+[node name="BGElements" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="BatEv1Sheet" type="Sprite2D" parent="BGElements"]
+position = Vector2(234, -221)
+scale = Vector2(2.3942, 2.3942)
+texture = ExtResource("6_sldm5")
+vframes = 5
+frame = 2
+
+[node name="BatEv1Sheet2" type="Sprite2D" parent="BGElements"]
+position = Vector2(-182, -220)
+scale = Vector2(2.3942, 2.3942)
+texture = ExtResource("2_hbi2f")
+hframes = 5
+frame = 2
+
+[node name="BatEv1Sheet3" type="Sprite2D" parent="BGElements"]
+position = Vector2(28, -217)
+scale = Vector2(2.3942, 2.3942)
+texture = ExtResource("3_jk5cc")
+vframes = 5
+frame = 2
+
+[node name="LevelMenu" type="Control" parent="." node_paths=PackedStringArray("back_button", "normal_button", "adaptive_button")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -17,7 +89,7 @@ back_button = NodePath("BackButton")
 normal_button = NodePath("HBoxContainer/NormalButton")
 adaptive_button = NodePath("HBoxContainer/AdaptiveButton")
 
-[node name="Panel" type="Panel" parent="."]
+[node name="Panel" type="Panel" parent="LevelMenu"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -30,8 +102,26 @@ offset_right = 221.0
 offset_bottom = 246.0
 grow_horizontal = 2
 grow_vertical = 2
+theme = ExtResource("2_6dypq")
+theme_override_styles/panel = SubResource("StyleBoxFlat_3eae2")
 
-[node name="LevelLabel" type="Label" parent="."]
+[node name="Panel2" type="Panel" parent="LevelMenu"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -170.0
+offset_top = -179.0
+offset_right = 181.0
+offset_bottom = 45.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("2_6dypq")
+theme_override_styles/panel = SubResource("StyleBoxFlat_w8usx")
+
+[node name="LevelLabel" type="Label" parent="LevelMenu"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -44,12 +134,13 @@ offset_right = 10.0
 offset_bottom = -204.0
 grow_horizontal = 2
 grow_vertical = 2
-scale = Vector2(1.45723, 1.45723)
+scale = Vector2(2, 2)
+theme_override_colors/font_color = Color(0.756196, 0.907784, 1, 1)
 theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
 theme_override_fonts/font = ExtResource("1_gyx5e")
 text = "Level 1"
 
-[node name="HBoxContainer" type="VBoxContainer" parent="."]
+[node name="DifficultyLabel" type="Label" parent="LevelMenu"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -57,21 +148,44 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = -51.0
-offset_top = 108.0
-offset_right = 55.0
-offset_bottom = 206.0
+offset_top = 45.0
+offset_right = 41.0
+offset_bottom = 70.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(1.2, 1.2)
+theme_override_colors/font_color = Color(1, 0.656428, 0.450653, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("1_gyx5e")
+text = "Difficulty"
+
+[node name="HBoxContainer" type="VBoxContainer" parent="LevelMenu"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -104.0
+offset_top = 80.0
+offset_right = 115.0
+offset_bottom = 192.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="NormalButton" parent="HBoxContainer" instance=ExtResource("2_t2crq")]
+[node name="NormalButton" parent="LevelMenu/HBoxContainer" instance=ExtResource("2_t2crq")]
 layout_mode = 2
+size_flags_vertical = 3
+theme_override_colors/font_color = Color(0.964998, 0.723006, 0.703988, 1)
 text = "Normal"
 
-[node name="AdaptiveButton" parent="HBoxContainer" instance=ExtResource("2_t2crq")]
+[node name="AdaptiveButton" parent="LevelMenu/HBoxContainer" instance=ExtResource("2_t2crq")]
 layout_mode = 2
+size_flags_vertical = 3
+theme_override_colors/font_color = Color(0.953262, 0.87904, 0.663341, 1)
 text = "Adaptive"
 
-[node name="BackButton" parent="." instance=ExtResource("2_t2crq")]
+[node name="BackButton" parent="LevelMenu" instance=ExtResource("2_t2crq")]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -79,24 +193,31 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = -200.0
-offset_top = 203.0
-offset_right = -129.0
-offset_bottom = 236.0
+offset_top = 197.0
+offset_right = -108.0
+offset_bottom = 230.0
 grow_horizontal = 2
 grow_vertical = 2
+scale = Vector2(1.235, 1.235)
 text = "Back"
 
-[node name="TextureRect" type="TextureRect" parent="."]
+[node name="TextureRect" type="TextureRect" parent="LevelMenu"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -64.0
-offset_top = -176.0
-offset_right = 64.0
-offset_bottom = -48.0
+offset_left = -150.0
+offset_top = -166.0
+offset_right = 384.0
+offset_bottom = 174.0
 grow_horizontal = 2
 grow_vertical = 2
-texture = ExtResource("3_b7d6x")
+scale = Vector2(0.585, 0.585)
+texture = ExtResource("5_luogf")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="LevelMenu"]
+environment = SubResource("Environment_mrgna")
+
+[node name="CanvasModulate" type="CanvasModulate" parent="LevelMenu"]

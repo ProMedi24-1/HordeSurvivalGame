@@ -1,6 +1,8 @@
 class_name Sound
 ## Sound class for playing sound effects and music.
 
+static var music_player: AudioStreamPlayer = null
+static var music_looped: bool = true
 
 ## Plays a sound Effect by creating an AudioPlayer, that frees itself after playing.
 ## [sound]: The AudioStream to play.
@@ -23,9 +25,23 @@ static func play_sfx(sound: AudioStream, pitch: float = 1.0, volume: float = 1.0
 # TODO: Implement music playing.
 ## Plays a music track.
 ## [music]: The AudioStream to play.
-#static func play_music(music: AudioStream) -> void:
-# pass
+static func play_music(music: AudioStream) -> void:
+	if music_player == null:
+		music_player = AudioStreamPlayer.new()
+		music_player.bus = "Music"
 
+		music_player.volume_db = linear_to_db(0.1)
+		GGameGlobals.instance.add_child(music_player)
+
+	if music == music_player.stream:
+		return
+
+	music_player.stream = music
+	music_player.play()
+
+	if music_looped:
+		await music_player.finished
+		play_music(music)
 
 ## Class managing Sound Effects.
 class Fx:
@@ -42,5 +58,5 @@ class Fx:
 
 ## Class managing Music.
 class Music:
-	#const MAIN_MENU = preload("res://assets/music/main_menu.ogg")
-	pass
+	const MAIN_MENU = preload("res://assets/music/main_menu.mp3")
+	#pass

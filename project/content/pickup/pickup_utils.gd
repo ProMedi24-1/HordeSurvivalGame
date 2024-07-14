@@ -21,7 +21,7 @@ static func spawn_crystal(pos: Vector2, type: CrystalType) -> void:
 
 	var crystal_inst = CRYSTAL_SCENES[type].instantiate()
 	crystal_inst.global_position = pos
-	GSceneAdmin.level_base.add_child.call_deferred(crystal_inst)
+	GSceneAdmin.scene_root.add_child.call_deferred(crystal_inst)
 
 
 ## Spawn a ingredient at a position.
@@ -33,7 +33,7 @@ static func spawn_ingredient(
 ) -> void:
 	var ingredient_inst = Ingredient.ingredient_types[type].scene.instantiate()
 	ingredient_inst.global_position = pos
-	GSceneAdmin.level_base.add_child(ingredient_inst)
+	GSceneAdmin.scene_root.add_child(ingredient_inst)
 
 
 static func add_ingredient_to_player(type: Ingredient.IngredientType) -> void:

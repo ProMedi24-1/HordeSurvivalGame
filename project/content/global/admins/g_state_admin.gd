@@ -20,6 +20,7 @@ static var game_state: GameState = GameState.NONE
 ## Static boolean to track if the game is paused.
 static var game_paused: bool = false
 
+static var can_pause: bool = true
 
 
 func _ready() -> void:
@@ -43,6 +44,9 @@ static func toggle_pause_game() -> void:
 
 ## Pauses the game by disabling the processing of the main scene.
 static func pause_game(gameover: bool = false) -> void:
+	if not can_pause:
+		return
+
 	if GSceneAdmin.scene_root != null:
 		GSceneAdmin.scene_root.process_mode = Node.PROCESS_MODE_DISABLED
 

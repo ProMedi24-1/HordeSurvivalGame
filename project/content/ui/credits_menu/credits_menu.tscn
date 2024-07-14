@@ -1,10 +1,13 @@
-[gd_scene load_steps=4 format=3 uid="uid://dukxq4xtiyvh0"]
+[gd_scene load_steps=5 format=3 uid="uid://dukxq4xtiyvh0"]
 
 [ext_resource type="Script" path="res://content/ui/credits_menu/credits_menu.gd" id="1_6omlg"]
 [ext_resource type="FontFile" uid="uid://xtswn0x4352w" path="res://assets/fonts/WhitePeaberry.fnt" id="1_alt3a"]
 [ext_resource type="PackedScene" uid="uid://cf0bkbnb0ex20" path="res://content/ui/template/button_template.tscn" id="2_fmeyk"]
+[ext_resource type="Theme" uid="uid://ccdeudfc5q0gg" path="res://content/ui/ui_theme.tres" id="2_yufdd"]
 
-[node name="CreditsMenu" type="Control" node_paths=PackedStringArray("close_button")]
+[node name="CreditsLayer" type="CanvasLayer"]
+
+[node name="CreditsMenu" type="Control" parent="." node_paths=PackedStringArray("close_button")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -14,7 +17,7 @@ grow_vertical = 2
 script = ExtResource("1_6omlg")
 close_button = NodePath("CloseButton")
 
-[node name="Panel" type="Panel" parent="."]
+[node name="Panel" type="Panel" parent="CreditsMenu"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -22,26 +25,67 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = -231.0
-offset_top = -206.0
+offset_top = -273.0
 offset_right = 237.0
 offset_bottom = 221.0
 grow_horizontal = 2
 grow_vertical = 2
+theme = ExtResource("2_yufdd")
 
-[node name="RichTextLabel" type="RichTextLabel" parent="."]
+[node name="Label" type="Label" parent="CreditsMenu"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -224.0
-offset_top = -166.0
-offset_right = 113.0
-offset_bottom = 84.0
+offset_left = -61.0
+offset_top = -273.0
+offset_right = 4.0
+offset_bottom = -248.0
 grow_horizontal = 2
 grow_vertical = 2
-scale = Vector2(1.4, 1.4)
+scale = Vector2(2, 2)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("1_alt3a")
+text = "Credits"
+
+[node name="CloseButton" parent="CreditsMenu" instance=ExtResource("2_fmeyk")]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -47.9999
+offset_top = 166.0
+offset_right = 28.0001
+offset_bottom = 199.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(1.25, 1.25)
+text = "Close"
+
+[node name="ScrollContainer" type="ScrollContainer" parent="CreditsMenu"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -213.0
+offset_top = -209.0
+offset_right = 215.0
+offset_bottom = 157.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="HBoxContainer" type="VBoxContainer" parent="CreditsMenu/ScrollContainer"]
+layout_mode = 2
+
+[node name="CreditsLabel" type="RichTextLabel" parent="CreditsMenu/ScrollContainer/HBoxContainer"]
+custom_minimum_size = Vector2(393.78, 0)
+layout_mode = 2
 theme_override_fonts/normal_font = ExtResource("1_alt3a")
 text = "Julia Kaufmann - Project Lead
 Valenting Sonntag - Lead Artist
@@ -52,39 +96,47 @@ Emilia Bill - Programmer
 Jonas Urban - Audio
 Timon Schnell - Audio
 Paul Graml - QA
-
 "
 fit_content = true
 
-[node name="Label" type="Label" parent="."]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -66.0
-offset_top = -214.0
-offset_right = -1.0
-offset_bottom = -189.0
-grow_horizontal = 2
-grow_vertical = 2
-scale = Vector2(2, 2)
-theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
-theme_override_fonts/font = ExtResource("1_alt3a")
-text = "Credits"
+[node name="HSeparator" type="HSeparator" parent="CreditsMenu/ScrollContainer/HBoxContainer"]
+layout_mode = 2
 
-[node name="CloseButton" parent="." instance=ExtResource("2_fmeyk")]
+[node name="CreditsLabel2" type="RichTextLabel" parent="CreditsMenu/ScrollContainer/HBoxContainer"]
+custom_minimum_size = Vector2(393.78, 0)
+layout_mode = 2
+theme_override_fonts/normal_font = ExtResource("1_alt3a")
+text = "Phillip Harnisch - Supervisor
+"
+fit_content = true
+
+[node name="HSeparator2" type="HSeparator" parent="CreditsMenu/ScrollContainer/HBoxContainer"]
+layout_mode = 2
+
+[node name="CreditsLabel3" type="RichTextLabel" parent="CreditsMenu/ScrollContainer/HBoxContainer"]
+custom_minimum_size = Vector2(393.78, 0)
+layout_mode = 2
+theme_override_fonts/normal_font = ExtResource("1_alt3a")
+text = "ImGui-Godot by Patrick Dawson
+Godot-Rapier2D by Apps in a Cup
+Assets by KenneyNL
+Top Down Kit by Cainos
+PeaBerry Font by emhou
+"
+fit_content = true
+
+[node name="HSeparator" type="HSeparator" parent="CreditsMenu"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -27.0
-offset_top = 157.775
-offset_right = 27.0
-offset_bottom = 190.776
+offset_left = -20.0
+offset_top = -216.0
+offset_right = 20.0
+offset_bottom = -212.0
 grow_horizontal = 2
 grow_vertical = 2
-text = "Close"
+scale = Vector2(4.775, 4.775)
+pivot_offset = Vector2(20, 2)

@@ -17,9 +17,9 @@ static func register_entity(entity: Node) -> void:
 
 	if entity is Player:
 		player = entity
-		GLogger.log("GEntityAdmin: Registered player: " + str(entity), Color.PURPLE)
-	else:
-		GLogger.log("GEntityAdmin: Registered entity: " + str(entity), Color.PURPLE)
+		#GLogger.log("GEntityAdmin: Registered player: " + str(entity), Color.PURPLE)
+	#else:
+		#GLogger.log("GEntityAdmin: Registered entity: " + str(entity), Color.PURPLE)
 
 
 # Unregisters an entity from the entity manager.

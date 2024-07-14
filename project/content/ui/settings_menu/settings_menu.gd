@@ -61,7 +61,7 @@ func _input(_event: InputEvent) -> void:
 
 ## Close the settings menu.
 func close_pressed() -> void:
-	self.queue_free()
+	self.get_parent().queue_free()
 
 
 ## Apply the settings.

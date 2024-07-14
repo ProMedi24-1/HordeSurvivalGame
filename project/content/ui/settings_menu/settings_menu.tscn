@@ -5,10 +5,11 @@
 [ext_resource type="Theme" uid="uid://ccdeudfc5q0gg" path="res://content/ui/ui_theme.tres" id="2_hinfp"]
 [ext_resource type="PackedScene" uid="uid://cf0bkbnb0ex20" path="res://content/ui/template/button_template.tscn" id="2_un3ps"]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_iaq7t"]
-bg_color = Color(0.18359, 0.18359, 0.18359, 1)
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0v8t0"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
 
-[node name="CanvasLayer" type="CanvasLayer"]
+[node name="SettingsLayer" type="CanvasLayer"]
+layer = 2
 
 [node name="SettingsMenu" type="Control" parent="." node_paths=PackedStringArray("close_button", "apply_button", "max_fps_box", "vsync_box", "window_mode_box", "gamma_slider", "zoom_slider", "colorblind_filter_box", "camera_shake_box", "master_slider", "music_slider", "sfx_slider")]
 layout_mode = 3
@@ -18,8 +19,8 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_p7qjj")
-close_button = NodePath("CloseButton")
-apply_button = NodePath("ApplyButton")
+close_button = NodePath("HBoxContainer/CloseButton")
+apply_button = NodePath("HBoxContainer/ApplyButton")
 max_fps_box = NodePath("BoxContainer10/MaxFPSBox")
 vsync_box = NodePath("BoxContainer9/VSyncBox")
 window_mode_box = NodePath("BoxContainer8/WindowModeBox")
@@ -39,66 +40,111 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = -224.0
-offset_top = -302.0
+offset_top = -267.0
 offset_right = 218.0
-offset_bottom = 294.0
+offset_bottom = 278.0
 grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("2_hinfp")
-theme_override_styles/panel = SubResource("StyleBoxFlat_iaq7t")
 
-[node name="Label" type="Label" parent="SettingsMenu"]
+[node name="HSeparator" type="HSeparator" parent="SettingsMenu"]
 layout_mode = 1
-anchors_preset = 5
+anchors_preset = 8
 anchor_left = 0.5
+anchor_top = 0.5
 anchor_right = 0.5
-offset_left = -37.0
-offset_top = 22.0
-offset_right = 43.0
-offset_bottom = 52.0
+anchor_bottom = 0.5
+offset_left = -212.2
+offset_top = -205.0
+offset_right = -7.20001
+offset_bottom = -201.0
 grow_horizontal = 2
-scale = Vector2(1.32, 1.32)
+grow_vertical = 2
+scale = Vector2(2, 2)
+
+[node name="HSeparator2" type="HSeparator" parent="SettingsMenu"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -210.0
+offset_top = -93.0
+offset_right = -5.0
+offset_bottom = -89.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(2, 2)
+
+[node name="HSeparator3" type="HSeparator" parent="SettingsMenu"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -210.0
+offset_top = 2.79999
+offset_right = -5.0
+offset_bottom = 6.79999
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(2, 2)
+
+[node name="HSeparator4" type="HSeparator" parent="SettingsMenu"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -209.2
+offset_top = 93.0
+offset_right = -4.20001
+offset_bottom = 97.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(2, 2)
+
+[node name="SettingsLabel" type="Label" parent="SettingsMenu"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 0.531
+anchor_right = 0.5
+anchor_bottom = 0.531
+offset_left = -37.0
+offset_top = -269.088
+offset_right = 43.0
+offset_bottom = -239.088
+grow_horizontal = 2
+scale = Vector2(2, 2)
 pivot_offset = Vector2(40, 15)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
 theme_override_fonts/font = ExtResource("1_4h30g")
 text = "Settings"
 
-[node name="Label2" type="Label" parent="SettingsMenu"]
+[node name="VideoLabel" type="Label" parent="SettingsMenu"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -199.0
-offset_top = -267.0
-offset_right = -119.0
-offset_bottom = -237.0
+offset_left = -201.2
+offset_top = -200.0
+offset_right = -121.2
+offset_bottom = -170.0
 grow_horizontal = 2
 grow_vertical = 2
 scale = Vector2(1.32, 1.32)
 pivot_offset = Vector2(40, 15)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
 theme_override_fonts/font = ExtResource("1_4h30g")
 text = "Video"
 
-[node name="Label3" type="Label" parent="SettingsMenu"]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -201.0
-offset_top = -134.2
-offset_right = -106.0
-offset_bottom = -104.2
-grow_horizontal = 2
-grow_vertical = 2
-scale = Vector2(1.32, 1.32)
-pivot_offset = Vector2(40, 15)
-theme_override_fonts/font = ExtResource("1_4h30g")
-text = "Preference"
-
-[node name="Label4" type="Label" parent="SettingsMenu"]
+[node name="PreferenceLabel" type="Label" parent="SettingsMenu"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -106,62 +152,78 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = -200.0
-offset_top = -15.0
-offset_right = -83.0
-offset_bottom = 15.0
+offset_top = -87.2
+offset_right = -105.0
+offset_bottom = -57.2
 grow_horizontal = 2
 grow_vertical = 2
 scale = Vector2(1.32, 1.32)
 pivot_offset = Vector2(40, 15)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
 theme_override_fonts/font = ExtResource("1_4h30g")
-text = "Accessibility"
+text = "Preference"
 
-[node name="Label5" type="Label" parent="SettingsMenu"]
+[node name="AccessibilityLabel" type="Label" parent="SettingsMenu"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -197.0
-offset_top = 84.0
-offset_right = -80.0
-offset_bottom = 114.0
+offset_left = -201.2
+offset_top = 10.8
+offset_right = -84.2
+offset_bottom = 40.8
 grow_horizontal = 2
 grow_vertical = 2
 scale = Vector2(1.32, 1.32)
 pivot_offset = Vector2(40, 15)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("1_4h30g")
+text = "Accessibility"
+
+[node name="AudioLabel" type="Label" parent="SettingsMenu"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -199.2
+offset_top = 101.0
+offset_right = -82.2
+offset_bottom = 131.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(1.32, 1.32)
+pivot_offset = Vector2(40, 15)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
 theme_override_fonts/font = ExtResource("1_4h30g")
 text = "Audio"
 
-[node name="CloseButton" parent="SettingsMenu" instance=ExtResource("2_un3ps")]
+[node name="HBoxContainer" type="HBoxContainer" parent="SettingsMenu"]
 layout_mode = 1
-anchors_preset = 7
+anchors_preset = 8
 anchor_left = 0.5
-anchor_top = 1.0
+anchor_top = 0.5
 anchor_right = 0.5
-anchor_bottom = 1.0
-offset_left = -208.0
-offset_top = -62.0
-offset_right = -146.0
-offset_bottom = -36.0
+anchor_bottom = 0.5
+offset_left = -82.0
+offset_top = 230.0
+offset_right = 68.0
+offset_bottom = 270.0
 grow_horizontal = 2
-grow_vertical = 0
+grow_vertical = 2
+alignment = 1
+
+[node name="CloseButton" parent="SettingsMenu/HBoxContainer" instance=ExtResource("2_un3ps")]
+layout_mode = 2
+size_flags_horizontal = 3
 text = "Close"
 
-[node name="ApplyButton" parent="SettingsMenu" instance=ExtResource("2_un3ps")]
-layout_mode = 1
-anchors_preset = 7
-anchor_left = 0.5
-anchor_top = 1.0
-anchor_right = 0.5
-anchor_bottom = 1.0
-offset_left = -130.0
-offset_top = -62.0
-offset_right = -68.0
-offset_bottom = -36.0
-grow_horizontal = 2
-grow_vertical = 0
+[node name="ApplyButton" parent="SettingsMenu/HBoxContainer" instance=ExtResource("2_un3ps")]
+layout_mode = 2
+size_flags_horizontal = 3
 text = "Apply"
 
 [node name="BoxContainer" type="BoxContainer" parent="SettingsMenu"]
@@ -172,14 +234,16 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = -208.0
-offset_top = 110.0
-offset_right = 179.0
-offset_bottom = 150.0
+offset_top = 118.0
+offset_right = 200.0
+offset_bottom = 158.0
 grow_horizontal = 2
 grow_vertical = 2
 
 [node name="Label" type="Label" parent="SettingsMenu/BoxContainer"]
 layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
 theme_override_fonts/font = ExtResource("1_4h30g")
 text = "Master Volume"
 
@@ -196,15 +260,17 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -210.0
-offset_top = 44.0
-offset_right = 177.0
-offset_bottom = 84.0
+offset_left = -211.2
+offset_top = 61.0
+offset_right = 204.8
+offset_bottom = 101.0
 grow_horizontal = 2
 grow_vertical = 2
 
 [node name="Label" type="Label" parent="SettingsMenu/BoxContainer4"]
 layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
 theme_override_fonts/font = ExtResource("1_4h30g")
 text = "Camera Shake"
 
@@ -220,15 +286,17 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -210.0
-offset_top = 10.0
-offset_right = 208.0
-offset_bottom = 50.0
+offset_left = -210.2
+offset_top = 34.8
+offset_right = 207.8
+offset_bottom = 74.8
 grow_horizontal = 2
 grow_vertical = 2
 
 [node name="Label" type="Label" parent="SettingsMenu/BoxContainer5"]
 layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
 theme_override_fonts/font = ExtResource("1_4h30g")
 text = "Colorblind Filter"
 
@@ -245,14 +313,16 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = -214.0
-offset_top = -212.0
+offset_top = -150.0
 offset_right = 204.0
-offset_bottom = -172.0
+offset_bottom = -110.0
 grow_horizontal = 2
 grow_vertical = 2
 
 [node name="Label" type="Label" parent="SettingsMenu/BoxContainer8"]
 layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
 theme_override_fonts/font = ExtResource("1_4h30g")
 text = "Window Mode"
 
@@ -269,14 +339,16 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = -214.0
-offset_top = -244.0
+offset_top = -182.0
 offset_right = 204.0
-offset_bottom = -204.0
+offset_bottom = -142.0
 grow_horizontal = 2
 grow_vertical = 2
 
 [node name="Label" type="Label" parent="SettingsMenu/BoxContainer10"]
 layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
 theme_override_fonts/font = ExtResource("1_4h30g")
 text = "Max FPS"
 
@@ -284,6 +356,7 @@ text = "Max FPS"
 custom_minimum_size = Vector2(261.1, 0)
 layout_mode = 2
 size_flags_vertical = 4
+theme = ExtResource("2_hinfp")
 max_value = 999.0
 
 [node name="BoxContainer9" type="BoxContainer" parent="SettingsMenu"]
@@ -294,14 +367,16 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = -214.0
-offset_top = -180.0
+offset_top = -125.0
 offset_right = 204.0
-offset_bottom = -140.0
+offset_bottom = -85.0
 grow_horizontal = 2
 grow_vertical = 2
 
 [node name="Label" type="Label" parent="SettingsMenu/BoxContainer9"]
 layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
 theme_override_fonts/font = ExtResource("1_4h30g")
 text = "VSync"
 
@@ -309,6 +384,7 @@ text = "VSync"
 custom_minimum_size = Vector2(261.1, 0)
 layout_mode = 2
 size_flags_vertical = 4
+theme_override_styles/focus = SubResource("StyleBoxFlat_0v8t0")
 
 [node name="BoxContainer3" type="BoxContainer" parent="SettingsMenu"]
 layout_mode = 1
@@ -317,15 +393,17 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -210.0
-offset_top = 190.0
-offset_right = 177.0
-offset_bottom = 230.0
+offset_left = -208.0
+offset_top = 182.0
+offset_right = 202.0
+offset_bottom = 222.0
 grow_horizontal = 2
 grow_vertical = 2
 
 [node name="Label" type="Label" parent="SettingsMenu/BoxContainer3"]
 layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
 theme_override_fonts/font = ExtResource("1_4h30g")
 text = "SFX Volume"
 
@@ -343,14 +421,16 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = -214.0
-offset_top = -99.2
-offset_right = 173.0
-offset_bottom = -59.2
+offset_top = -61.2
+offset_right = 200.0
+offset_bottom = -21.2
 grow_horizontal = 2
 grow_vertical = 2
 
 [node name="Label" type="Label" parent="SettingsMenu/BoxContainer6"]
 layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
 theme_override_fonts/font = ExtResource("1_4h30g")
 text = "Gamma"
 
@@ -368,14 +448,16 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = -214.0
-offset_top = -59.2
-offset_right = 173.0
-offset_bottom = -19.2
+offset_top = -29.2
+offset_right = 200.0
+offset_bottom = 10.8
 grow_horizontal = 2
 grow_vertical = 2
 
 [node name="Label" type="Label" parent="SettingsMenu/BoxContainer7"]
 layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
 theme_override_fonts/font = ExtResource("1_4h30g")
 text = "Camera Zoom"
 
@@ -394,13 +476,15 @@ anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = -208.0
 offset_top = 150.0
-offset_right = 179.0
+offset_right = 200.0
 offset_bottom = 190.0
 grow_horizontal = 2
 grow_vertical = 2
 
 [node name="Label" type="Label" parent="SettingsMenu/BoxContainer2"]
 layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
 theme_override_fonts/font = ExtResource("1_4h30g")
 text = "Music Volume"
 

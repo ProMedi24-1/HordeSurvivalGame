@@ -1,3 +1,72 @@
-[gd_scene format=3 uid="uid://cq0r0eekw6pxr"]
+[gd_scene load_steps=5 format=3 uid="uid://cq0r0eekw6pxr"]
 
-[node name="PauseMenu" type="Node2D"]
+[ext_resource type="Script" path="res://content/ui/pause_menu/pause_menu.gd" id="1_e3gs1"]
+[ext_resource type="PackedScene" uid="uid://cf0bkbnb0ex20" path="res://content/ui/template/button_template.tscn" id="1_ixot5"]
+[ext_resource type="PackedScene" uid="uid://cklgwuj5b5q5p" path="res://content/ui/settings_menu/settings_menu.tscn" id="2_lf48d"]
+[ext_resource type="FontFile" uid="uid://xtswn0x4352w" path="res://assets/fonts/WhitePeaberry.fnt" id="3_viyt1"]
+
+[node name="PauseLayer" type="CanvasLayer"]
+
+[node name="BGDim" type="ColorRect" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.686275)
+
+[node name="PauseMenu" type="Control" parent="." node_paths=PackedStringArray("continue_button", "settings_button", "quit_button")]
+layout_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_e3gs1")
+continue_button = NodePath("VBoxContainer/ContinueButton")
+settings_button = NodePath("VBoxContainer/SettingsButton")
+quit_button = NodePath("VBoxContainer/QuitButton")
+settings_scene = ExtResource("2_lf48d")
+
+[node name="Label" type="Label" parent="PauseMenu"]
+layout_mode = 0
+offset_left = -71.0
+offset_top = -202.0
+offset_right = -13.0
+offset_bottom = -177.0
+scale = Vector2(2.975, 2.975)
+theme_override_colors/font_color = Color(1, 0.84829, 0.320642, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("3_viyt1")
+text = "Paused"
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PauseMenu"]
+layout_mode = 0
+offset_left = -71.0
+offset_top = -31.0
+offset_right = 105.0
+offset_bottom = 100.0
+
+[node name="ContinueButton" parent="PauseMenu/VBoxContainer" instance=ExtResource("1_ixot5")]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_colors/font_color = Color(0.709929, 0.875294, 0.893474, 1)
+text = "Continue"
+
+[node name="SettingsButton" parent="PauseMenu/VBoxContainer" instance=ExtResource("1_ixot5")]
+layout_mode = 2
+size_flags_vertical = 3
+text = "Settings"
+
+[node name="QuitButton" parent="PauseMenu/VBoxContainer" instance=ExtResource("1_ixot5")]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_colors/font_color = Color(1, 0.555311, 0.500723, 1)
+text = "Quit
+"
