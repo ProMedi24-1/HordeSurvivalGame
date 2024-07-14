@@ -6,7 +6,7 @@
 ![](https://img.shields.io/static/v1?label=Godot&message=4.2&color=blue&logo=godotengine)
 
 
-<img src="https://github.com/ProMedi24-1/HordeSurvivalGame/assets/139063007/08f73577-1a20-4dc0-b269-8c38853c7d0f" width=630>
+<img src="https://github.com/user-attachments/assets/a0a94a39-1950-4339-a6cc-32f570cf2fc6" width=630>
 
 
 A Survivors/Brotato-like game with a static and adaptive difficulty, made with the [Godot Game Engine.](https://godotengine.org/) (4.2.2)
@@ -21,13 +21,10 @@ two difficulty modes in the gameplay: one with a static difficulty and another d
 
 Download the latest release from the [Releases](https://github.com/ProMedi24-1/HordeSurvivalGame/releases) page.
 
-[![download](https://img.shields.io/static/v1?label=Release&message=latest&color=blue&logo=github)](https://github.com/ProMedi24-1/HorderSurvivalGame/releases/latest)
-
-
 **Supported plattforms:**
 - 🪟 Windows
 - 🐧 Linux
-- 🍏 MacOS
+- 🍏 MacOS (see [this](https://docs.godotengine.org/en/stable/tutorials/export/running_on_macos.html) for running)
 
 ## Third-Party Assets Used 📦
 
