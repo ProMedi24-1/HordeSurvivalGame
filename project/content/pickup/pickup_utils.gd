@@ -36,11 +36,11 @@ static func spawn_ingredient(
 	GSceneAdmin.scene_root.add_child(ingredient_inst)
 
 
-static func add_ingredient_to_player(type: Ingredient.IngredientType) -> void:
+static func add_ingredient_to_player(type: Ingredient.IngredientType, amount: int = 1) -> void:
 	var player := GEntityAdmin.player
 
 	if player == null:
 		return
 
-	player.ingredient_inventory[type] += 1
+	player.ingredient_inventory[type] += amount
 	GLogger.log("Player: Added %s" % Ingredient.ingredient_types[type].name)

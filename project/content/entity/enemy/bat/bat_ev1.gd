@@ -11,7 +11,7 @@ func _init() -> void:
 
 	crystal_rating = 0.1
 	ingredient = Ingredient.IngredientType.BATWING
-	ingredient_chance = 0.3
+	ingredient_chance = 0.5
 
 func _ready() -> void:
 	super()

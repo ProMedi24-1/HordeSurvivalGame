@@ -13,6 +13,13 @@ extends CanvasLayer
 
 @export var ingredients_box: VBoxContainer
 
+# BAD
+
+@export var staff_level: Label
+@export var staff_bar: ProgressBar
+
+
+
 func _ready() -> void:
 	var clear_ingredient_children := func() -> void:
 		for i in ingredients_box.get_children():
@@ -31,6 +38,8 @@ func _process(_delta: float) -> void:
 		update_level_label()
 		update_kill_label()
 		update_ingredients_box()
+		update_staff()
+
 
 	if GSceneAdmin.level_base:
 		update_time_label()
@@ -102,7 +111,7 @@ func update_ingredients_box() -> void:
 
 
 	if children.is_empty():
-		for i in range(1, Ingredient.IngredientType.size() - 1):
+		for i in range(1, Ingredient.IngredientType.size()):
 			var ig_container := preload("res://content/ui/hud/ingredient_container.tscn").instantiate()
 			ig_container.set_icon(Ingredient.ingredient_types[i].icon_texture)
 			ingredients_box.add_child(ig_container)
@@ -113,3 +122,12 @@ func update_ingredients_box() -> void:
 			children[i].set_label(str(GEntityAdmin.player.ingredient_inventory[i+1]))
 
 	update_labels.call()
+
+func update_staff() -> void:
+	if GEntityAdmin.player.weapon_inventory.is_empty():
+		return
+	
+	var staff = GEntityAdmin.player.weapon_inventory[0]
+	staff_level.text = "LV." + str(staff.level)
+	staff_bar.value = staff.level_progress
+	staff_bar.max_value = staff.level_required

@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://cylubcpyh8g5w"]
+[gd_scene load_steps=10 format=3 uid="uid://cylubcpyh8g5w"]
 
 [ext_resource type="Texture2D" uid="uid://cjwm2cm6omefx" path="res://assets/props/cauldron/cauldron.png" id="1_ed1ue"]
 [ext_resource type="Script" path="res://content/level/props/cauldron.gd" id="1_okok4"]
@@ -6,6 +6,8 @@
 [ext_resource type="Texture2D" uid="uid://b44anacxavxwi" path="res://assets/props/cauldron/cauldron_fire_sheet.png" id="3_e362i"]
 [ext_resource type="Texture2D" uid="uid://c5r75rfy3st1c" path="res://assets/effects/shadow/shadow_32.png" id="4_eqj7n"]
 [ext_resource type="Texture2D" uid="uid://de1kva575b2mj" path="res://assets/effects/light/point_light.png" id="6_f5cl4"]
+[ext_resource type="AudioStream" uid="uid://dlo0bbgbamibp" path="res://assets/props/cauldron/boiling_pot_loopeable.mp3" id="7_8nnjb"]
+[ext_resource type="Script" path="res://content/effects/ambient_player.gd" id="8_k4pqk"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_pcedn"]
 radius = 17.0
@@ -50,3 +52,11 @@ position = Vector2(0, 10)
 color = Color(0.937344, 0.297253, 0, 1)
 texture = ExtResource("6_f5cl4")
 texture_scale = 2.04
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("7_8nnjb")
+volume_db = -15.0
+autoplay = true
+max_distance = 1000.0
+attenuation = 20.0
+script = ExtResource("8_k4pqk")

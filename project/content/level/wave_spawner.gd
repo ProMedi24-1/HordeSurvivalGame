@@ -4,13 +4,14 @@ class_name WaveSpawner extends Node
 # Type of enemies that can be spawned.
 enum EnemyType {
 	BAT_EV1,
-	# BAT_EV2,
-	# BAT_EV3,
+	BAT_EV2,
+	BAT_EV3,
 	FUNGUS_EV1,
 	FUNGUS_EV2,
 	FUNGUS_EV3,
 	RAT_EV1,
 	EYE_EV1,
+	SKELETON_EV1,
 }
 
 const WAVE_TIMES := {
@@ -32,17 +33,17 @@ static var enemy_types = {
 		preload("res://content/entity/enemy/bat/bat_ev1.tscn"),
 		10.0 # Enemy Rating
 		),
-	# EnemyType.BAT_EV2: Utils.Pair.new(
-	# 	preload("res://content/entity/enemy/bat/bat_ev2.tscn"),
-	# 	2.0 # Enemy Rating
-	# 	),
-	# EnemyType.BAT_EV3: Utils.Pair.new(
-	# 	preload("res://content/entity/enemy/bat/bat_ev3.tscn"),
-	# 	3.0 # Enemy Rating
-	# 	),
+	EnemyType.BAT_EV2: Pair.new(
+		preload("res://content/entity/enemy/bat/bat_ev2.tscn"),
+		30.0
+		),
+	EnemyType.BAT_EV3: Pair.new(
+		preload("res://content/entity/enemy/bat/bat_ev3.tscn"),
+	 	50.0
+	 	),
 	EnemyType.FUNGUS_EV1: Pair.new(
 		preload("res://content/entity/enemy/fungus/fungus_ev1.tscn"),
-		30.0
+		35.0
 		),
 	EnemyType.FUNGUS_EV2: Pair.new(
 		preload("res://content/entity/enemy/fungus/fungus_ev2.tscn"),
@@ -54,11 +55,15 @@ static var enemy_types = {
 		),
 	EnemyType.RAT_EV1: Pair.new(
 		preload("res://content/entity/enemy/rat/rat_ev1.tscn"),
-		20.0
+		23.0
 		),
 	EnemyType.EYE_EV1: Pair.new(
 		preload("res://content/entity/enemy/eye/eye_ev1.tscn"),
 		50.0
+		),
+	EnemyType.SKELETON_EV1: Pair.new(
+		preload("res://content/entity/enemy/skeleton/skeleton_enemy.tscn"),
+		60.0
 		),
 }
 
@@ -68,10 +73,15 @@ static var spawn_points: Array = []
 
 static var wave_duration: float = 60.0 ## Duration for one Wave in seconds
 static var current_wave: int = 0 ## Current wave number
+static var spawner_ref: WaveSpawner ## Reference to the WaveSpawner node
 static var wave_ref: Wave ## Reference to the current wave
 static var adaptive_difficulty: bool = false ## If the difficulty should adapt to the player rating
 
+
 func _ready() -> void:
+	self.name = "WaveSpawner"
+	spawner_ref = self
+
 	set_spawn_points()
 
 	var wave = Wave.new()
@@ -79,6 +89,8 @@ func _ready() -> void:
 	current_wave = 0
 
 	wave.start_wave()
+
+	Sound.play_music(Sound.Music.COMBAT_STAGE1)
 
 ## Fill the spawn_points array with all children of the WaveSpawner node.
 func set_spawn_points() -> void:
@@ -99,6 +111,12 @@ static func spawn_enemy(type: EnemyType) -> void:
 ## [pos]: The position to spawn the enemy at.
 static func spawn_enemy_at(type: EnemyType, pos: Vector2) -> void:
 	#print("Spawning enemy at: ", pos)
+	var spawn_effect = preload("res://content/effects/enemy/spawn_effect.tscn").instantiate()
+	spawn_effect.global_position = pos
+	GSceneAdmin.scene_root.add_child.call_deferred(spawn_effect)
+
+	await spawn_effect.spawn
+
 	var enemy = enemy_types[type].first.instantiate()
 	enemy.global_position = pos
 	GSceneAdmin.scene_root.add_child.call_deferred(enemy)
@@ -107,18 +125,28 @@ static func spawn_enemy_at(type: EnemyType, pos: Vector2) -> void:
 ## Wave Class for spawning enemies.
 class Wave extends Node:
 
-	const RATING_THRESHOLD := 15.0
+	const RATING_THRESHOLD := 17.0
 
 	## Lookup table for spawn times based on the rating difference.
 	## Spawn time in seconds
-	const SPAWN_TIME_LOOKUP = {
-		[-INF, -15]: 2.0,
-		[-15, -10]: 2.5,
-		[-10, -5]: 2.7,
-		[-5, 5]: 3.0,
-		[5, 10]: 8.0,
-		[10, 15]: 10,
-		[15, RATING_THRESHOLD]: 10.0,
+	# const SPAWN_TIME_LOOKUP = {
+	# 	[-INF, -15]: 2.0,
+	# 	[-15, -10]: 2.0,
+	# 	[-10, -5]: 3.0,
+	# 	[-5, 5]: 5.0,
+	# 	[5, 10]: 7.0,
+	# 	[10, 15]: 10,
+	# 	[15, RATING_THRESHOLD]: 10.0,
+	# }
+
+	static var spawn_time_lookup = {
+		Pair.new(-INF, -15): 2.0,
+		Pair.new(-15, -10): 2.1,
+		Pair.new(-10, -5): 2.3,
+		Pair.new(-5, 5): 2.5,
+		Pair.new(5, 10): 6.0,
+		Pair.new(10, 15): 10.0,
+		Pair.new(15, RATING_THRESHOLD): 15.0
 	}
 
 	var wave_running: bool = false
@@ -139,16 +167,22 @@ class Wave extends Node:
 
 		for enemy_type in WaveSpawner.enemy_types.keys():
 			var enemy_rating := WaveSpawner.enemy_types[enemy_type].second as float
-			var rating_difference := GEntityAdmin.player.player_rating - enemy_rating
+			var rating_difference := enemy_rating - GEntityAdmin.player.player_rating
 
 			var calculate_spawn_time = func() -> float:
 				var spawn_time := 0.5
 
 				# Set the spawn time by our lookup table.
-				for rating_range in SPAWN_TIME_LOOKUP.keys():
-					if rating_difference >= rating_range[0] and rating_difference < rating_range[1]:
-						spawn_time = SPAWN_TIME_LOOKUP[rating_range]
+				#for rating_range in SPAWN_TIME_LOOKUP.keys():
+					#if rating_difference >= rating_range[0] and rating_difference < rating_range[1]:
+						#spawn_time = SPAWN_TIME_LOOKUP[rating_range]
+						#break
+
+				for pair in spawn_time_lookup.keys():
+					if rating_difference >= pair.first and rating_difference <= pair.second:
+						spawn_time = spawn_time_lookup[pair]
 						break
+
 
 				return spawn_time
 
@@ -181,7 +215,7 @@ class Wave extends Node:
 
 				if wave_spawning:
 					WaveSpawner.spawn_enemy(enemy_type)
-					spawn_timer.wait_time = spawn_time + randf_range(-1, 1)
+					spawn_timer.wait_time = spawn_time + randf_range(-0.5, 1)
 					spawn_timer.start()
 
 			spawn_timer.connect("timeout", spawn_func)
@@ -219,6 +253,7 @@ class Wave extends Node:
 		else:
 			WaveSpawner.wave_duration = WAVE_TIMES.values()[2]
 
+
 		if WaveSpawner.current_wave < WAVE_AMBIENCES.keys()[1]:
 			GSceneAdmin.level_base.change_ambience(WAVE_AMBIENCES.values()[0])
 		elif WaveSpawner.current_wave < WAVE_AMBIENCES.keys()[2]:
@@ -226,13 +261,18 @@ class Wave extends Node:
 		else:
 			GSceneAdmin.level_base.change_ambience(WAVE_AMBIENCES.values()[2])
 
-		# Set the ambience based on the current wave.
-		#if WaveSpawner.WAVE_AMBIENCES.has(WaveSpawner.current_wave):
-			#GSceneAdmin.level_base.set_ambience(WaveSpawner.WAVE_AMBIENCES[WaveSpawner.current_wave])
+
 
 		# Reset per player wave stats
 		GEntityAdmin.player.damage_taken = 0
 		GEntityAdmin.player.kills_in_wave = 0
+
+		# Small spawn delay
+		await WaveSpawner.spawner_ref.create_tween().tween_interval(2).finished
+		#var tween = create_tween()
+		#tween.tween_interval(2)
+		#await tween.finished
+		#tween.kill()
 
 		spawn_enemies()
 
@@ -244,13 +284,23 @@ class Wave extends Node:
 			if enemies is EnemyBase:
 				enemies.die(false, false)
 
+		# Remove all spawn effects
+		for effect in GSceneAdmin.scene_root.get_children():
+			if effect is SpawnEffect:
+				effect.queue_free()
+
 		# Clean up timers
 		for timer in get_children():
 			timer.queue_free()
 
+
+
 		wave_timer = null
 
-		GStateAdmin.pause_game()
+		await GSceneAdmin.scene_root.create_tween().tween_interval(1.4).finished
+
+
+		GStateAdmin.pause_game(false)
 		var upgrade_menu = load("res://content/ui/upgrade_menu/upgrade_menu.tscn").instantiate()
 		GGameGlobals.instance.add_child(upgrade_menu)
 		upgrade_menu.layer = 2
@@ -258,6 +308,6 @@ class Wave extends Node:
 		if WaveSpawner.adaptive_difficulty:
 			GEntityAdmin.player.update_player_rating(true)
 		else:
-			GEntityAdmin.player.update_player_rating(false, 3.0) # rating increase
+			GEntityAdmin.player.update_player_rating(false, 4.0) # rating increase
 
 

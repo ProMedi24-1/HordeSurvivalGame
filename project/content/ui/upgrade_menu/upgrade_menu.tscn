@@ -1,13 +1,19 @@
-[gd_scene load_steps=5 format=3 uid="uid://hbjuobbqwpb6"]
+[gd_scene load_steps=9 format=3 uid="uid://hbjuobbqwpb6"]
 
 [ext_resource type="Script" path="res://content/ui/upgrade_menu/upgrade_menu.gd" id="1_u4alh"]
-[ext_resource type="PackedScene" uid="uid://id8nkiul2vlg" path="res://content/ui/upgrade_menu/upgrade.tscn" id="1_w5vg2"]
 [ext_resource type="FontFile" uid="uid://xtswn0x4352w" path="res://assets/fonts/WhitePeaberry.fnt" id="2_71fr0"]
 [ext_resource type="PackedScene" uid="uid://cf0bkbnb0ex20" path="res://content/ui/template/button_template.tscn" id="4_ecc0p"]
+[ext_resource type="Texture2D" uid="uid://b0vk7pku0aqe2" path="res://assets/ui/hud/potion_sprite_white.png" id="4_knl3v"]
+[ext_resource type="Texture2D" uid="uid://dhky5hmib8ube" path="res://assets/pickup/ingredient/bat_wing.png" id="5_dm6xt"]
+[ext_resource type="Texture2D" uid="uid://brwbcv7syru4b" path="res://assets/pickup/ingredient/fungus.png" id="6_0s0r8"]
+[ext_resource type="Texture2D" uid="uid://duhe7vm7drndj" path="res://assets/pickup/ingredient/rat_tail.png" id="7_uvt1d"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_h50gk"]
+bg_color = Color(0.0605303, 0.0605304, 0.0605303, 1)
 
 [node name="CanvasLayer" type="CanvasLayer"]
 
-[node name="UpgradeMenu" type="Control" parent="." node_paths=PackedStringArray("wave_label", "continue_button")]
+[node name="UpgradeMenu" type="Control" parent="." node_paths=PackedStringArray("wave_label", "continue_button", "health_button", "speed_button", "dex_button", "health_ing_label", "speed_ing_label", "dex_ing_label")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -17,6 +23,12 @@ grow_vertical = 2
 script = ExtResource("1_u4alh")
 wave_label = NodePath("WaveLabel")
 continue_button = NodePath("ButtonTemplate")
+health_button = NodePath("HBoxContainer/Upgrade/HealthButton")
+speed_button = NodePath("HBoxContainer/Upgrade2/SpeedButton")
+dex_button = NodePath("HBoxContainer/Upgrade3/DexButton")
+health_ing_label = NodePath("HBoxContainer/Upgrade/HealthIngLabel")
+speed_ing_label = NodePath("HBoxContainer/Upgrade2/SpeedIngLabel")
+dex_ing_label = NodePath("HBoxContainer/Upgrade3/DexIngLabel")
 
 [node name="ColorRect" type="ColorRect" parent="UpgradeMenu"]
 layout_mode = 1
@@ -25,7 +37,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-color = Color(0, 0, 0, 0.74902)
+color = Color(0, 0, 0, 0.745098)
 
 [node name="WaveLabel" type="Label" parent="UpgradeMenu"]
 layout_mode = 1
@@ -50,15 +62,15 @@ anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
-offset_left = -69.0
-offset_top = -84.0
-offset_right = 31.0
-offset_bottom = -34.0
+offset_left = -91.0
+offset_top = -96.0
+offset_right = 54.0
+offset_bottom = -46.0
 grow_horizontal = 2
 grow_vertical = 0
 scale = Vector2(1.455, 1.455)
 pivot_offset = Vector2(50, 25)
-text = "Continue"
+text = "Next Wave"
 
 [node name="HBoxContainer" type="HBoxContainer" parent="UpgradeMenu"]
 layout_mode = 1
@@ -75,10 +87,206 @@ grow_horizontal = 2
 grow_vertical = 2
 alignment = 1
 
-[node name="Control" parent="UpgradeMenu/HBoxContainer" instance=ExtResource("1_w5vg2")]
-custom_minimum_size = Vector2(300, 0)
+[node name="Upgrade" type="Control" parent="UpgradeMenu/HBoxContainer"]
+custom_minimum_size = Vector2(213.635, 0)
 layout_mode = 2
 
-[node name="Upgrade" parent="UpgradeMenu/HBoxContainer" instance=ExtResource("1_w5vg2")]
-custom_minimum_size = Vector2(300, 0)
+[node name="Panel" type="Panel" parent="UpgradeMenu/HBoxContainer/Upgrade"]
+layout_mode = 0
+offset_right = 210.0
+offset_bottom = 340.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_h50gk")
+
+[node name="Label" type="Label" parent="UpgradeMenu/HBoxContainer/Upgrade"]
+layout_mode = 0
+offset_left = 45.0
+offset_top = 11.0
+offset_right = 163.0
+offset_bottom = 36.0
+theme_override_fonts/font = ExtResource("2_71fr0")
+text = "Health Potion"
+
+[node name="Description" type="Label" parent="UpgradeMenu/HBoxContainer/Upgrade"]
+layout_mode = 0
+offset_left = 26.0
+offset_top = 117.0
+offset_right = 234.0
+offset_bottom = 189.0
+scale = Vector2(0.75, 0.75)
+theme_override_fonts/font = ExtResource("2_71fr0")
+text = "Fully heals the Player."
+autowrap_mode = 1
+
+[node name="HealthIngLabel" type="Label" parent="UpgradeMenu/HBoxContainer/Upgrade"]
+layout_mode = 0
+offset_left = 97.0
+offset_top = 261.0
+offset_right = 197.0
+offset_bottom = 296.0
+scale = Vector2(0.75, 0.75)
+theme_override_fonts/font = ExtResource("2_71fr0")
+text = "100/10"
+horizontal_alignment = 2
+autowrap_mode = 1
+
+[node name="TextureRect" type="TextureRect" parent="UpgradeMenu/HBoxContainer/Upgrade"]
+modulate = Color(0.708106, 0, 0.139086, 1)
+layout_mode = 0
+offset_left = 68.0
+offset_top = 41.0
+offset_right = 136.0
+offset_bottom = 109.0
+texture = ExtResource("4_knl3v")
+
+[node name="TextureRect2" type="TextureRect" parent="UpgradeMenu/HBoxContainer/Upgrade"]
+layout_mode = 0
+offset_left = 36.0
+offset_top = 253.0
+offset_right = 68.0
+offset_bottom = 285.0
+texture = ExtResource("5_dm6xt")
+
+[node name="HealthButton" parent="UpgradeMenu/HBoxContainer/Upgrade" instance=ExtResource("4_ecc0p")]
+modulate = Color(0.835614, 1, 0.716956, 1)
+layout_mode = 0
+offset_left = 34.0
+offset_top = 288.0
+offset_right = 173.0
+offset_bottom = 324.0
+text = "Brew"
+
+[node name="Upgrade2" type="Control" parent="UpgradeMenu/HBoxContainer"]
+custom_minimum_size = Vector2(213.635, 0)
 layout_mode = 2
+
+[node name="Panel" type="Panel" parent="UpgradeMenu/HBoxContainer/Upgrade2"]
+layout_mode = 0
+offset_right = 210.0
+offset_bottom = 340.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_h50gk")
+
+[node name="Label" type="Label" parent="UpgradeMenu/HBoxContainer/Upgrade2"]
+layout_mode = 0
+offset_left = 45.0
+offset_top = 11.0
+offset_right = 163.0
+offset_bottom = 36.0
+theme_override_fonts/font = ExtResource("2_71fr0")
+text = "Speed Potion"
+
+[node name="Description" type="Label" parent="UpgradeMenu/HBoxContainer/Upgrade2"]
+layout_mode = 0
+offset_left = 34.0
+offset_top = 117.0
+offset_right = 214.0
+offset_bottom = 189.0
+scale = Vector2(0.75, 0.75)
+theme_override_fonts/font = ExtResource("2_71fr0")
+text = "Increase Movement Speed by 8%"
+autowrap_mode = 2
+
+[node name="SpeedIngLabel" type="Label" parent="UpgradeMenu/HBoxContainer/Upgrade2"]
+layout_mode = 0
+offset_left = 97.0
+offset_top = 261.0
+offset_right = 197.0
+offset_bottom = 296.0
+scale = Vector2(0.75, 0.75)
+theme_override_fonts/font = ExtResource("2_71fr0")
+text = "100/10"
+horizontal_alignment = 2
+autowrap_mode = 1
+
+[node name="TextureRect" type="TextureRect" parent="UpgradeMenu/HBoxContainer/Upgrade2"]
+modulate = Color(0.762378, 0.93777, 1, 1)
+layout_mode = 0
+offset_left = 68.0
+offset_top = 41.0
+offset_right = 136.0
+offset_bottom = 109.0
+texture = ExtResource("4_knl3v")
+
+[node name="TextureRect2" type="TextureRect" parent="UpgradeMenu/HBoxContainer/Upgrade2"]
+layout_mode = 0
+offset_left = 36.0
+offset_top = 253.0
+offset_right = 68.0
+offset_bottom = 285.0
+texture = ExtResource("6_0s0r8")
+
+[node name="SpeedButton" parent="UpgradeMenu/HBoxContainer/Upgrade2" instance=ExtResource("4_ecc0p")]
+modulate = Color(0.835614, 1, 0.716956, 1)
+layout_mode = 0
+offset_left = 34.0
+offset_top = 288.0
+offset_right = 173.0
+offset_bottom = 324.0
+text = "Brew"
+
+[node name="Upgrade3" type="Control" parent="UpgradeMenu/HBoxContainer"]
+custom_minimum_size = Vector2(213.635, 0)
+layout_mode = 2
+
+[node name="Panel" type="Panel" parent="UpgradeMenu/HBoxContainer/Upgrade3"]
+layout_mode = 0
+offset_right = 210.0
+offset_bottom = 340.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_h50gk")
+
+[node name="Label" type="Label" parent="UpgradeMenu/HBoxContainer/Upgrade3"]
+layout_mode = 0
+offset_left = 30.0
+offset_top = 11.0
+offset_right = 176.0
+offset_bottom = 36.0
+theme_override_fonts/font = ExtResource("2_71fr0")
+text = "Dexterity Potion"
+
+[node name="Description" type="Label" parent="UpgradeMenu/HBoxContainer/Upgrade3"]
+layout_mode = 0
+offset_left = 26.0
+offset_top = 117.0
+offset_right = 234.0
+offset_bottom = 189.0
+scale = Vector2(0.75, 0.75)
+theme_override_fonts/font = ExtResource("2_71fr0")
+text = "Increase Attack Speed by 10%"
+autowrap_mode = 2
+
+[node name="DexIngLabel" type="Label" parent="UpgradeMenu/HBoxContainer/Upgrade3"]
+layout_mode = 0
+offset_left = 97.0
+offset_top = 261.0
+offset_right = 197.0
+offset_bottom = 296.0
+scale = Vector2(0.75, 0.75)
+theme_override_fonts/font = ExtResource("2_71fr0")
+text = "100/10"
+horizontal_alignment = 2
+autowrap_mode = 1
+
+[node name="TextureRect" type="TextureRect" parent="UpgradeMenu/HBoxContainer/Upgrade3"]
+modulate = Color(0.855656, 0.606887, 0, 1)
+layout_mode = 0
+offset_left = 68.0
+offset_top = 41.0
+offset_right = 136.0
+offset_bottom = 109.0
+texture = ExtResource("4_knl3v")
+
+[node name="TextureRect2" type="TextureRect" parent="UpgradeMenu/HBoxContainer/Upgrade3"]
+layout_mode = 0
+offset_left = 31.0
+offset_top = 252.0
+offset_right = 74.0
+offset_bottom = 296.0
+texture = ExtResource("7_uvt1d")
+
+[node name="DexButton" parent="UpgradeMenu/HBoxContainer/Upgrade3" instance=ExtResource("4_ecc0p")]
+modulate = Color(0.835614, 1, 0.716956, 1)
+layout_mode = 0
+offset_left = 34.0
+offset_top = 288.0
+offset_right = 173.0
+offset_bottom = 324.0
+text = "Brew"

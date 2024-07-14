@@ -30,6 +30,8 @@ func _ready() -> void:
 ## Pauses the game on input.
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("PauseMenu") and game_state == GameState.PLAYING:
+		if not can_pause:
+			return
 		GStateAdmin.toggle_pause_game()
 
 
@@ -39,18 +41,18 @@ static func toggle_pause_game() -> void:
 		if game_paused:
 			unpause_game()
 		else:
-			pause_game()
+			pause_game(true)
 
 
 ## Pauses the game by disabling the processing of the main scene.
-static func pause_game(gameover: bool = false) -> void:
-	if not can_pause:
-		return
+static func pause_game(show_menu: bool = false) -> void:
+	#if not can_pause:
+	#	return
 
 	if GSceneAdmin.scene_root != null:
 		GSceneAdmin.scene_root.process_mode = Node.PROCESS_MODE_DISABLED
 
-	if not gameover:
+	if show_menu:
 		var pause_menu_instance := PAUSE_MENU_SCENE.instantiate()
 		GGameGlobals.instance.add_child(pause_menu_instance)
 

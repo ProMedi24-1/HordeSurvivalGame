@@ -1,0 +1,44 @@
+[gd_scene load_steps=6 format=3 uid="uid://rq0xux4ti7pf"]
+
+[ext_resource type="Texture2D" uid="uid://ctd3dkytxdabb" path="res://assets/entity/enemy/bat/BatEv2Sheet.png" id="1_jqlth"]
+[ext_resource type="Texture2D" uid="uid://c2v7u78r7q0tj" path="res://assets/effects/shadow/shadow_16.png" id="2_nphbs"]
+[ext_resource type="Script" path="res://content/entity/enemy/bat/bat_ev2.gd" id="3_nwgdb"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_why8i"]
+radius = 6.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_2ryt4"]
+radius = 8.0
+
+[node name="BatEv1" type="CharacterBody2D"]
+z_index = 1
+y_sort_enabled = true
+collision_layer = 4
+motion_mode = 1
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_why8i")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+z_index = 1
+y_sort_enabled = true
+texture = ExtResource("1_jqlth")
+hframes = 5
+
+[node name="HitBox" type="Area2D" parent="."]
+collision_layer = 4
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitBox"]
+shape = SubResource("CircleShape2D_2ryt4")
+debug_color = Color(0.948125, 0.109551, 0.502569, 0.42)
+
+[node name="Shadow" type="Sprite2D" parent="."]
+position = Vector2(0, 11)
+texture = ExtResource("2_nphbs")
+
+[node name="Node2D" type="Node2D" parent="." node_paths=PackedStringArray("mov_body", "sprite", "hit_box")]
+script = ExtResource("3_nwgdb")
+mov_body = NodePath("..")
+sprite = NodePath("../Sprite2D")
+hit_box = NodePath("../HitBox")

@@ -47,7 +47,7 @@ func _physics_process(delta: float) -> void:
 func take_damage(damage: int) -> void:
 	health -= damage
 
-	Sound.play_sfx(Sound.Fx.HIT_ENTITY)
+	Sound.play_sfx(Sound.Fx.HIT_ENTITY, 1.25, 0.7)
 	EntityEffects.add_damage_numbers(self, damage, false)
 	EntityEffects.play_hit_anim(sprite, Color.RED)
 	CameraEffects.play_camera_shake()
@@ -65,6 +65,10 @@ func die(spawn_loot: bool = true, get_kills: bool = true) -> void:
 		GEntityAdmin.player.kills += 1
 		GEntityAdmin.player.kills_in_wave += 1
 
+
+	var death_effect = preload("res://content/effects/enemy/death_effect.tscn").instantiate()
+	death_effect.global_position = self.global_position
+	GSceneAdmin.scene_root.add_child(death_effect)
 
 	# TODO: Play death animation.
 	self.get_parent().queue_free()

@@ -4,7 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://g5fmdnjarkct" path="res://content/weapon/staff/staff_proj.tscn" id="2_u28pp"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_rxbr0"]
-radius = 134.06
+radius = 200.0
 
 [node name="Staff" type="Node2D" node_paths=PackedStringArray("weapon_range")]
 script = ExtResource("1_0enx0")

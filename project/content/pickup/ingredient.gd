@@ -19,7 +19,7 @@ enum IngredientType {
 	NONE,
 	BATWING,
 	FUNGUS,
-	SPIDEREYE,
+	RATTAIL,
 }
 
 ## Static map of ingredient types which loads the neccecary data.
@@ -35,5 +35,11 @@ static var ingredient_types = {
 		"Fungus",
 		preload("res://assets/pickup/ingredient/fungus.png"),
 		load("res://content/pickup/fungus/fungus.tscn"),
+	),
+	IngredientType.RATTAIL:
+	IngredientBase.new(
+		"Rattail",
+		preload("res://assets/pickup/ingredient/rat_tail.png"),
+		load("res://content/pickup/rat_tail/rat_tail.tscn"),
 	),
 }

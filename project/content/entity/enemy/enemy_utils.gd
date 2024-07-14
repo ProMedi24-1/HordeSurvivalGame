@@ -60,7 +60,10 @@ static func spawn_loot(
 
 	var rand = randf_range(0.0, 1.0)
 	if rand <= ingredient_chance:
-		PickupUtils.spawn_ingredient(pos, ingredient)
+
+		# Spawn the ingredient with a random offset.
+		var rand_pos = pos + Vector2(randf_range(-10, 10), randf_range(-10, 10))
+		PickupUtils.spawn_ingredient(rand_pos, ingredient)
 
 ## Flips the sprite based on the velocity of the body.
 ## [sprite] The sprite to flip.
