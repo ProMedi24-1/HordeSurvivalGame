@@ -1,0 +1,14 @@
+[gd_scene load_steps=3 format=3 uid="uid://yiufbfnwbycy"]
+
+[ext_resource type="Texture2D" uid="uid://bqok2c80spppy" path="res://assets/entity/enemy/spawn_ring.png" id="1_feawk"]
+[ext_resource type="Script" path="res://content/effects/enemy/spawn_effect.gd" id="1_pf1mr"]
+
+[node name="SpawnEffect" type="Node2D" node_paths=PackedStringArray("sprite")]
+z_index = 1
+y_sort_enabled = true
+script = ExtResource("1_pf1mr")
+sprite = NodePath("Sprite2D")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_feawk")
+hframes = 5

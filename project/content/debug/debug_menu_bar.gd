@@ -102,9 +102,9 @@ func show_level_menu() -> void:
 		if ImGui.MenuItem("Difficulty"):
 			show_difficulty_window[0] = !show_difficulty_window[0]
 
-		if ImGui.MenuItem("Ambience"):
+		#if ImGui.MenuItem("Ambience"):
 			# TODO: Implement.
-			pass
+			#pass
 
 		ImGui.EndMenu()
 

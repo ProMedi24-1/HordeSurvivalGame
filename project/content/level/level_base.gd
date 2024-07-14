@@ -50,6 +50,9 @@ func get_time_string() -> String:
 func change_ambience(ambience: LevelAmbience) -> void:
 	#GPostProcessing.fade_to_black()
 
+	if ambience == ambience_state:
+		return
+
 	var ambience_change = func() -> void:
 		ambience_state = ambience
 		level_modulate.color = ambience_map[ambience]

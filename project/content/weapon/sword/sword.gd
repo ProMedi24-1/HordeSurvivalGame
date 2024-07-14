@@ -12,7 +12,7 @@ func _ready() -> void:
 	weapon_name = "Sword"
 
 
-	cooldown_time = 0.7
+	cooldown_time = GEntityAdmin.player.attack_speed
 	cooldown = create_tween()
 	cooldown.set_loops()
 	cooldown.tween_callback(attack).set_delay(cooldown_time)

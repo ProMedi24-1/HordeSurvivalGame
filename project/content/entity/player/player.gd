@@ -31,8 +31,8 @@ var god_mode: bool = false  ## If the player is in god mode.
 var health_status: HealthStatus = HealthStatus.FULL  ## The current health status of the player.
 
 var mov_speed: float = 6000.0  ## The movement speed of the player.
-var attack_speed: float = 1.0  ## The attack speed of the player.
-var dodge_chance: float = 0.0  ## The chance to dodge an attack.
+var attack_speed: float = 0.7  ## The attack speed of the player.
+#var dodge_chance: float = 0.0  ## The chance to dodge an attack.
 
 
 var crystals: int = 0  ## The amount of crystals the player has.
@@ -61,7 +61,7 @@ var crystals_collected: int = 0  ## Amount of crystals collected in a Wave.
 
 #var damage_taken: int = 0  ## The total amount of damage taken.
 #var heal_taken: int = 0  ## The total amount of healing taken.
-
+var can_move: bool = true  ## If the player can move.
 
 
 var camera_zoom_offset: float = 0.0  ## The offset for the camera zoom.
@@ -78,9 +78,9 @@ func _ready() -> void:
 
 	ingredient_inventory.resize(Ingredient.IngredientType.keys().size())
 
-
+	# Staff as starter weapon
 	WeaponUtils.add_weapon_to_player(WeaponUtils.WeaponType.STAFF)
-	WeaponUtils.add_weapon_to_player(WeaponUtils.WeaponType.STAFF)
+	#WeaponUtils.add_weapon_to_player(WeaponUtils.WeaponType.STAFF)
 
 
 	add_child(hud_scene.instantiate())
@@ -89,6 +89,9 @@ func _ready() -> void:
 
 func _physics_process(delta: float) -> void:
 	if mov_body == null:
+		return
+
+	if not can_move:
 		return
 
 	handle_player_movement(delta)
@@ -149,17 +152,17 @@ func take_damage(_damage: int) -> void:
 	if health_status == HealthStatus.DEAD:
 		return
 
-	if randf_range(0.0, 1.0) < dodge_chance:
+	#if randf_range(0.0, 1.0) < dodge_chance:
 		#Sound.play_sfx(Sound.Fx.DODGE)
-		return
+		#return
 
 	# new Health system just takes 1 heart of damage.
 	#_damage = 1
 	set_health(max(health - 1, 0))
 	damage_taken += 1
 
-	Sound.play_sfx(Sound.Fx.HIT_ENTITY)
-	EntityEffects.play_hit_anim(sprite, Color.RED)
+	Sound.play_sfx(Sound.Fx.HIT_PLAYER, 3, 0.5)
+	EntityEffects.play_hit_anim(sprite, Color.PURPLE)
 
 	if health <= 0:
 		health_status = HealthStatus.DEAD
@@ -212,7 +215,9 @@ func update_health_status() -> void:
 ## [amount] The amount of crystals to add.
 func add_crystal(amount: int) -> void:
 	crystals += amount
-	GLogger.log("Player: Added %d crystals" % amount)
+	#GLogger.log("Player: Added %d crystals" % amount)
+
+	weapon_inventory[0].add_progress(amount)
 
 	level_progress += amount
 	if level_progress >= level_required:
@@ -243,9 +248,21 @@ func set_camera_zoom() -> void:
 
 ## Kill the player. This will show the game over menu.
 func die() -> void:
+	mov_body.visible = false
+	weapon_inventory.clear()
+	can_move = false
+
+	var death_effect = preload("res://content/effects/enemy/death_effect.tscn").instantiate()
+	death_effect.global_position = self.global_position
+	GSceneAdmin.scene_root.add_child(death_effect)
+
+	#Sound.play_sfx(Sound.Fx.DEATH_PLAYER, 1.5, 0.5)
+
+	await create_tween().tween_interval(0.3).finished
+
 	var death_menu = preload("res://content/ui/gameover_menu/gameover_menu.tscn").instantiate()
 	GGameGlobals.instance.add_child(death_menu)
 
-	GStateAdmin.pause_game(true)
+	GStateAdmin.pause_game(false)
 
-	mov_body.visible = false
+

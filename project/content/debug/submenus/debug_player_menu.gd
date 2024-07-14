@@ -84,17 +84,65 @@ static func show_player_menu_window(p_open: Array) -> void:
 			draw_general_tab()
 			ImGui.EndTabItem()
 
-		if ImGui.BeginTabItem("Progress"):
-			draw_progress_tab()
+		if ImGui.BeginTabItem("Ingredients"):
+			#draw_progress_tab()
+			if ImGui.Button("Give BatWing"):
+				PickupUtils.add_ingredient_to_player(Ingredient.IngredientType.BATWING)
+
+			if ImGui.Button("Give Fungus"):
+				PickupUtils.add_ingredient_to_player(Ingredient.IngredientType.FUNGUS)
+
+			if ImGui.Button("Give RatTail"):
+				PickupUtils.add_ingredient_to_player(Ingredient.IngredientType.RATTAIL)
+
 			ImGui.EndTabItem()
 
 		if ImGui.BeginTabItem("Weapons"):
 			draw_weapons_tab()
 			ImGui.EndTabItem()
 
-		#if ImGui.BeginTabItem("Stats"):
+		if ImGui.BeginTabItem("Stats"):
 			#draw_stats_tab()
-			#ImGui.EndTabItem()
+
+			#var player := GEntityAdmin.player
+			var level := GSceneAdmin.level_base
+			const TABLE_FLAGS2 := ImGui.TableFlags_Borders | ImGui.TableFlags_RowBg
+
+			if ImGui.BeginTable("statsTable", 2, TABLE_FLAGS2):
+				ImGui.TableNextRow()
+				ImGui.TableNextColumn()
+				ImGui.Text("maxHealth:")
+				ImGui.TableNextColumn()
+				ImGui.Text(str(player.max_health))
+
+				ImGui.TableNextRow()
+				ImGui.TableNextColumn()
+				ImGui.Text("health:")
+				ImGui.TableNextColumn()
+				ImGui.Text(str(player.health))
+				ImGui.EndTable()
+
+			if ImGui.BeginTable("statsTable2", 2, TABLE_FLAGS2):
+				ImGui.TableNextRow()
+				ImGui.TableNextColumn()
+				ImGui.Text("mov_speed:")
+				ImGui.TableNextColumn()
+				ImGui.Text(str(player.mov_speed))
+
+				ImGui.TableNextRow()
+				ImGui.TableNextColumn()
+				ImGui.Text("attack_speed:")
+				ImGui.TableNextColumn()
+				ImGui.Text(str(player.attack_speed))
+				ImGui.EndTable()
+
+			if ImGui.Button("upgrade mov_speed"):
+				Upgrades.upgrade_mov_speed(true)
+
+			if ImGui.Button("upgrade attack_speed"):
+				Upgrades.upgrade_attack_speed(true)
+
+			ImGui.EndTabItem()
 
 		ImGui.EndTabBar()
 	ImGui.End()
@@ -126,14 +174,14 @@ static func draw_general_tab() -> void:
 		player.god_mode = set_god_mode[0]
 
 	if ImGui.TreeNode("Actions"):
-		ImGui.SetNextItemWidth(100)
-		ImGui.InputInt("##damage_input", damage_input)
-		ImGui.SameLine()
+		#ImGui.SetNextItemWidth(100)
+		#ImGui.InputInt("##damage_input", damage_input)
+		#ImGui.SameLine()
 		if ImGui.Button("Damage"):
 			player.take_damage(damage_input[0])
 
-		ImGui.SetNextItemWidth(100)
-		ImGui.InputInt("##heal_input", heal_input)
+		#ImGui.SetNextItemWidth(100)
+		#ImGui.InputInt("##heal_input", heal_input)
 		#ImGui.SameLine()
 		#if ImGui.Button("Heal"):
 			#player.take_heal(heal_input[0])

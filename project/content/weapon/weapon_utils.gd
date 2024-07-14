@@ -14,16 +14,23 @@ static var weapon_map: Dictionary = {
 ## Get the closest enemy to a node (weapon) within a range area.
 ## [node]: The node to get the closest enemy to.
 ## [rangeArea]: The area to check for enemies.
-static func get_closest_enemy(node: Node2D, range_area: Area2D) -> Node2D:
+static func get_closest_enemy(node: Node2D, _range_area: Area2D) -> Node2D:
 	var closest_enemy = null
 	var closest_distance = INF
 
-	for body in range_area.get_overlapping_bodies():
-		var distance = node.global_position.distance_to(body.global_position)
+	for body in GEntityAdmin.entities:
+		if body is EnemyBase:
+			var distance = node.global_position.distance_to(body.global_position)
 
-		if distance < closest_distance:
-			closest_distance = distance
-			closest_enemy = body
+			if distance < closest_distance:
+				closest_distance = distance
+				closest_enemy = body
+	#for body in range_area.get_overlapping_bodies():
+		#var distance = node.global_position.distance_to(body.global_position)
+
+		#if distance < closest_distance:
+			#closest_distance = distance
+			#closest_enemy = body
 
 	return closest_enemy
 

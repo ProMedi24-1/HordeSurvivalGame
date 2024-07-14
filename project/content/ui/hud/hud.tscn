@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://bgrlofgfks2nc"]
+[gd_scene load_steps=13 format=3 uid="uid://bgrlofgfks2nc"]
 
 [ext_resource type="Script" path="res://content/ui/hud/hud.gd" id="1_kfcjf"]
 [ext_resource type="Texture2D" uid="uid://dgvsiog47xo10" path="res://assets/ui/hud/Skull_outline.png" id="3_wxxt6"]
@@ -11,7 +11,13 @@
 [ext_resource type="Texture2D" uid="uid://b22bqxhc3ko3h" path="res://assets/ui/hud/mana_full.png" id="9_huqni"]
 [ext_resource type="PackedScene" uid="uid://eouvthg2pe16" path="res://content/ui/hud/ingredient_container.tscn" id="9_nuu2i"]
 
-[node name="Hud" type="CanvasLayer" node_paths=PackedStringArray("health_label", "heart_box", "time_label", "kill_label", "wave_label", "crystal_label", "level_bar", "level_label", "ingredients_box")]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7ecw3"]
+bg_color = Color(0.154876, 0.154876, 0.154876, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_cv5a8"]
+bg_color = Color(5.96821e-06, 0.650044, 0.893224, 1)
+
+[node name="Hud" type="CanvasLayer" node_paths=PackedStringArray("health_label", "heart_box", "time_label", "kill_label", "wave_label", "crystal_label", "level_bar", "level_label", "ingredients_box", "staff_level", "staff_bar")]
 script = ExtResource("1_kfcjf")
 health_label = NodePath("Health/HealthLabel")
 heart_box = NodePath("Health/HeartBox")
@@ -22,6 +28,8 @@ crystal_label = NodePath("Level/CrystalLabel")
 level_bar = NodePath("Level/LevelBar")
 level_label = NodePath("Level/LevelLabel")
 ingredients_box = NodePath("Ingredients")
+staff_level = NodePath("Weapons/StaffLevelLabel")
+staff_bar = NodePath("Weapons/StaffLevel")
 
 [node name="TimeLabel" type="Label" parent="."]
 anchors_preset = 5
@@ -51,17 +59,17 @@ grow_horizontal = 2
 
 [node name="KillsIcon" type="TextureRect" parent="Kills"]
 layout_mode = 0
-offset_left = -5.20502
-offset_top = -6.385
-offset_right = 47.795
-offset_bottom = 46.615
+offset_left = 5.79498
+offset_top = -2.385
+offset_right = 58.795
+offset_bottom = 50.615
 texture = ExtResource("3_wxxt6")
 
 [node name="KillsLabel" type="Label" parent="Kills"]
 layout_mode = 0
-offset_left = 38.795
+offset_left = 46.795
 offset_top = 5.615
-offset_right = 120.795
+offset_right = 128.795
 offset_bottom = 54.615
 scale = Vector2(0.75, 0.75)
 theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
@@ -196,9 +204,9 @@ grow_vertical = 0
 
 [node name="TextureRect" type="TextureRect" parent="Level"]
 layout_mode = 0
-offset_left = 60.0
+offset_left = 9.0
 offset_top = -14.0
-offset_right = 92.0
+offset_right = 41.0
 offset_bottom = 18.0
 scale = Vector2(1.5, 1.5)
 texture = ExtResource("4_ti6po")
@@ -229,9 +237,9 @@ anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
-offset_left = 80.0
+offset_left = 29.0
 offset_top = -54.0
-offset_right = 129.0
+offset_right = 78.0
 offset_bottom = -13.0
 grow_horizontal = 2
 grow_vertical = 0
@@ -268,7 +276,7 @@ offset_bottom = -9.47998
 grow_horizontal = 0
 grow_vertical = 0
 
-[node name="HealthLabel2" type="Label" parent="Weapons"]
+[node name="StaffLevelLabel" type="Label" parent="Weapons"]
 layout_mode = 1
 anchors_preset = 7
 anchor_left = 0.5
@@ -288,7 +296,7 @@ theme_override_font_sizes/font_size = 26
 text = "LV 1
 "
 
-[node name="HealthLabel2" type="Label" parent="Weapons/HealthLabel2"]
+[node name="SlotLabel" type="Label" parent="Weapons/StaffLevelLabel"]
 layout_mode = 1
 anchors_preset = 7
 anchor_left = 0.5
@@ -307,6 +315,18 @@ theme_override_fonts/font = ExtResource("5_ngsn1")
 theme_override_font_sizes/font_size = 26
 text = "1
 "
+
+[node name="StaffLevel" type="ProgressBar" parent="Weapons"]
+layout_mode = 0
+offset_left = -154.0
+offset_top = -17.0
+offset_right = -145.0
+offset_bottom = 43.0
+theme_override_styles/background = SubResource("StyleBoxFlat_7ecw3")
+theme_override_styles/fill = SubResource("StyleBoxFlat_cv5a8")
+value = 70.31
+fill_mode = 3
+show_percentage = false
 
 [node name="TextureRect" type="TextureRect" parent="Weapons"]
 layout_mode = 0
@@ -336,10 +356,12 @@ anchors_preset = 4
 anchor_top = 0.5
 anchor_bottom = 0.5
 offset_left = 9.0
-offset_top = -187.0
-offset_right = 151.0
-offset_bottom = 61.0
+offset_top = -143.0
+offset_right = 111.0
+offset_bottom = 20.0
 grow_vertical = 2
+scale = Vector2(1.75, 1.75)
+alignment = 1
 
 [node name="IngredientContainer" parent="Ingredients" instance=ExtResource("9_nuu2i")]
 layout_mode = 2

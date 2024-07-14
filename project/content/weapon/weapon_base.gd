@@ -8,9 +8,9 @@ var texture_game: Texture2D  ## The texture for the weapon in the game.
 var weapon_name: String ## The name of the weapon.
 var weapon_slot: int = 0  ## The slot the weapon is in.
 
-var level: int = 0  ## The level of the weapon.
+var level: int = 1  ## The level of the weapon.
 var level_progress: int = 0  ## The progress towards the next level.
-var level_required: int = 0  ## The level required to unlock the weapon.
+var level_required: int = 20  ## The level required to unlock the weapon.
 
 
 
@@ -26,6 +26,17 @@ var cooldown: Tween
 func _ready() -> void:
 	pass
 
+func add_progress(amount: int) -> void:
+	## Add progress to the weapon.
+	level_progress += amount
+
+	## Check if we can level up.
+	if level_progress >= level_required:
+		level_up()
+
+	## Update the weapon in the menu.
+	#GEntityAdmin.player.hud.update_weapon(self)
+
 func level_up() -> void:
 	## Level up the weapon.
 	level += 1
@@ -33,7 +44,7 @@ func level_up() -> void:
 	level_progress = 0
 
 	## Increase the stats
-	damage += 5
+	damage += 2
 
 
 # Override in children.

@@ -10,8 +10,8 @@ func _init() -> void:
 	melee_cooldown = 1
 
 	crystal_rating = 0.2
-	ingredient = Ingredient.IngredientType.NONE
-	ingredient_chance = 0.7
+	ingredient = Ingredient.IngredientType.RATTAIL
+	ingredient_chance = 0.8
 
 
 func _ready() -> void:

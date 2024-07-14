@@ -11,6 +11,7 @@ var damage: int = 5  ## The damage of the projectile.
 func _ready() -> void:
 	self.name = "StaffProj"
 	hitbox.connect("body_entered", on_hit)
+	Sound.play_sfx(Sound.Fx.SHOOT_STAFF, 1.3, 0.4)
 
 
 func _physics_process(delta: float) -> void:

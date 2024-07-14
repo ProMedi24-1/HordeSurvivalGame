@@ -8,6 +8,7 @@
 size = Vector2(10, 10)
 
 [node name="Fungus" type="Node2D" node_paths=PackedStringArray("hitbox")]
+z_index = 1
 y_sort_enabled = true
 script = ExtResource("1_fedgt")
 hitbox = NodePath("Area2D")

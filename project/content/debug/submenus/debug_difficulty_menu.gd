@@ -4,6 +4,7 @@ class_name DebugDifficultyMenu
 static var set_rating := [10.0]
 static var set_adaptive := [false]
 static var set_wave_paused := [false]
+static var set_time_scale := [1.0]
 
 static func show_difficulty_menu_window(p_open: Array) -> void:
 	ImGui.SetNextWindowSize(Vector2(280, 420), ImGui.Cond_Once)
@@ -43,8 +44,8 @@ static func show_difficulty_menu_window(p_open: Array) -> void:
 		#GSceneAdmin.level_base.add_child(wave)
 		#wave.start_wave()
 
-	if ImGui.Button("Start Wave"):
-		WaveSpawner.wave_ref.start_wave()
+	#if ImGui.Button("Start Wave"):
+		#WaveSpawner.wave_ref.start_wave()
 
 	set_wave_paused[0] = WaveSpawner.wave_ref.wave_running
 	if ImGui.Checkbox("Wave Running", set_wave_paused):
@@ -60,10 +61,16 @@ static func show_difficulty_menu_window(p_open: Array) -> void:
 	if ImGui.Button("Non Spooky"):
 		GSceneAdmin.level_base.change_ambience(LevelBase.LevelAmbience.NON_SPOOKY)
 
+	ImGui.SameLine()
 	if ImGui.Button("Half Spooky"):
 		GSceneAdmin.level_base.change_ambience(LevelBase.LevelAmbience.HALF_SPOOKY)
 
+	ImGui.SameLine()
 	if ImGui.Button("Spooky"):
 		GSceneAdmin.level_base.change_ambience(LevelBase.LevelAmbience.SPOOKY)
+
+	ImGui.Text("TimeScale (Slomo - Speedup)")
+	if ImGui.InputFloatEx("##timeScaleInput", set_time_scale, 0.1):
+		Engine.time_scale = set_time_scale[0]
 
 	ImGui.End()

@@ -11,6 +11,8 @@ radius = 6.0
 radius = 8.0
 
 [node name="FungusEv1" type="CharacterBody2D"]
+z_index = 1
+y_sort_enabled = true
 collision_layer = 4
 motion_mode = 1
 
