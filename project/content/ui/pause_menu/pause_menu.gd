@@ -1,4 +1,4 @@
-extends CanvasLayer
+extends Control
 
 @export var continue_button: Button
 @export var settings_button: Button
@@ -13,12 +13,19 @@ func _ready() -> void:
 
 func on_continue() -> void:
 	GStateAdmin.unpause_game()
-	self.queue_free()
+	self.get_parent().queue_free()
 
 func on_quit() -> void:
 	GSceneAdmin.switch_scene("MainMenu")
-	self.queue_free()
+	self.get_parent().queue_free()
 
 func on_settings() -> void:
 	var settings = settings_scene.instantiate()
 	add_child(settings)
+
+func _input(event: InputEvent) -> void:
+	#print("input")
+	if event.is_action_pressed("PauseMenu"):
+		print("esc pressed")
+		#on_continue()
+		self.get_parent().queue_free()

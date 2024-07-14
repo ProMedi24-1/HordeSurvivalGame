@@ -134,9 +134,9 @@ static func draw_general_tab() -> void:
 
 		ImGui.SetNextItemWidth(100)
 		ImGui.InputInt("##heal_input", heal_input)
-		ImGui.SameLine()
-		if ImGui.Button("Heal"):
-			player.take_heal(heal_input[0])
+		#ImGui.SameLine()
+		#if ImGui.Button("Heal"):
+			#player.take_heal(heal_input[0])
 
 		ImGui.TreePop()
 

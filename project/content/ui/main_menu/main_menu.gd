@@ -15,6 +15,7 @@ func _ready() -> void:
 	credits_button.press_event = credits_pressed
 	quit_button.press_event = quit_pressed
 
+	Sound.play_music(Sound.Music.MAIN_MENU)
 
 func play_pressed() -> void:
 	GSceneAdmin.switch_scene("LevelMenu")

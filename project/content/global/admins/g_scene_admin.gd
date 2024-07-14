@@ -55,7 +55,7 @@ static func switch_scene(scene_name: String) -> void:
 	var scene_resource := load(scene_map[scene_name].second)
 	var g_instance := GGameGlobals.instance
 	g_instance.get_tree().change_scene_to_packed(scene_resource)
-	fill_level_data()
+	fill_level_data(scene_name)
 
 
 ## Reloads the current scene.
@@ -64,7 +64,7 @@ static func reload_scene() -> void:
 
 
 ## Fills in level-specific data after a scene has been loaded.
-static func fill_level_data() -> void:
+static func fill_level_data(scene_name: String = "") -> void:
 	await GGameGlobals.instance.get_tree().node_added
 
 	scene_root = GGameGlobals.instance.get_tree().current_scene
@@ -80,7 +80,10 @@ static func fill_level_data() -> void:
 	# Unpause game on scene switch.
 	GStateAdmin.unpause_game()
 	# Set the GameState.
-	GStateAdmin.game_state = scene_map[root_name].first
+	if scene_name != "":
+		GStateAdmin.game_state = scene_map[scene_name].first
+	else:
+		GStateAdmin.game_state = scene_map[root_name].first
 
 	# Take the first Node which is of type LevelBase.
 	for child in scene_root.get_children():

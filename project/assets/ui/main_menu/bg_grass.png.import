@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cu58m4jb5nlwt"
-path="res://.godot/imported/SettingsHoveredFocused.png-366c3af0ef598bbef846d3f73e8dc09b.ctex"
+uid="uid://cpa106a4t60hu"
+path="res://.godot/imported/bg_grass.png-8cbd88374d435d226866fdbb1900bc75.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/ui/main_menu/SettingsHoveredFocused.png"
-dest_files=["res://.godot/imported/SettingsHoveredFocused.png-366c3af0ef598bbef846d3f73e8dc09b.ctex"]
+source_file="res://assets/ui/main_menu/bg_grass.png"
+dest_files=["res://.godot/imported/bg_grass.png-8cbd88374d435d226866fdbb1900bc75.ctex"]
 
 [params]
 
