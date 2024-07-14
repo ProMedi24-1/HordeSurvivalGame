@@ -21,7 +21,8 @@ static func play_sfx(sound: AudioStream, pitch: float = 1.0, volume: float = 1.0
 	await audio_player.finished
 	audio_player.queue_free()
 
-static func play_sfx_ambient(pos: Vector2, sound: AudioStream, attenuation: float, pitch: float = 1.0, volume: float = 1.0) -> void:
+static func play_sfx_ambient(pos: Vector2, sound: AudioStream, attenuation: float,
+								pitch: float = 1.0, volume: float = 1.0) -> void:
 	var audio_player := AudioStreamPlayer2D.new()
 	audio_player.bus = "SFX"
 	audio_player.stream = sound

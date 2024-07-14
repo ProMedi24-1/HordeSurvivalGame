@@ -126,7 +126,7 @@ func update_ingredients_box() -> void:
 func update_staff() -> void:
 	if GEntityAdmin.player.weapon_inventory.is_empty():
 		return
-	
+
 	var staff = GEntityAdmin.player.weapon_inventory[0]
 	staff_level.text = "LV." + str(staff.level)
 	staff_bar.value = staff.level_progress

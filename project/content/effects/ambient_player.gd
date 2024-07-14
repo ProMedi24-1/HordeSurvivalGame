@@ -7,7 +7,7 @@ func _ready() -> void:
 	if looped:
 		#self.stream.looped = true
 		self.connect("finished", self.play)
-	
+
 
 
 

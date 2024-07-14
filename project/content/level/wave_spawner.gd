@@ -39,8 +39,8 @@ static var enemy_types = {
 		),
 	EnemyType.BAT_EV3: Pair.new(
 		preload("res://content/entity/enemy/bat/bat_ev3.tscn"),
-	 	50.0
-	 	),
+		50.0
+		),
 	EnemyType.FUNGUS_EV1: Pair.new(
 		preload("res://content/entity/enemy/fungus/fungus_ev1.tscn"),
 		35.0
@@ -139,15 +139,7 @@ class Wave extends Node:
 	# 	[15, RATING_THRESHOLD]: 10.0,
 	# }
 
-	static var spawn_time_lookup = {
-		Pair.new(-INF, -15): 2.0,
-		Pair.new(-15, -10): 2.1,
-		Pair.new(-10, -5): 2.3,
-		Pair.new(-5, 5): 2.5,
-		Pair.new(5, 10): 6.0,
-		Pair.new(10, 15): 10.0,
-		Pair.new(15, RATING_THRESHOLD): 15.0
-	}
+
 
 	var wave_running: bool = false
 	var wave_spawning: bool = true
@@ -158,6 +150,16 @@ class Wave extends Node:
 	var enemy_candidates: Array[Pair] = []
 
 	var wave_timer: Timer
+
+	static var spawn_time_lookup = {
+		Pair.new(-INF, -15): 2.0,
+		Pair.new(-15, -10): 2.1,
+		Pair.new(-10, -5): 2.3,
+		Pair.new(-5, 5): 2.5,
+		Pair.new(5, 10): 6.0,
+		Pair.new(10, 15): 10.0,
+		Pair.new(15, RATING_THRESHOLD): 15.0
+	}
 
 	## Set up the enemy candidates for the wave.
 	## The candidates are based on the player rating and the enemy rating.

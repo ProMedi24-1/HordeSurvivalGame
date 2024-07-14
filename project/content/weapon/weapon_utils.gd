@@ -14,7 +14,7 @@ static var weapon_map: Dictionary = {
 ## Get the closest enemy to a node (weapon) within a range area.
 ## [node]: The node to get the closest enemy to.
 ## [rangeArea]: The area to check for enemies.
-static func get_closest_enemy(node: Node2D, range_area: Area2D) -> Node2D:
+static func get_closest_enemy(node: Node2D, _range_area: Area2D) -> Node2D:
 	var closest_enemy = null
 	var closest_distance = INF
 

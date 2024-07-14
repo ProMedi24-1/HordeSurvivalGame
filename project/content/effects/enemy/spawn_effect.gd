@@ -1,8 +1,10 @@
 class_name SpawnEffect extends Node2D
 
+signal spawn
+
 @export var sprite: Sprite2D
 
-signal spawn
+
 
 func _ready() -> void:
 	var std_anim = Anim.SpriteAnim.new(sprite, 5, 0.2)
