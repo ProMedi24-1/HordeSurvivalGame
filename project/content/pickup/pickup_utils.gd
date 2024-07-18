@@ -33,7 +33,7 @@ static func spawn_ingredient(
 ) -> void:
 	var ingredient_inst = Ingredient.ingredient_types[type].scene.instantiate()
 	ingredient_inst.global_position = pos
-	GSceneAdmin.scene_root.add_child(ingredient_inst)
+	GSceneAdmin.scene_root.add_child.call_deferred(ingredient_inst)
 
 
 static func add_ingredient_to_player(type: Ingredient.IngredientType, amount: int = 1) -> void:

@@ -1,0 +1,47 @@
+[gd_scene load_steps=6 format=3 uid="uid://c5kgn3n1s18lu"]
+
+[ext_resource type="Texture2D" uid="uid://b817r83p07rj0" path="res://assets/entity/enemy/hound/hound_ev3.png" id="1_idimj"]
+[ext_resource type="Texture2D" uid="uid://c5r75rfy3st1c" path="res://assets/effects/shadow/shadow_32.png" id="2_fxm1o"]
+[ext_resource type="Script" path="res://content/entity/enemy/skeleton/skeleton_enemy.gd" id="3_gx40l"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_why8i"]
+radius = 6.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_2ryt4"]
+radius = 8.0
+
+[node name="Skeleton" type="CharacterBody2D"]
+z_index = 1
+y_sort_enabled = true
+collision_layer = 4
+motion_mode = 1
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_why8i")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+z_index = 1
+position = Vector2(0, 9)
+scale = Vector2(-0.540805, 0.540805)
+texture = ExtResource("1_idimj")
+offset = Vector2(-3.36, -13.905)
+hframes = 10
+frame = 9
+
+[node name="HitBox" type="Area2D" parent="."]
+collision_layer = 4
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitBox"]
+shape = SubResource("CircleShape2D_2ryt4")
+debug_color = Color(0.948125, 0.109551, 0.502569, 0.42)
+
+[node name="Shadow" type="Sprite2D" parent="."]
+position = Vector2(0, 14)
+texture = ExtResource("2_fxm1o")
+
+[node name="Node2D" type="Node2D" parent="." node_paths=PackedStringArray("mov_body", "sprite", "hit_box")]
+script = ExtResource("3_gx40l")
+mov_body = NodePath("..")
+sprite = NodePath("../Sprite2D")
+hit_box = NodePath("../HitBox")

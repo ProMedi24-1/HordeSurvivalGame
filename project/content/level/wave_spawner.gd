@@ -12,6 +12,7 @@ enum EnemyType {
 	RAT_EV1,
 	EYE_EV1,
 	SKELETON_EV1,
+	HOUND_EV1,
 }
 
 const WAVE_TIMES := {
@@ -64,6 +65,10 @@ static var enemy_types = {
 	EnemyType.SKELETON_EV1: Pair.new(
 		preload("res://content/entity/enemy/skeleton/skeleton_enemy.tscn"),
 		60.0
+		),
+	EnemyType.HOUND_EV1: Pair.new(
+		preload("res://content/entity/enemy/hound/hound_enemy.tscn"),
+		90.0
 		),
 }
 

@@ -185,13 +185,10 @@ func take_damage(_damage: int) -> void:
 func update_player_rating(adaptive: bool, increase: float = 3.0) -> void:
 	if adaptive:
 
-		var rating = 10.0
-		if damage_taken > 0:
-			rating -= damage_taken / 10.0
-		if kills_in_wave > 0:
-			rating += kills_in_wave / 10.0
-
-		player_rating = rating
+		if damage_taken > 1:
+			player_rating -= damage_taken
+		else:
+			player_rating += 5.0
 
 	else:
 		player_rating += increase

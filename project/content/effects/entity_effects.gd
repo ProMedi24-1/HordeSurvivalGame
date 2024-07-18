@@ -17,7 +17,8 @@ static func play_hit_anim(node: Node2D, hit_color: Color) -> void:
 	var tween = GSceneAdmin.scene_root.create_tween()
 	tween.tween_property(node, "modulate", hit_color, 0.2)
 	await tween.finished
-	reset_func.call()
+	if reset_func:
+		reset_func.call()
 
 	#var tween = Anim.TweenProperty.new(node, "modulate", hit_color, 0.2)
 	#tween.on_finish = tween.reset
