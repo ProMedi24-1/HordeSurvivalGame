@@ -5,9 +5,7 @@
 ![](https://github.com/ProMedi24-1/HordeSurvivalGame/actions/workflows/release_export.yml/badge.svg)
 ![](https://img.shields.io/static/v1?label=Godot&message=4.2&color=blue&logo=godotengine)
 
-
 <img src="https://github.com/user-attachments/assets/a0a94a39-1950-4339-a6cc-32f570cf2fc6" width=630>
-
 
 A Survivors/Brotato-like game with a static and adaptive difficulty, made with the [Godot Game Engine.](https://godotengine.org/) (4.2.2)
 
@@ -15,7 +13,6 @@ This  project is developed as part of the academic module **Project Media Creati
 two difficulty modes in the gameplay: one with a static difficulty and another dynamic difficulty that adapts based on the player's skills.
 
 **Supervisor:** Phillip Harnisch
-
 
 ## How to Play? 🕹️
 
