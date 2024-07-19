@@ -105,7 +105,7 @@ static func show_player_menu_window(p_open: Array) -> void:
 			#draw_stats_tab()
 
 			#var player := GEntityAdmin.player
-			var level := GSceneAdmin.level_base
+			#var level := GSceneAdmin.level_base
 			const TABLE_FLAGS2 := ImGui.TableFlags_Borders | ImGui.TableFlags_RowBg
 
 			if ImGui.BeginTable("statsTable", 2, TABLE_FLAGS2):
