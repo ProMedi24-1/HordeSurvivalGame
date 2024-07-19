@@ -6,7 +6,7 @@ class_name EntityEffects
 ## [node]: Node2D to play the hit animation on.
 ## [hit_color]: Color to modulate the node with.
 static func play_hit_anim(node: Node2D, hit_color: Color) -> void:
-	
+
 	var dmg_fx := preload("res://content/effects/damage/damage_fx.tscn").instantiate()
 	GSceneAdmin.scene_root.add_child(dmg_fx)
 	dmg_fx.global_position = node.global_position
@@ -14,7 +14,7 @@ static func play_hit_anim(node: Node2D, hit_color: Color) -> void:
 	var tween = node.create_tween()
 	if node:
 		tween.tween_property(node, "modulate", hit_color, 0.2)
-		
+
 	await tween.finished
 	if is_instance_valid(node):
 		tween.kill()
